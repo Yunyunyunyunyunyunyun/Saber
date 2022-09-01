@@ -1,23 +1,17 @@
 import request from '@/router/axios';
 
-export const getStaffList = (current, size, params) => {
+export const getStaffList = (params) => {
   return request({
     url: '/api/blade-user/list-employee',
     method: 'get',
-    params: {
-      ...params,
-      current,
-      size,
-    }
+    params: params
   })
 }
 
-export const getStaffDetail = (id) => {
+export const getStaffDetail = (row) => {
   return request({
     url: '/api/blade-user/detail-employee',
     method: 'post',
-    params: {
-      id
-    }
+    data: row,
   })
 }
