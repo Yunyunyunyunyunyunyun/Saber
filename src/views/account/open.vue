@@ -69,7 +69,45 @@
           </el-form-item>
         </el-form>
       </el-tab-pane>
-      <el-tab-pane :label="$t('account.openStaff')" name="openStaffPage">配置管理</el-tab-pane>
+      <el-tab-pane :label="$t('account.openStaff')" name="openStaffPage">
+        <el-form :model="staffForm" :rules="staffRules" ref="staffForm" label-width="100px" class="form-contain">
+          <el-form-item label="姓名" prop="name">
+            <el-input v-model="staffForm.name" placeholder="请输入姓名" class="common-width"></el-input>
+          </el-form-item>
+          <el-form-item label="性别" prop="sex">
+            <el-radio-group v-model="staffForm.sex">
+              <el-radio :label="1">男</el-radio>
+              <el-radio :label="0">女</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="联系方式" prop="phone">
+            <el-input v-model="staffForm.phone" placeholder="请输入联系方式" class="common-width"></el-input>
+          </el-form-item>
+          <el-form-item label="住址" prop="orgAddress">
+            <el-cascader
+              class="common-width"
+              ref="staffAddress"
+              :props="addressProps"
+              clearable
+              placeholder="请选择住址"
+              v-model="staffForm.orgAddress">
+            </el-cascader>
+          </el-form-item>
+          <el-form-item label="详细地址" prop="address">
+            <el-input v-model="staffForm.address" placeholder="请输入详细地址" class="common-width"></el-input>
+          </el-form-item>
+          <el-form-item label="登录账号" prop="loginAccount">
+            <el-input v-model="staffForm.phone" disabled class="common-width"></el-input>
+          </el-form-item>
+          <el-form-item label="登录密码" prop="loginPassword">
+            <el-input v-model="staffForm.loginPassword" disabled class="common-width"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submitStaffForm('staffForm')">生成账号</el-button>
+            <el-button @click="resetStaffForm('staffForm')">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -119,6 +157,29 @@ export default {
         ],
         clinicName: [
           { required: true, message: '请输入诊所名称', trigger: 'blur' },
+        ],
+      },
+      staffForm: {
+        name: '',
+        sex: 1,
+        phone: '',
+        loginAccount: '',
+        loginPassword: '123456',
+        orgAddress: null,
+        address: '',
+      },
+      staffRules: {
+        name: [
+          { required: true, message: '请输入姓名', trigger: 'blur' },
+        ],
+        phone: [
+          { required: true, message: '请输入联系方式', trigger: 'blur' },
+        ],
+        orgAddress: [
+          { required: true, message: '请选择住址', trigger: 'blur' },
+        ],
+        address: [
+          { required: true, message: '请输入详细地址', trigger: 'blur' },
         ],
       },
       hospitalOptions: [],
@@ -175,7 +236,6 @@ export default {
       console.log(tab, event);
     },
     submitDoctorForm(formName) {
-      console.log(this.doctorForm, this.$refs["doctorAddress"].getCheckedNodes()[0])
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let data = {
@@ -209,7 +269,37 @@ export default {
     },
     resetDoctorForm(formName) {
       this.$refs[formName].resetFields();
-    }
+    },
+    submitStaffForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let data = {
+            "address": this.staffForm.address,
+            "city": this.$refs["staffAddress"].getCheckedNodes()[0].data.cityName,
+            "countries": "中国",
+            "district": this.$refs["staffAddress"].getCheckedNodes()[0].data.districtName,
+            "name": this.staffForm.name,
+            "phone": this.staffForm.phone,
+            "province": this.$refs["staffAddress"].getCheckedNodes()[0].data.provinceName,
+            "sex": this.staffForm.sex,
+          }
+          openStaff(data).then(res => {
+            if (res.data.code == 200) {
+              this.$message({
+                type: "success",
+                message: "开通员工账号成功!"
+              });
+              this.resetStaffForm('staffForm')
+            }
+          })
+        } else {
+          return false;
+        }
+      });
+    },
+    resetStaffForm(formName) {
+      this.$refs[formName].resetFields();
+    },
   }
 }
 </script>
