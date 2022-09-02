@@ -27,7 +27,7 @@
         :data="doctorTableData"
         stripe
         border
-        height="350"
+        max-height="700"
         style="width: 100%">
         <el-table-column
           prop="id"

@@ -87,7 +87,7 @@
           //用户名
           username: "admin",
           //密码
-          password: "admin",
+          password: "12345678",
           //账户类型
           type: "account",
           //验证码的值
