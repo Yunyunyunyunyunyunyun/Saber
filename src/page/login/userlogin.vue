@@ -5,7 +5,7 @@
            ref="loginForm"
            :model="loginForm"
            label-width="0">
-    <el-form-item v-if="tenantMode" prop="tenantId">
+    <!-- <el-form-item v-if="tenantMode" prop="tenantId">
       <el-input size="small"
                 @keyup.enter.native="handleLogin"
                 v-model="loginForm.tenantId"
@@ -14,7 +14,7 @@
         <i slot="prefix"
            class="icon-quanxian"></i>
       </el-input>
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item prop="username">
       <el-input size="small"
                 @keyup.enter.native="handleLogin"
@@ -39,7 +39,7 @@
            class="icon-mima"></i>
       </el-input>
     </el-form-item>
-    <el-form-item v-if="captchaMode" prop="code">
+    <!-- <el-form-item v-if="captchaMode" prop="code">
       <el-row :span="24">
         <el-col :span="16">
           <el-input size="small"
@@ -57,7 +57,7 @@
           </div>
         </el-col>
       </el-row>
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item>
       <el-button type="primary"
                  size="small"

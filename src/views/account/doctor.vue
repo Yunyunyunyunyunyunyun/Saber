@@ -19,6 +19,7 @@
       <el-col :span="6">
         <el-button @click="resetSearch">重置</el-button>
         <el-button type="primary" @click="submitSearch">搜索</el-button>
+        <!-- <el-button type="primary" @click="exportDoctorBtn">导出医生</el-button> -->
       </el-col>
     </el-row>
     <div class="doctor-main">
@@ -172,6 +173,7 @@
     getDoctorDetail,
     modifyPassword,
     updateDoctor,
+    exportDoctor,
   } from "@/api/account/doctor";
   import {
     getHospitalList,
@@ -440,6 +442,9 @@ export default {
           return false;
         }
       });
+    },
+    exportDoctorBtn() {
+      exportDoctor().then(res => {});
     },
   }
 }
