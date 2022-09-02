@@ -1,16 +1,16 @@
 import request from '@/router/axios';
 
-export const getStaffList = (params) => {
+export const getDoctorList = (params) => {
   return request({
-    url: '/api/blade-user/list-employee',
+    url: '/api/blade-user/list-doctor',
     method: 'get',
     params: params
   })
 }
 
-export const getStaffDetail = (id) => {
+export const getDoctorDetail = (id) => {
   return request({
-    url: '/api/blade-user/detail-employee',
+    url: '/api/blade-user/detail-doctor',
     method: 'post',
     params: {
       id
@@ -26,9 +26,9 @@ export const modifyPassword = (row) => {
   })
 }
 
-export const updateStaff = (row) => {
+export const updateDoctor = (row) => {
   return request({
-    url: '/api/blade-user/update-employee',
+    url: '/api/blade-user/update-doctor',
     method: 'post',
     data: row,
   })

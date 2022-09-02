@@ -1,6 +1,6 @@
 <template>
   <div class="open-contain">
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tabs v-model="activeName">
       <el-tab-pane :label="$t('account.openDoctor')" name="openDoctorPage">
         <el-form :model="doctorForm" :rules="doctorRules" ref="doctorForm" label-width="100px" class="form-contain">
           <el-form-item label="医生姓名" prop="name">
@@ -232,9 +232,6 @@ export default {
     });
   },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
-    },
     submitDoctorForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -249,6 +246,8 @@ export default {
             "name": this.doctorForm.name,
             "phone": this.doctorForm.phone,
             "province": this.$refs["doctorAddress"].getCheckedNodes()[0].data.provinceName,
+            "provinceCode": this.doctorForm.orgAddress[0],
+            "cityCode": this.doctorForm.orgAddress[1],
             "regionCode": this.doctorForm.orgAddress[2],
             "schoolId": this.doctorForm.schoolId,
             "sex": this.doctorForm.sex,
@@ -282,6 +281,9 @@ export default {
             "phone": this.staffForm.phone,
             "province": this.$refs["staffAddress"].getCheckedNodes()[0].data.provinceName,
             "sex": this.staffForm.sex,
+            "provinceCode": this.staffForm.orgAddress[0],
+            "cityCode": this.staffForm.orgAddress[1],
+            "regionCode": this.staffForm.orgAddress[2],
           }
           openStaff(data).then(res => {
             if (res.data.code == 200) {
