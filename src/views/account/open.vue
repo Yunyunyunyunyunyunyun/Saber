@@ -112,14 +112,15 @@
   </div>
 </template>
 <script>
-  import {
-    getHospitalList,
-    getSchoolList,
-    selectCity,
-    openDoctor,
-    openStaff,
-  } from "@/api/account/openAccount";
+import {
+  getHospitalList,
+  getSchoolList,
+  selectCity,
+  openDoctor,
+  openStaff,
+} from "@/api/account/openAccount";
 export default {
+  name: "open",
   data() {
     return {
       activeName: 'openDoctorPage',

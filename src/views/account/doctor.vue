@@ -168,19 +168,20 @@
   </div>
 </template>
 <script>
-  import {
-    getDoctorList,
-    getDoctorDetail,
-    modifyPassword,
-    updateDoctor,
-    exportDoctor,
-  } from "@/api/account/doctor";
-  import {
-    getHospitalList,
-    getSchoolList,
-    selectCity,
-  } from "@/api/account/openAccount";
+import {
+  getDoctorList,
+  getDoctorDetail,
+  modifyPassword,
+  updateDoctor,
+  exportDoctor,
+} from "@/api/account/doctor";
+import {
+  getHospitalList,
+  getSchoolList,
+  selectCity,
+} from "@/api/account/openAccount";
 export default {
+  name: "doctor",
   data() {
     let validatePass = (rule, value, callback) => {
       if (value === '') {
@@ -444,7 +445,9 @@ export default {
       });
     },
     exportDoctorBtn() {
-      exportDoctor().then(res => {});
+      exportDoctor().then(res => {
+        console.log(res)
+      });
     },
   }
 }

@@ -140,14 +140,15 @@
   </div>
 </template>
 <script>
-  import {
-    getStaffList,
-    getStaffDetail,
-    modifyPassword,
-    updateStaff,
-  } from "@/api/account/staff";
-  import { selectCity } from "@/api/account/openAccount";
+import {
+  getStaffList,
+  getStaffDetail,
+  modifyPassword,
+  updateStaff,
+} from "@/api/account/staff";
+import { selectCity } from "@/api/account/openAccount";
 export default {
+  name: "staff",
   data() {
     let validatePass = (rule, value, callback) => {
       if (value === '') {
