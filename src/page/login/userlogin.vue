@@ -119,7 +119,7 @@
     mounted() {
     },
     computed: {
-      ...mapGetters(["tagWel"])
+      ...mapGetters(["tagWel", "userInfo"])
     },
     props: [],
     methods: {
@@ -144,7 +144,13 @@
               spinner: "el-icon-loading"
             });
             this.$store.dispatch("LoginByUsername", this.loginForm).then(() => {
-              this.$router.push({path: this.tagWel.value});
+              if (this.userInfo.authority == "administrator") {
+                this.$router.push({path: "/case/all"});
+              } else if (this.userInfo.authority == "doctorUser") {
+                this.$router.push({path: "/doctor/list"});
+              } else {
+                this.$router.push({path: this.tagWel.value});
+              }
               loading.close();
             }).catch(() => {
               loading.close()

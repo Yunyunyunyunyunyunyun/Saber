@@ -53,6 +53,32 @@ export default [{
   component: Layout,
   redirect: '/case/all',
   children: [{
+  path: 'all',
+  name: '全部',
+  meta: {
+    i18n: 'info'
+  },
+  component: () =>
+    import( /* webpackChunkName: "views" */ '@/views/case/all')
+  }]
+}, {
+  path: '/doctor',
+  component: Layout,
+  redirect: '/doctor/list',
+  children: [{
+  path: 'list',
+  name: '医生病例列表',
+  meta: {
+    i18n: 'info'
+  },
+  component: () =>
+    import( /* webpackChunkName: "views" */ '@/views/doctor/list')
+  }]
+}, {
+  path: '/case',
+  component: Layout,
+  redirect: '/case/all',
+  children: [{
   path: 'all_add',
   name: '新增病例',
   meta: {

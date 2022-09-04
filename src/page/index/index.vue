@@ -1,17 +1,17 @@
 <template>
   <div class="avue-contail"
        :class="{'avue--collapse':isCollapse}">
-    <div class="avue-header">
+    <div class="avue-header" :class="{'avue-pl0': isDoctorUser}">
       <!-- 顶部导航栏 -->
       <top />
     </div>
 
     <div class="avue-layout">
-      <div class="avue-left">
+      <div class="avue-left" v-if="!isDoctorUser">
         <!-- 左侧导航栏 -->
         <sidebar />
       </div>
-      <div class="avue-main">
+      <div class="avue-main" :class="{'avue-left0': isDoctorUser}">
         <!-- 顶部标签卡 -->
         <!-- <tags /> -->
         <!-- 主体视图层 -->
@@ -68,7 +68,12 @@ export default {
   mounted() {
     this.init();
   },
-  computed: mapGetters(["isLock", "isCollapse", "website"]),
+  computed: {
+    ...mapGetters(["isLock", "isCollapse", "website", "userInfo"]),
+    isDoctorUser() {
+      return this.userInfo.authority == 'doctorUser';
+    },
+  },
   props: [],
   methods: {
     showCollapse() {
