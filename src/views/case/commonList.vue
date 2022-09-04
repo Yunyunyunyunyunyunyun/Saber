@@ -1,0 +1,201 @@
+<template>
+  <div class="case-contain">
+    <el-row :gutter="20" class="case-search">
+      <el-col :span="24">
+        <el-button type="primary" icon="el-icon-plus" @click="addCase">新建病例</el-button>
+      </el-col>
+    </el-row>
+    <div class="case-main">
+      <el-table
+        v-loading="loading"
+        :data="caseTableData"
+        stripe
+        border
+        max-height="700"
+        style="width: 100%"
+        @row-click="rowClick">
+        <el-table-column
+          prop="prescriptionId"
+          label="病例处方ID">
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="患者">
+        </el-table-column>
+        <el-table-column
+          prop="createTime"
+          label="创建时间">
+        </el-table-column>
+        <el-table-column
+          prop="state"
+          label="状态">
+          <template slot-scope="scope">
+            <span v-if="scope.row.state == 10">暂存</span>
+            <span v-else-if="scope.row.state == 20">资料提交</span>
+            <span v-else-if="scope.row.state == 30">资料不合格</span>
+            <span v-else-if="scope.row.state == 40">资料通过</span>
+            <span v-else-if="scope.row.state == 50">3D方案已上传</span>
+            <span v-else-if="scope.row.state == 60">3D方案不合格</span>
+            <span v-else-if="scope.row.state == 70">3D方案合格</span>
+            <span v-else-if="scope.row.state == 80">生产发货</span>
+            <span v-else>无</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="doctorId"
+          label="医生ID">
+        </el-table-column>
+        <el-table-column
+          prop="org"
+          label="医疗机构">
+          <template slot-scope="scope">
+            <span>
+              {{scope.row.clinicName}} {{scope.row.countries}} {{scope.row.province}} {{scope.row.city}} {{scope.row.district}}
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          fixed="right"
+          label="操作"
+          width="100">
+          <template slot-scope="scope">
+            <el-button @click="handleApproved(scope.row)" type="text">通过</el-button>
+            <el-button @click="handleRejected(scope.row)" type="text">拒绝</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-pagination
+        class="common-pagination"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="pageSizes"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
+    </div>
+    <el-dialog
+      title="提示"
+      :visible.sync="rejectVisible"
+      width="30%">
+      <span>备注：</span>
+      <el-input
+        type="textarea"
+        :rows="3"
+        placeholder="请输入备注"
+        v-model="remark">
+      </el-input>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="rejectVisible = false">取 消</el-button>
+        <el-button type="primary" @click="sureReject">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</template>
+<script>
+import {
+  getCaseList,
+  passCase,
+  rejectCase,
+} from "@/api/case/commonCase";
+export default {
+  name: "case",
+  data() {
+    return {
+      loading: true,
+      caseTableData: [],
+      currentPage: 1,
+      pageSizes: [ 10, 20, 50, 100 ],
+      pageSize: 10,
+      total: 0,
+      rejectId: null,
+      rejectVisible: false,
+      remark: "",
+    };
+  },
+  props: {
+    status: {
+      type: Number,
+      default: 1,
+    },
+  },
+  created() {
+    let params = {
+      current: this.currentPage,
+      size: this.pageSize,
+    };
+    this.getAllCaseList(params);
+  },
+  methods: {
+    handleSizeChange(val) {
+      this.pageSize = val;
+      let params = {
+        current: this.currentPage,
+        size: val
+      };
+      this.getAllCaseList(params);
+    },
+    handleCurrentChange(val) {
+      this.currentPage = val;
+      let params = {
+        current: val,
+        size: this.pageSize,
+      };
+      this.getAllCaseList(params);
+    },
+    getAllCaseList(data) {
+      this.loading = true;
+      data.state = this.status;
+      getCaseList(data).then(res => {
+          const data = res.data.data;
+          this.total = data.total;
+          this.caseTableData = data.records;
+          this.loading = false;
+      })
+    },
+    addCase() {},
+    rowClick(row) {
+      console.log(row);
+    },
+    handleApproved(row) {
+      passCase({recordId: row.id}).then(res => {
+        if (res.data.code == 200) {
+          this.$message({
+            type: "success",
+            message: "审核通过成功!"
+          });
+        }
+      })
+    },
+    handleRejected(row) {
+      this.rejectId = row.id;
+      this.rejectVisible = true;
+      this.remark = "";
+    },
+    sureReject() {
+      let params = {
+        recordId: this.rejectId,
+        remark: this.remark,
+      }
+      rejectCase(params).then(res => {
+        if (res.data.code == 200) {
+          this.$message({
+            type: "success",
+            message: "审核拒绝成功!"
+          });
+        }
+      })
+    },
+  }
+}
+</script>
+<style scoped>
+  .case-search {
+    padding: 20px 20px 12px;
+  }
+  .case-main {
+    padding: 20px;
+    background: white;
+  }
+</style>
