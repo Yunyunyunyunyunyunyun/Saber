@@ -120,7 +120,7 @@ import {
   openStaff,
 } from "@/api/account/openAccount";
 export default {
-  name: "open",
+  name: "Open",
   data() {
     return {
       activeName: 'openDoctorPage',

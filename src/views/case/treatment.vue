@@ -5,7 +5,7 @@
 <script>
 import commonList from "./commonList.vue";
 export default {
-  name: "all",
+  name: "Treatment",
   components: {
     commonList,
   },

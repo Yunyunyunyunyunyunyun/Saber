@@ -100,7 +100,7 @@ import {
   rejectCase,
 } from "@/api/case/commonCase";
 export default {
-  name: "case",
+  name: "Case",
   data() {
     return {
       loading: true,
@@ -154,7 +154,9 @@ export default {
           this.loading = false;
       })
     },
-    addCase() {},
+    addCase() {
+      this.$router.push({path: "/case/all_add"});
+    },
     rowClick(row) {
       console.log(row);
     },

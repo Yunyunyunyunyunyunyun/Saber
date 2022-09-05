@@ -148,7 +148,7 @@ import {
 } from "@/api/account/staff";
 import { selectCity } from "@/api/account/openAccount";
 export default {
-  name: "staff",
+  name: "Staff",
   data() {
     let validatePass = (rule, value, callback) => {
       if (value === '') {

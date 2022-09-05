@@ -181,7 +181,7 @@ import {
   selectCity,
 } from "@/api/account/openAccount";
 export default {
-  name: "doctor",
+  name: "Doctor",
   data() {
     let validatePass = (rule, value, callback) => {
       if (value === '') {

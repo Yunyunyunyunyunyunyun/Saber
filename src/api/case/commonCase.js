@@ -23,3 +23,10 @@ export const rejectCase = (params) => {
     params: params,
   })
 }
+
+export const selectDoctor = () => {
+  return request({
+    url: '/api/blade-user/selectDoctor',
+    method: 'post',
+  })
+}
