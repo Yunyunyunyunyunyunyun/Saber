@@ -4,7 +4,8 @@
 .avue-logo,
 .avue-layout
 .login-logo,
-.avue-main {
+.avue-main,
+.all-add-footer {
     transition: all .3s;
 }
 .avue-contail {
@@ -33,7 +34,7 @@
     .avue-header {
         padding-left: 60px;
     }
-    .avue-main {
+    .avue-main, .all-add-footer {
         width: calc(100% - 60px);
         left: 60px;
     }
@@ -54,6 +55,11 @@
     height: calc(100% - 64px);
     box-sizing: border-box;
     overflow: hidden;
+}
+
+.all-add-footer {
+    width: calc(100% - 240px);
+    left: 240px;
 }
 
 .avue-view {
@@ -131,13 +137,12 @@
     .avue-logo {
         left: -$width;
     }
-    .avue-main {
+    .avue-main, .all-add-footer {
         left: 0;
         width: 100%;
     }
     .avue-header {
-        margin-bottom: 15px;
-        padding-left: 15px;
+        padding-left: 0;
     }
     .top-bar__item {
         display: none;
@@ -148,7 +153,7 @@
             width: $width;
             left: 0;
         }
-        .avue-main {
+        .avue-main, .all-add-footer {
             left: $width;
             width: 100%;
         }

@@ -186,21 +186,21 @@
               <div v-show="prescriptionForm.teethClearance == 1">
                 <div class="diagnosis-titleNo-tipNo">请记录反馈1.0mm以下的间隙量</div>
                 <div class="clearance-main">
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance1"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance2"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance3"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance4"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance5"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance6"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance7"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance8"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance9"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance10"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance11"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance12"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance13"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance14"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance15"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance1"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance2"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance3"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance4"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance5"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance6"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance7"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance8"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance9"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance10"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance11"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance12"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance13"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance14"></el-input>
+                  <el-input class="clearance-input clearance-input-top" v-model="prescriptionForm.teethClearance15"></el-input>
                   <div class="clearance-number clearance-number-bootom">
                     <span>18</span>
                     <span>17</span>
@@ -237,21 +237,21 @@
                     <span>37</span>
                     <span>38</span>
                   </div>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance16"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance17"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance18"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance19"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance20"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance21"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance22"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance23"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance24"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance25"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance26"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance27"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance28"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance29"></el-input>
-                  <el-input class="clearance-input" v-model="prescriptionForm.teethClearance30"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance16"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance17"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance18"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance19"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance20"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance21"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance22"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance23"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance24"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance25"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance26"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance27"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance28"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance29"></el-input>
+                  <el-input class="clearance-input clearance-input-bottom" v-model="prescriptionForm.teethClearance30"></el-input>
                 </div>
               </div>
             </el-form-item>
@@ -427,9 +427,7 @@ export default {
   background: #fff;
   position: fixed;
   bottom: 0;
-  left: 200px;
   z-index: 1000;
-  width: calc(100% - 200px);
   box-shadow: inset 0 1px 0 1px rgb(0 0 0 / 8%), 0 2px 14px 1px rgb(221 225 233 / 54%);
   padding: 11px 0;
 }
@@ -526,6 +524,9 @@ export default {
   font-size: 20px;
   font-weight: normal;
 }
+.info-item {
+  width: 1028px;
+}
 .info-item >>> .el-form-item__content::after {
   height: 100%;
   border-right: 1px dashed #c5c5c5;
@@ -537,13 +538,13 @@ export default {
   z-index: 10;
 }
 .info-item >>> .el-form-item__content::before {
-  width: 1028px;
+  width: 1008px;
   border-bottom: 1px dashed #c5c5c5;
   display: inline-block;
   content: "";
   position: absolute;
   top: 46%;
-  left: 66px;
+  left: 0;
   z-index: 10;
 }
 .clearance-main {
@@ -563,11 +564,42 @@ export default {
   color: #bbb;
   font-size: 16px;
   margin-left: 6px;
+  width: 1100px;
 }
 .clearance-number-bootom {
   border-bottom: 1px dashed #c5c5c5;
 }
 .clearance-number span {
   padding-right: 54px;
+}
+.clearance-main::after {
+  height: 98px;
+  border-right: 1px dashed #c5c5c5;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  top: 128px;
+  left: 548px;
+  z-index: 10;
+}
+.clearance-input-top::after {
+  height: 14px;
+  border-right: 1px solid #DCDFE6;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  top: 32px;
+  left: 18px;
+  z-index: 10;
+}
+.clearance-input-bottom::after {
+  height: 14px;
+  border-right: 1px solid #DCDFE6;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  bottom: 32px;
+  left: 18px;
+  z-index: 10;
 }
 </style>

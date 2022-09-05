@@ -45,6 +45,10 @@
     overflow-x: hidden;
 }
 
+.el-select-dropdown .el-scrollbar__wrap {
+    overflow-x: scroll;
+}
+
 .el-col {
     margin-bottom: 8px;
 }
