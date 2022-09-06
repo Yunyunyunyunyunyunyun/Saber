@@ -618,8 +618,9 @@
                   <el-upload
                     class="common-img-uploader"
                     action=""
+                    accept=".jpeg,.jpg,.png"
                     :show-file-list="false"
-                    :http-request="function (params) { return showProcess(params, index)}"
+                    :http-request="showProcess"
                     :on-success="handleImgSuccessSimle"
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
@@ -632,8 +633,9 @@
                   <el-upload
                     class="common-img-uploader"
                     action=""
+                    accept=".jpeg,.jpg,.png"
                     :show-file-list="false"
-                    :http-request="function (params) { return showProcess(params, index)}"
+                    :http-request="showProcess"
                     :on-success="handleImgSuccessFront"
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
@@ -646,8 +648,9 @@
                   <el-upload
                     class="common-img-uploader"
                     action=""
+                    accept=".jpeg,.jpg,.png"
                     :show-file-list="false"
-                    :http-request="function (params) { return showProcess(params, index)}"
+                    :http-request="showProcess"
                     :on-success="handleImgSuccessSide"
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
@@ -662,8 +665,9 @@
                   <el-upload
                     class="common-img-uploader"
                     action=""
+                    accept=".jpeg,.jpg,.png"
                     :show-file-list="false"
-                    :http-request="function (params) { return showProcess(params, index)}"
+                    :http-request="showProcess"
                     :on-success="handleImgSuccessSideUpJaw"
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
@@ -678,8 +682,9 @@
                   <el-upload
                     class="common-img-uploader"
                     action=""
+                    accept=".jpeg,.jpg,.png"
                     :show-file-list="false"
-                    :http-request="function (params) { return showProcess(params, index)}"
+                    :http-request="showProcess"
                     :on-success="handleImgSuccessDownJaw"
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
@@ -694,8 +699,9 @@
                   <el-upload
                     class="common-img-uploader"
                     action=""
+                    accept=".jpeg,.jpg,.png"
                     :show-file-list="false"
-                    :http-request="function (params) { return showProcess(params, index)}"
+                    :http-request="showProcess"
                     :on-success="handleImgSuccessRightJaw"
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
@@ -708,8 +714,9 @@
                   <el-upload
                     class="common-img-uploader"
                     action=""
+                    accept=".jpeg,.jpg,.png"
                     :show-file-list="false"
-                    :http-request="function (params) { return showProcess(params, index)}"
+                    :http-request="showProcess"
                     :on-success="handleImgSuccessFrontJaw"
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
@@ -722,8 +729,9 @@
                   <el-upload
                     class="common-img-uploader"
                     action=""
+                    accept=".jpeg,.jpg,.png"
                     :show-file-list="false"
-                    :http-request="function (params) { return showProcess(params, index)}"
+                    :http-request="showProcess"
                     :on-success="handleImgSuccessLeftJaw"
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
@@ -747,8 +755,9 @@
                   <el-upload
                     class="common-img-uploader"
                     action=""
+                    accept=".jpeg,.jpg,.png"
                     :show-file-list="false"
-                    :http-request="function (params) { return showProcess(params, index)}"
+                    :http-request="showProcess"
                     :on-success="handleImgSuccessAllXray"
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
@@ -761,8 +770,9 @@
                   <el-upload
                     class="common-img-uploader"
                     action=""
+                    accept=".jpeg,.jpg,.png"
                     :show-file-list="false"
-                    :http-request="function (params) { return showProcess(params, index)}"
+                    :http-request="showProcess"
                     :on-success="handleImgSuccessSideXray"
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
@@ -775,8 +785,9 @@
                   <el-upload
                     class="common-img-uploader"
                     action=""
+                    accept=".jpeg,.jpg,.png"
                     :show-file-list="false"
-                    :http-request="function (params) { return showProcess(params, index)}"
+                    :http-request="showProcess"
                     :on-success="handleImgSuccessOtherXray"
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
@@ -787,6 +798,29 @@
                 </el-col>
               </el-row>
               <div class="diagnosis-title diagnosis-title-required mt20">牙颌模型</div>
+              <el-tabs v-model="activeName" class="model-tabs">
+                <el-tab-pane label="数字模型文件" name="first">
+                  <div class="number-title">本地上传</div>
+                  <el-upload
+                    action=""
+                    accept=".stl"
+                    :show-file-list="false"
+                    :http-request="showProcess"
+                    :on-success="handleImgSuccessUpJawModel"
+                    :before-upload="beforeImgUploadUpJawModel"
+                    :on-error="handleError">
+                    <div v-if="prescriptionForm.upJawModelPathName">
+                      <span class="up-title">上颌</span>
+                      <el-button icon="el-icon-file" class="w210">{{prescriptionForm.upJawModelPathName}}</el-button>
+                    </div>
+                    <div v-else>
+                      <span class="up-title">上颌</span>
+                      <el-button icon="el-icon-upload" class="w210">点击上传带咬合STL文件</el-button>
+                    </div>
+                  </el-upload>
+                </el-tab-pane>
+                <el-tab-pane label="硅橡胶模型" name="second">配置管理</el-tab-pane>
+              </el-tabs>
             </el-col>
             <el-col :span="8">
               <div class="diagnosis-title">照片池(0) <span class="diagnosis-tip">未分配照片可以在照片池中查看</span></div>
@@ -936,7 +970,10 @@ export default {
         allXrayPath: "",
         sideXrayPath: "",
         otherXrayPath: "",
+        upJawModelPath: "",
+        upJawModelPathName: "",
       },
+      activeName: "first",
     }
   },
   created() {
@@ -1013,7 +1050,7 @@ export default {
       }
       return (isJPG || isPNG) && isLt2M;
     },
-    async showProcess(params, index) {
+    async showProcess(params) {
       //调用分段上传OBS方法
       return await cluploadOBS(params.file, 'order', (percentage) => {
         // 更新进度条
@@ -1023,6 +1060,17 @@ export default {
     handleError(err) {
       this.$message.warning(err.msg);
       return false;
+    },
+    handleImgSuccessUpJawModel(res, file) {
+      this.prescriptionForm.upJawModelPath = URL.createObjectURL(file.raw);
+      this.prescriptionForm.upJawModelPathName = file.name;
+    },
+    beforeImgUploadUpJawModel(file) {
+      const isSTL = file.name.toLocaleLowerCase().substring(file.name.lastIndexOf('.')) === ".stl";
+      if (!isSTL) {
+        this.$message.error('您只能上传 stl 类型的文件!');
+      }
+      return isSTL;
     },
   },
 }
@@ -1075,6 +1123,13 @@ export default {
 .all-add-main >>> .el-tabs__item {
   width: 25%;
   text-align: center;
+}
+.model-tabs >>> .el-tabs__nav-wrap::after {
+  height: 2px;
+}
+.model-tabs >>> .el-tabs__item {
+  width: auto;
+  text-align: left;
 }
 .arrow-style {
   float: right;
@@ -1298,12 +1353,12 @@ export default {
   color: #555;
   font-weight: 300;
 }
-.common-img-uploader >>> .el-upload {
+.common-img-uploader {
   border: 1px solid #d9d9d9;
+  width: 190px;
+  height: 180px;
+  line-height: 180px;
   cursor: pointer;
-}
-.common-img-uploader >>> .el-upload:hover {
-  border-color: #409EFF;
 }
 .common-img-uploader-icon {
   font-size: 28px;
@@ -1340,5 +1395,20 @@ export default {
 }
 .mt12 {
   margin-top: 12px;
+}
+.number-title {
+  font-size: 14px;
+  color: #303133;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.up-title {
+  font-size: 18px;
+  color: #555;
+  font-weight: 300;
+  margin-right: 20px;
+}
+.w210 {
+  width: 210px;
 }
 </style>
