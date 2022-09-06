@@ -255,6 +255,356 @@
                 </div>
               </div>
             </el-form-item>
+            <div class="diagnosis-title">6. 不可移动牙齿<span class="diagnosis-tip">烤瓷牙、修复桥体、种植牙等无法移动</span></div>
+            <el-form-item prop="teethMobile" label-width="0px" :class="{'teeth-item': prescriptionForm.teethMobile == 1}">
+              <el-radio-group v-model="prescriptionForm.teethMobile" class="common-select">
+                <el-radio :label="0" border>无</el-radio>
+                <el-radio :label="1" border class="select-long">以下牙齿不可移动</el-radio>
+              </el-radio-group>
+              <div v-show="prescriptionForm.teethMobile == 1">
+                <el-checkbox-group v-model="prescriptionForm.teethMobileOne" class="info-select">
+                  <el-checkbox :label="55" border disabled></el-checkbox>
+                  <el-checkbox :label="54" border disabled></el-checkbox>
+                  <el-checkbox :label="53" border disabled></el-checkbox>
+                  <el-checkbox :label="52" border disabled></el-checkbox>
+                  <el-checkbox :label="51" border disabled></el-checkbox>
+                  <el-checkbox :label="61" border disabled></el-checkbox>
+                  <el-checkbox :label="62" border disabled></el-checkbox>
+                  <el-checkbox :label="63" border disabled></el-checkbox>
+                  <el-checkbox :label="64" border disabled></el-checkbox>
+                  <el-checkbox :label="65" border disabled></el-checkbox>
+                </el-checkbox-group>
+                <el-checkbox-group v-model="prescriptionForm.teethMobileTwo" class="info-select">
+                  <el-checkbox :label="18" border></el-checkbox>
+                  <el-checkbox :label="17" border></el-checkbox>
+                  <el-checkbox :label="16" border></el-checkbox>
+                  <el-checkbox :label="15" border></el-checkbox>
+                  <el-checkbox :label="14" border></el-checkbox>
+                  <el-checkbox :label="13" border></el-checkbox>
+                  <el-checkbox :label="12" border></el-checkbox>
+                  <el-checkbox :label="11" border></el-checkbox>
+                  <el-checkbox :label="21" border></el-checkbox>
+                  <el-checkbox :label="22" border></el-checkbox>
+                  <el-checkbox :label="23" border></el-checkbox>
+                  <el-checkbox :label="24" border></el-checkbox>
+                  <el-checkbox :label="25" border></el-checkbox>
+                  <el-checkbox :label="26" border></el-checkbox>
+                  <el-checkbox :label="27" border></el-checkbox>
+                  <el-checkbox :label="28" border></el-checkbox>
+                </el-checkbox-group>
+                <el-checkbox-group v-model="prescriptionForm.teethMobileThree" class="info-select">
+                  <el-checkbox :label="48" border></el-checkbox>
+                  <el-checkbox :label="47" border></el-checkbox>
+                  <el-checkbox :label="46" border></el-checkbox>
+                  <el-checkbox :label="45" border></el-checkbox>
+                  <el-checkbox :label="44" border></el-checkbox>
+                  <el-checkbox :label="43" border></el-checkbox>
+                  <el-checkbox :label="42" border></el-checkbox>
+                  <el-checkbox :label="41" border></el-checkbox>
+                  <el-checkbox :label="31" border></el-checkbox>
+                  <el-checkbox :label="32" border></el-checkbox>
+                  <el-checkbox :label="33" border></el-checkbox>
+                  <el-checkbox :label="34" border></el-checkbox>
+                  <el-checkbox :label="35" border></el-checkbox>
+                  <el-checkbox :label="36" border></el-checkbox>
+                  <el-checkbox :label="37" border></el-checkbox>
+                  <el-checkbox :label="38" border></el-checkbox>
+                </el-checkbox-group>
+                <el-checkbox-group v-model="prescriptionForm.teethMobileFour" class="info-select">
+                  <el-checkbox :label="85" border disabled></el-checkbox>
+                  <el-checkbox :label="84" border disabled></el-checkbox>
+                  <el-checkbox :label="83" border disabled></el-checkbox>
+                  <el-checkbox :label="82" border disabled></el-checkbox>
+                  <el-checkbox :label="81" border disabled></el-checkbox>
+                  <el-checkbox :label="71" border disabled></el-checkbox>
+                  <el-checkbox :label="72" border disabled></el-checkbox>
+                  <el-checkbox :label="73" border disabled></el-checkbox>
+                  <el-checkbox :label="74" border disabled></el-checkbox>
+                  <el-checkbox :label="75" border disabled></el-checkbox>
+                </el-checkbox-group>
+              </div>
+            </el-form-item>
+            <div class="diagnosis-title">7. 不可设计附件牙齿<span class="diagnosis-tip">烤瓷牙，修复桥体等无法粘结附件</span></div>
+            <el-form-item prop="teethAttachment" label-width="0px" :class="{'teeth-item': prescriptionForm.teethAttachment == 1}">
+              <el-radio-group v-model="prescriptionForm.teethAttachment" class="common-select">
+                <el-radio :label="0" border>无</el-radio>
+                <el-radio :label="1" border class="select-long">以下牙齿不可设计附件</el-radio>
+              </el-radio-group>
+              <div v-show="prescriptionForm.teethAttachment == 1">
+                <el-checkbox-group v-model="prescriptionForm.teethAttachmentOne" class="info-select">
+                  <el-checkbox :label="55" border disabled></el-checkbox>
+                  <el-checkbox :label="54" border disabled></el-checkbox>
+                  <el-checkbox :label="53" border disabled></el-checkbox>
+                  <el-checkbox :label="52" border disabled></el-checkbox>
+                  <el-checkbox :label="51" border disabled></el-checkbox>
+                  <el-checkbox :label="61" border disabled></el-checkbox>
+                  <el-checkbox :label="62" border disabled></el-checkbox>
+                  <el-checkbox :label="63" border disabled></el-checkbox>
+                  <el-checkbox :label="64" border disabled></el-checkbox>
+                  <el-checkbox :label="65" border disabled></el-checkbox>
+                </el-checkbox-group>
+                <el-checkbox-group v-model="prescriptionForm.teethAttachmentTwo" class="info-select">
+                  <el-checkbox :label="18" border></el-checkbox>
+                  <el-checkbox :label="17" border></el-checkbox>
+                  <el-checkbox :label="16" border></el-checkbox>
+                  <el-checkbox :label="15" border></el-checkbox>
+                  <el-checkbox :label="14" border></el-checkbox>
+                  <el-checkbox :label="13" border></el-checkbox>
+                  <el-checkbox :label="12" border></el-checkbox>
+                  <el-checkbox :label="11" border></el-checkbox>
+                  <el-checkbox :label="21" border></el-checkbox>
+                  <el-checkbox :label="22" border></el-checkbox>
+                  <el-checkbox :label="23" border></el-checkbox>
+                  <el-checkbox :label="24" border></el-checkbox>
+                  <el-checkbox :label="25" border></el-checkbox>
+                  <el-checkbox :label="26" border></el-checkbox>
+                  <el-checkbox :label="27" border></el-checkbox>
+                  <el-checkbox :label="28" border></el-checkbox>
+                </el-checkbox-group>
+                <el-checkbox-group v-model="prescriptionForm.teethAttachmentThree" class="info-select">
+                  <el-checkbox :label="48" border></el-checkbox>
+                  <el-checkbox :label="47" border></el-checkbox>
+                  <el-checkbox :label="46" border></el-checkbox>
+                  <el-checkbox :label="45" border></el-checkbox>
+                  <el-checkbox :label="44" border></el-checkbox>
+                  <el-checkbox :label="43" border></el-checkbox>
+                  <el-checkbox :label="42" border></el-checkbox>
+                  <el-checkbox :label="41" border></el-checkbox>
+                  <el-checkbox :label="31" border></el-checkbox>
+                  <el-checkbox :label="32" border></el-checkbox>
+                  <el-checkbox :label="33" border></el-checkbox>
+                  <el-checkbox :label="34" border></el-checkbox>
+                  <el-checkbox :label="35" border></el-checkbox>
+                  <el-checkbox :label="36" border></el-checkbox>
+                  <el-checkbox :label="37" border></el-checkbox>
+                  <el-checkbox :label="38" border></el-checkbox>
+                </el-checkbox-group>
+                <el-checkbox-group v-model="prescriptionForm.teethAttachmentFour" class="info-select">
+                  <el-checkbox :label="85" border disabled></el-checkbox>
+                  <el-checkbox :label="84" border disabled></el-checkbox>
+                  <el-checkbox :label="83" border disabled></el-checkbox>
+                  <el-checkbox :label="82" border disabled></el-checkbox>
+                  <el-checkbox :label="81" border disabled></el-checkbox>
+                  <el-checkbox :label="71" border disabled></el-checkbox>
+                  <el-checkbox :label="72" border disabled></el-checkbox>
+                  <el-checkbox :label="73" border disabled></el-checkbox>
+                  <el-checkbox :label="74" border disabled></el-checkbox>
+                  <el-checkbox :label="75" border disabled></el-checkbox>
+                </el-checkbox-group>
+              </div>
+            </el-form-item>
+            <div class="diagnosis-title diagnosis-title-required">8. 面型</div>
+            <el-form-item prop="surfaceType" label-width="0px">
+              <el-radio-group v-model="prescriptionForm.surfaceType" class="common-select">
+                <el-radio :label="1" border>维持</el-radio>
+                <el-radio :label="2" border>改善</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <div class="diagnosis-title diagnosis-title-required">9. 矢状关系</div>
+            <el-form-item prop="sagittalRight" label="右">
+              <el-radio-group v-model="prescriptionForm.sagittalRight" class="common-select">
+                <el-radio :label="1" border>维持</el-radio>
+                <el-radio :label="2" border class="select-long">仅改善尖牙关系</el-radio>
+                <el-radio :label="3" border class="select-long">改善尖牙和磨牙关系</el-radio>
+                <el-radio :label="4" border class="select-long">调整到中性关系</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item prop="sagittalLeft" label="左">
+              <el-radio-group v-model="prescriptionForm.sagittalLeft" class="common-select">
+                <el-radio :label="1" border>维持</el-radio>
+                <el-radio :label="2" border class="select-long">仅改善尖牙关系</el-radio>
+                <el-radio :label="3" border class="select-long">改善尖牙和磨牙关系</el-radio>
+                <el-radio :label="4" border class="select-long">调整到中性关系</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <div class="diagnosis-title">10. 覆盖</div>
+            <el-form-item prop="cover" label-width="0px">
+              <el-radio-group v-model="prescriptionForm.cover" class="common-select">
+                <el-radio :label="1" border>维持</el-radio>
+                <el-radio :label="2" border>改善</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <div class="diagnosis-title">11. 覆合</div>
+            <el-form-item prop="combined" label-width="0px">
+              <el-radio-group v-model="prescriptionForm.combined" class="common-select">
+                <el-radio :label="1" border>维持</el-radio>
+                <el-radio :label="2" border>纠正开合</el-radio>
+                <el-radio :label="3" border class="select-long">纠正深覆合</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <div class="diagnosis-title">12. 前牙反合/对刃合</div>
+            <el-form-item prop="frontTeeth" label-width="0px">
+              <el-radio-group v-model="prescriptionForm.frontTeeth" class="common-select">
+                <el-radio :label="1" border>不纠正</el-radio>
+                <el-radio :label="2" border class="select-long">纠正前牙反合</el-radio>
+                <el-radio :label="3" border class="select-long">纠正前牙对刃合</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <div class="diagnosis-title">13. 后牙反合或锁合</div>
+            <el-form-item prop="afterTeeth" label-width="0px">
+              <el-radio-group v-model="prescriptionForm.afterTeeth" class="common-select">
+                <el-radio :label="1" border>不纠正</el-radio>
+                <el-radio :label="2" border>纠正</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <div class="diagnosis-title diagnosis-title-required">14. 中线</div>
+            <el-form-item prop="midline" label-width="0px">
+              <el-radio-group v-model="prescriptionForm.midline" class="common-select">
+                <el-radio :label="1" border>维持中线</el-radio>
+                <el-radio :label="2" border>改善中线</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <div class="diagnosis-title">15. 间隙的矫治</div>
+            <el-form-item prop="clearanceCorrectUp" label="上颌">
+              <el-radio-group v-model="prescriptionForm.clearanceCorrectUp" class="common-select">
+                <el-radio :label="1" border>前牙内收</el-radio>
+                <el-radio :label="2" border class="select-long">前牙内收,后牙近移</el-radio>
+                <el-radio :label="3" border>后牙近移</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item prop="clearanceCorrectDown" label="下颌">
+              <el-radio-group v-model="prescriptionForm.clearanceCorrectDown" class="common-select">
+                <el-radio :label="1" border>前牙内收</el-radio>
+                <el-radio :label="2" border class="select-long">前牙内收,后牙近移</el-radio>
+                <el-radio :label="3" border>后牙近移</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <div class="diagnosis-title">16. 拥挤的矫治</div>
+            <el-form-item label="上颌">
+              <el-form-item prop="enlargeBowUp" label="扩弓">
+                <el-radio-group v-model="prescriptionForm.enlargeBowUp" class="common-select mb10">
+                  <el-radio :label="1" border>首选</el-radio>
+                  <el-radio :label="2" border>可选</el-radio>
+                  <el-radio :label="3" border>不可</el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item prop="lipDipUp" label="唇倾">
+                <el-radio-group v-model="prescriptionForm.lipDipUp" class="common-select mb10">
+                  <el-radio :label="1" border>首选</el-radio>
+                  <el-radio :label="2" border>可选</el-radio>
+                  <el-radio :label="3" border>不可</el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item prop="adjacentGlazeUp" label="邻面去釉">
+                <el-radio-group v-model="prescriptionForm.adjacentGlazeUp" class="common-select mb10">
+                  <el-radio :label="1" border>首选</el-radio>
+                  <el-radio :label="2" border>可选</el-radio>
+                  <el-radio :label="3" border>不可</el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item prop="farRemovedMolarUp" label="远移磨牙">
+                <el-radio-group v-model="prescriptionForm.farRemovedMolarUp" class="common-select">
+                  <el-radio :label="1" border>右上</el-radio>
+                  <el-radio :label="2" border>左上</el-radio>
+                </el-radio-group>
+                <span class="diagnosis-tip">注：若勾选远移磨牙，可能需配合种植支抗钉，并且X光为必选</span>
+              </el-form-item>
+            </el-form-item>
+            <el-form-item label="下颌">
+              <el-form-item prop="enlargeBowDown" label="扩弓">
+                <el-radio-group v-model="prescriptionForm.enlargeBowDown" class="common-select mb10">
+                  <el-radio :label="1" border>首选</el-radio>
+                  <el-radio :label="2" border>可选</el-radio>
+                  <el-radio :label="3" border>不可</el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item prop="lipDipDown" label="唇倾">
+                <el-radio-group v-model="prescriptionForm.lipDipDown" class="common-select mb10">
+                  <el-radio :label="1" border>首选</el-radio>
+                  <el-radio :label="2" border>可选</el-radio>
+                  <el-radio :label="3" border>不可</el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item prop="adjacentGlazeDown" label="邻面去釉">
+                <el-radio-group v-model="prescriptionForm.adjacentGlazeDown" class="common-select mb10">
+                  <el-radio :label="1" border>首选</el-radio>
+                  <el-radio :label="2" border>可选</el-radio>
+                  <el-radio :label="3" border>不可</el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item prop="farRemovedMolarDown" label="远移磨牙">
+                <el-radio-group v-model="prescriptionForm.farRemovedMolarDown" class="common-select">
+                  <el-radio :label="1" border>右上</el-radio>
+                  <el-radio :label="2" border>左上</el-radio>
+                </el-radio-group>
+                <span class="diagnosis-tip">注：若勾选远移磨牙，可能需配合种植支抗钉，并且X光为必选</span>
+              </el-form-item>
+            </el-form-item>
+            <el-form-item prop="toothExtraction" label="拔牙" :class="{'tooth-item': prescriptionForm.toothExtraction == 1}">
+              <el-radio-group v-model="prescriptionForm.toothExtraction" class="common-select">
+                <el-radio :label="0" border>不拔</el-radio>
+                <el-radio :label="1" border class="select-long">拔除以下牙齿</el-radio>
+              </el-radio-group>
+              <div class="diagnosis-explain">低于第二磨牙牙根1/2以下的或尚为牙胚的智齿可不拔除</div>
+              <div v-show="prescriptionForm.toothExtraction == 1">
+                <el-checkbox-group v-model="prescriptionForm.toothExtractionOne" class="info-select">
+                  <el-checkbox :label="18" border></el-checkbox>
+                  <el-checkbox :label="17" border></el-checkbox>
+                  <el-checkbox :label="16" border></el-checkbox>
+                  <el-checkbox :label="15" border></el-checkbox>
+                  <el-checkbox :label="14" border></el-checkbox>
+                  <el-checkbox :label="13" border></el-checkbox>
+                  <el-checkbox :label="12" border></el-checkbox>
+                  <el-checkbox :label="11" border></el-checkbox>
+                  <el-checkbox :label="21" border></el-checkbox>
+                  <el-checkbox :label="22" border></el-checkbox>
+                  <el-checkbox :label="23" border></el-checkbox>
+                  <el-checkbox :label="24" border></el-checkbox>
+                  <el-checkbox :label="25" border></el-checkbox>
+                  <el-checkbox :label="26" border></el-checkbox>
+                  <el-checkbox :label="27" border></el-checkbox>
+                  <el-checkbox :label="28" border></el-checkbox>
+                </el-checkbox-group>
+                <el-checkbox-group v-model="prescriptionForm.toothExtractionTwo" class="info-select">
+                  <el-checkbox :label="48" border></el-checkbox>
+                  <el-checkbox :label="47" border></el-checkbox>
+                  <el-checkbox :label="46" border></el-checkbox>
+                  <el-checkbox :label="45" border></el-checkbox>
+                  <el-checkbox :label="44" border></el-checkbox>
+                  <el-checkbox :label="43" border></el-checkbox>
+                  <el-checkbox :label="42" border></el-checkbox>
+                  <el-checkbox :label="41" border></el-checkbox>
+                  <el-checkbox :label="31" border></el-checkbox>
+                  <el-checkbox :label="32" border></el-checkbox>
+                  <el-checkbox :label="33" border></el-checkbox>
+                  <el-checkbox :label="34" border></el-checkbox>
+                  <el-checkbox :label="35" border></el-checkbox>
+                  <el-checkbox :label="36" border></el-checkbox>
+                  <el-checkbox :label="37" border></el-checkbox>
+                  <el-checkbox :label="38" border></el-checkbox>
+                </el-checkbox-group>
+              </div>
+            </el-form-item>
+            <div class="diagnosis-title diagnosis-title-required">17. 是否配合种植支抗钉</div>
+            <el-form-item prop="plantingNail" label-width="0px">
+              <el-radio-group v-model="prescriptionForm.plantingNail" class="common-select">
+                <el-radio :label="1" border>是</el-radio>
+                <el-radio :label="2" border>否</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <div class="diagnosis-title">18. 颞下颌关节是否存在异常</div>
+            <el-form-item prop="temporomandibularJoint" label-width="0px">
+              <el-radio-group v-model="prescriptionForm.temporomandibularJoint" class="common-select">
+                <el-radio :label="1" border>是</el-radio>
+                <el-radio :label="2" border>否</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <div class="diagnosis-title">19. 是否远程矫治</div>
+            <el-form-item prop="remoteTreatments" label-width="0px">
+              <el-radio-group v-model="prescriptionForm.remoteTreatments" class="common-select">
+                <el-radio :label="1" border>是</el-radio>
+                <el-radio :label="2" border>否</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <div class="diagnosis-title">20. 特殊说明</div>
+            <el-form-item prop="specialInstructions" label-width="0px">
+              <el-input
+                type="textarea"
+                :rows="6"
+                placeholder="描述请限制在2000字以内（误删可使用“ctrl+z”撤销误操作）"
+                v-model="prescriptionForm.specialInstructions">
+              </el-input>
+            </el-form-item>
           </el-form>
         </el-tab-pane>
         <el-tab-pane :name="3">
@@ -358,6 +708,39 @@ export default {
         teethClearance28: "",
         teethClearance29: "",
         teethClearance30: "",
+        teethMobile: 0,
+        teethMobileOne: [],
+        teethMobileTwo: [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28],
+        teethMobileThree: [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38],
+        teethMobileFour: [],
+        teethAttachment: 0,
+        teethAttachmentOne: [],
+        teethAttachmentTwo: [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28],
+        teethAttachmentThree: [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38],
+        teethAttachmentFour: [],
+        surfaceType: "",
+        sagittalRight: "",
+        sagittalLeft: "",
+        cover: "",
+        combined: "",
+        frontTeeth: "",
+        afterTeeth: "",
+        midline: "",
+        enlargeBowUp: "",
+        lipDipUp: "",
+        adjacentGlazeUp: "",
+        farRemovedMolarUp: "",
+        enlargeBowDown: "",
+        lipDipDown: "",
+        adjacentGlazeDown: "",
+        farRemovedMolarDown: "",
+        toothExtraction: 0,
+        toothExtractionOne: [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28],
+        toothExtractionTwo: [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38],
+        plantingNail: "",
+        temporomandibularJoint: "",
+        remoteTreatments: "",
+        specialInstructions: "",
       },
     }
   },
@@ -461,6 +844,9 @@ export default {
   width: 100px;
   text-align: center;
 }
+.select-long {
+  width: 180px !important;
+}
 .common-select >>> .el-radio.is-bordered.is-checked {
   border-color: #409EFF;
   background: #409EFF;
@@ -501,6 +887,10 @@ export default {
   margin-left: 28px;
   color: #999;
 }
+.diagnosis-explain {
+  font-size: 14px;
+  color: #999;
+}
 .diagnosis-titleNo-tipNo {
   font-size: 16px;
   color: #666;
@@ -524,7 +914,7 @@ export default {
   font-size: 20px;
   font-weight: normal;
 }
-.info-item {
+.info-item, .teeth-item {
   width: 1028px;
 }
 .info-item >>> .el-form-item__content::after {
@@ -534,8 +924,11 @@ export default {
   content: "";
   position: absolute;
   top: -5px;
-  left: 49%;
+  left: 503px;
   z-index: 10;
+}
+.teeth-item .common-select {
+  margin-bottom: 15px;
 }
 .info-item >>> .el-form-item__content::before {
   width: 1008px;
@@ -543,7 +936,50 @@ export default {
   display: inline-block;
   content: "";
   position: absolute;
-  top: 46%;
+  top: 102px;
+  left: 0;
+  z-index: 10;
+}
+.teeth-item >>> .el-form-item__content::after {
+  height: 220px;
+  border-right: 1px dashed #c5c5c5;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  top: 46px;
+  left: 503px;
+  z-index: 10;
+}
+.teeth-item >>> .el-form-item__content::before {
+  width: 1008px;
+  border-bottom: 1px dashed #c5c5c5;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  top: 157px;
+  left: 0;
+  z-index: 10;
+}
+.tooth-item {
+  width: 1130px;
+}
+.tooth-item >>> .el-form-item__content::after {
+  height: 100px;
+  border-right: 1px dashed #c5c5c5;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  top: 78px;
+  left: 503px;
+  z-index: 10;
+}
+.tooth-item >>> .el-form-item__content::before {
+  width: 1008px;
+  border-bottom: 1px dashed #c5c5c5;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  top: 127px;
   left: 0;
   z-index: 10;
 }
@@ -601,5 +1037,8 @@ export default {
   bottom: 32px;
   left: 18px;
   z-index: 10;
+}
+.mb10 {
+  margin-bottom: 10px;
 }
 </style>
