@@ -609,7 +609,189 @@
         </el-tab-pane>
         <el-tab-pane :name="3">
           <span slot="label"><i class="el-icon-video-camera"></i> 影像资料及模型<i class="el-icon-arrow-right arrow-style"></i></span>
-          333
+          <el-row class="form-main">
+            <el-col :span="16">
+              <div class="diagnosis-title diagnosis-title-required">照片信息</div>
+              <div class="diagnosis-desc">面相照及口内照</div>
+              <el-row class="mt20">
+                <el-col :span="8">
+                  <el-upload
+                    class="common-img-uploader"
+                    action=""
+                    :show-file-list="false"
+                    :http-request="function (params) { return showProcess(params, index)}"
+                    :on-success="handleImgSuccessSimle"
+                    :before-upload="beforeImgUpload"
+                    :on-error="handleError">
+                    <img v-if="prescriptionForm.frontSmilingPath" :src="prescriptionForm.frontSmilingPath" class="common-img">
+                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                  </el-upload>
+                  <div class="img-desc img-desc-required">正面微笑照</div>
+                </el-col>
+                <el-col :span="8">
+                  <el-upload
+                    class="common-img-uploader"
+                    action=""
+                    :show-file-list="false"
+                    :http-request="function (params) { return showProcess(params, index)}"
+                    :on-success="handleImgSuccessFront"
+                    :before-upload="beforeImgUpload"
+                    :on-error="handleError">
+                    <img v-if="prescriptionForm.frontPath" :src="prescriptionForm.frontPath" class="common-img">
+                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                  </el-upload>
+                  <div class="img-desc img-desc-required">正面照</div>
+                </el-col>
+                <el-col :span="8">
+                  <el-upload
+                    class="common-img-uploader"
+                    action=""
+                    :show-file-list="false"
+                    :http-request="function (params) { return showProcess(params, index)}"
+                    :on-success="handleImgSuccessSide"
+                    :before-upload="beforeImgUpload"
+                    :on-error="handleError">
+                    <img v-if="prescriptionForm.sidePath" :src="prescriptionForm.sidePath" class="common-img">
+                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                  </el-upload>
+                  <div class="img-desc img-desc-required">侧面照</div>
+                </el-col>
+              </el-row>
+              <el-row class="mt20">
+                <el-col :span="8">
+                  <el-upload
+                    class="common-img-uploader"
+                    action=""
+                    :show-file-list="false"
+                    :http-request="function (params) { return showProcess(params, index)}"
+                    :on-success="handleImgSuccessSideUpJaw"
+                    :before-upload="beforeImgUpload"
+                    :on-error="handleError">
+                    <img v-if="prescriptionForm.upJawPath" :src="prescriptionForm.upJawPath" class="common-img">
+                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                  </el-upload>
+                  <div class="img-desc img-desc-required">上颌口内照</div>
+                </el-col>
+                <el-col :span="8">
+                </el-col>
+                <el-col :span="8">
+                  <el-upload
+                    class="common-img-uploader"
+                    action=""
+                    :show-file-list="false"
+                    :http-request="function (params) { return showProcess(params, index)}"
+                    :on-success="handleImgSuccessDownJaw"
+                    :before-upload="beforeImgUpload"
+                    :on-error="handleError">
+                    <img v-if="prescriptionForm.downJawPath" :src="prescriptionForm.downJawPath" class="common-img">
+                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                  </el-upload>
+                  <div class="img-desc img-desc-required">下颌口内照</div>
+                </el-col>
+              </el-row>
+              <el-row class="mt20">
+                <el-col :span="8">
+                  <el-upload
+                    class="common-img-uploader"
+                    action=""
+                    :show-file-list="false"
+                    :http-request="function (params) { return showProcess(params, index)}"
+                    :on-success="handleImgSuccessRightJaw"
+                    :before-upload="beforeImgUpload"
+                    :on-error="handleError">
+                    <img v-if="prescriptionForm.rightJawPath" :src="prescriptionForm.rightJawPath" class="common-img">
+                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                  </el-upload>
+                  <div class="img-desc img-desc-required">右侧口内照</div>
+                </el-col>
+                <el-col :span="8">
+                  <el-upload
+                    class="common-img-uploader"
+                    action=""
+                    :show-file-list="false"
+                    :http-request="function (params) { return showProcess(params, index)}"
+                    :on-success="handleImgSuccessFrontJaw"
+                    :before-upload="beforeImgUpload"
+                    :on-error="handleError">
+                    <img v-if="prescriptionForm.frontJawPath" :src="prescriptionForm.frontJawPath" class="common-img">
+                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                  </el-upload>
+                  <div class="img-desc img-desc-required">正面口内照</div>
+                </el-col>
+                <el-col :span="8">
+                  <el-upload
+                    class="common-img-uploader"
+                    action=""
+                    :show-file-list="false"
+                    :http-request="function (params) { return showProcess(params, index)}"
+                    :on-success="handleImgSuccessLeftJaw"
+                    :before-upload="beforeImgUpload"
+                    :on-error="handleError">
+                    <img v-if="prescriptionForm.leftJawPath" :src="prescriptionForm.leftJawPath" class="common-img">
+                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                  </el-upload>
+                  <div class="img-desc img-desc-required">左侧口内照</div>
+                </el-col>
+              </el-row>
+              <el-row class="mt20">
+                <el-col :span="8">
+                  <div class="diagnosis-desc">X光照片</div>
+                </el-col>
+                <el-col :span="8"></el-col>
+                <el-col :span="8">
+                  <div class="diagnosis-desc">其他影像</div>
+                </el-col>
+              </el-row>
+              <el-row class="mt12">
+                <el-col :span="8">
+                  <el-upload
+                    class="common-img-uploader"
+                    action=""
+                    :show-file-list="false"
+                    :http-request="function (params) { return showProcess(params, index)}"
+                    :on-success="handleImgSuccessAllXray"
+                    :before-upload="beforeImgUpload"
+                    :on-error="handleError">
+                    <img v-if="prescriptionForm.allXrayPath" :src="prescriptionForm.allXrayPath" class="common-img">
+                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                  </el-upload>
+                  <div class="img-desc img-desc-required">全景片</div>
+                </el-col>
+                <el-col :span="8">
+                  <el-upload
+                    class="common-img-uploader"
+                    action=""
+                    :show-file-list="false"
+                    :http-request="function (params) { return showProcess(params, index)}"
+                    :on-success="handleImgSuccessSideXray"
+                    :before-upload="beforeImgUpload"
+                    :on-error="handleError">
+                    <img v-if="prescriptionForm.sideXrayPath" :src="prescriptionForm.sideXrayPath" class="common-img">
+                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                  </el-upload>
+                  <div class="img-desc img-desc-required">侧位片</div>
+                </el-col>
+                <el-col :span="8">
+                  <el-upload
+                    class="common-img-uploader"
+                    action=""
+                    :show-file-list="false"
+                    :http-request="function (params) { return showProcess(params, index)}"
+                    :on-success="handleImgSuccessOtherXray"
+                    :before-upload="beforeImgUpload"
+                    :on-error="handleError">
+                    <img v-if="prescriptionForm.otherXrayPath" :src="prescriptionForm.otherXrayPath" class="common-img">
+                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                  </el-upload>
+                  <div class="img-desc img-desc-required">其他</div>
+                </el-col>
+              </el-row>
+              <div class="diagnosis-title diagnosis-title-required mt20">牙颌模型</div>
+            </el-col>
+            <el-col :span="8">
+              <div class="diagnosis-title">照片池(0) <span class="diagnosis-tip">未分配照片可以在照片池中查看</span></div>
+            </el-col>
+          </el-row>
         </el-tab-pane>
         <el-tab-pane :name="4">
           <span slot="label"><i class="el-icon-document-checked"></i> 提交</span>
@@ -628,6 +810,8 @@
 import {
   selectDoctor,
 } from "@/api/case/commonCase";
+import { uploadOBS } from "@/util/obs";
+import { uploadOBS as cluploadOBS } from "@/util/clobs";
 export default {
   name: "AllAdd",
   data() {
@@ -741,6 +925,17 @@ export default {
         temporomandibularJoint: "",
         remoteTreatments: "",
         specialInstructions: "",
+        frontSmilingPath: "",
+        frontPath: "",
+        sidePath: "",
+        upJawPath: "",
+        downJawPath: "",
+        rightJawPath: "",
+        frontJawPath: "",
+        leftJawPath: "",
+        allXrayPath: "",
+        sideXrayPath: "",
+        otherXrayPath: "",
       },
     }
   },
@@ -771,6 +966,63 @@ export default {
     },
     fourthClick() {
       this.active = 4;
+    },
+    handleImgSuccessSimle(res, file) {
+      this.prescriptionForm.frontSmilingPath = URL.createObjectURL(file.raw);
+    },
+    handleImgSuccessFront(res, file) {
+      this.prescriptionForm.frontPath = URL.createObjectURL(file.raw);
+    },
+    handleImgSuccessSide(res, file) {
+      this.prescriptionForm.sidePath = URL.createObjectURL(file.raw);
+    },
+    handleImgSuccessSideUpJaw(res, file) {
+      this.prescriptionForm.upJawPath = URL.createObjectURL(file.raw);
+    },
+    handleImgSuccessDownJaw(res, file) {
+      this.prescriptionForm.downJawPath = URL.createObjectURL(file.raw);
+    },
+    handleImgSuccessRightJaw(res, file) {
+      this.prescriptionForm.rightJawPath = URL.createObjectURL(file.raw);
+    },
+    handleImgSuccessFrontJaw(res, file) {
+      this.prescriptionForm.frontJawPath = URL.createObjectURL(file.raw);
+    },
+    handleImgSuccessLeftJaw(res, file) {
+      this.prescriptionForm.leftJawPath = URL.createObjectURL(file.raw);
+    },
+    handleImgSuccessAllXray(res, file) {
+      this.prescriptionForm.allXrayPath = URL.createObjectURL(file.raw);
+    },
+    handleImgSuccessSideXray(res, file) {
+      this.prescriptionForm.sideXrayPath = URL.createObjectURL(file.raw);
+    },
+    handleImgSuccessOtherXray(res, file) {
+      this.prescriptionForm.otherXrayPath = URL.createObjectURL(file.raw);
+    },
+    beforeImgUpload(file) {
+      const isJPG = file.type === 'image/jpeg';
+      const isPNG = file.type === 'image/png';
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG && !isPNG) {
+        this.$message.error('您只能上传 jpg/png 类型的图片!');
+      }
+      if (!isLt2M) {
+        this.$message.error('您上传的图片大小不能超过 2MB!');
+      }
+      return (isJPG || isPNG) && isLt2M;
+    },
+    async showProcess(params, index) {
+      //调用分段上传OBS方法
+      return await cluploadOBS(params.file, 'order', (percentage) => {
+        // 更新进度条
+        params.onProgress({percent: percentage});
+      });
+    },
+    handleError(err) {
+      this.$message.warning(err.msg);
+      return false;
     },
   },
 }
@@ -884,7 +1136,7 @@ export default {
 }
 .diagnosis-tip {
   font-size: 16px;
-  margin-left: 28px;
+  margin-left: 20px;
   color: #999;
 }
 .diagnosis-explain {
@@ -1040,5 +1292,53 @@ export default {
 }
 .mb10 {
   margin-bottom: 10px;
+}
+.diagnosis-desc {
+  font-size: 18px;
+  color: #555;
+  font-weight: 300;
+}
+.common-img-uploader >>> .el-upload {
+  border: 1px solid #d9d9d9;
+  cursor: pointer;
+}
+.common-img-uploader >>> .el-upload:hover {
+  border-color: #409EFF;
+}
+.common-img-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 190px;
+  height: 180px;
+  line-height: 180px;
+  text-align: center;
+}
+.common-img {
+  width: 190px;
+  height: 180px;
+  display: block;
+}
+.mt20 {
+  margin-top: 20px;
+}
+.img-desc {
+  width: 190px;
+  height: 40px;
+  line-height: 40px;
+  border-left: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+  font-size: 14px;
+  font-weight: 300;
+  color: #555;
+  text-align: center;
+}
+.img-desc-required::before {
+  content: '*';
+  color: #F56C6C;
+  margin-right: 4px;
+}
+.mt12 {
+  margin-top: 12px;
 }
 </style>
