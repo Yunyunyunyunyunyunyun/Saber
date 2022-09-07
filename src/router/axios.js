@@ -32,7 +32,9 @@ axios.interceptors.request.use(config => {
   NProgress.start() // start progress bar
   const meta = (config.meta || {});
   const isToken = meta.isToken === false;
-  config.headers['Authorization'] = `Basic ${Base64.encode(`${website.clientId}:${website.clientSecret}`)}`;
+  if (config.url.indexOf('obs.cn-north-4.myhuaweicloud.com') === -1) {
+    config.headers['Authorization'] = `Basic ${Base64.encode(`${website.clientId}:${website.clientSecret}`)}`;
+  }
   if (getToken() && !isToken) {
     config.headers['Blade-Auth'] = 'bearer ' + getToken() // 让每个请求携带token--['Authorization']为自定义key 请根据实际情况自行修改
   }

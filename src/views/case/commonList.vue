@@ -1,8 +1,18 @@
 <template>
   <div class="case-contain">
     <el-row :gutter="20" class="case-search">
-      <el-col :span="24">
+      <el-col :span="6">
         <el-button type="primary" icon="el-icon-plus" @click="addCase">新建病例</el-button>
+      </el-col>
+      <el-col :span="6">
+        <el-input v-model="doctorName" placeholder="请输入医生姓名"></el-input>
+      </el-col>
+      <el-col :span="6">
+        <el-input v-model="patientName" placeholder="请输入患者姓名"></el-input>
+      </el-col>
+      <el-col :span="6">
+        <el-button @click="resetSearch">重置</el-button>
+        <el-button type="primary" @click="submitSearch">搜索</el-button>
       </el-col>
     </el-row>
     <div class="case-main">
@@ -11,7 +21,7 @@
         :data="caseTableData"
         stripe
         border
-        max-height="700"
+        height="680"
         style="width: 100%"
         @row-click="rowClick">
         <el-table-column
@@ -103,6 +113,8 @@ export default {
   name: "Case",
   data() {
     return {
+      doctorName: "",
+      patientName: "",
       loading: true,
       caseTableData: [],
       currentPage: 1,
@@ -128,6 +140,28 @@ export default {
     this.getAllCaseList(params);
   },
   methods: {
+    resetSearch() {
+      this.doctorName = "";
+      this.patientName = "";
+      let params = {
+        current: 1,
+        size: this.pageSize,
+      };
+      this.getAllCaseList(params);
+    },
+    submitSearch() {
+      let params = {
+        current: 1,
+        size: this.pageSize,
+      };
+      if (this.doctorName) {
+        params.doctorName = this.doctorName;
+      }
+      if (this.patientName) {
+        params.name = this.patientName;
+      }
+      this.getAllCaseList(params);
+    },
     handleSizeChange(val) {
       this.pageSize = val;
       let params = {

@@ -27,7 +27,7 @@
         :data="staffTableData"
         stripe
         border
-        max-height="700"
+        height="680"
         style="width: 100%">
         <el-table-column
           prop="id"

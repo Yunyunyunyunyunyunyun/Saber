@@ -610,7 +610,7 @@
         <el-tab-pane :name="3">
           <span slot="label"><i class="el-icon-video-camera"></i> 影像资料及模型<i class="el-icon-arrow-right arrow-style"></i></span>
           <el-row class="form-main">
-            <el-col :span="16">
+            <el-col :span="24">
               <div class="diagnosis-title diagnosis-title-required">照片信息</div>
               <div class="diagnosis-desc">面相照及口内照</div>
               <el-row class="mt20">
@@ -794,49 +794,140 @@
                     <img v-if="prescriptionForm.otherXrayPath" :src="prescriptionForm.otherXrayPath" class="common-img">
                     <i v-else class="el-icon-plus common-img-uploader-icon"></i>
                   </el-upload>
-                  <div class="img-desc img-desc-required">其他</div>
+                  <div class="img-desc">其他</div>
                 </el-col>
               </el-row>
               <div class="diagnosis-title diagnosis-title-required mt20">牙颌模型</div>
               <el-tabs v-model="activeName" class="model-tabs">
                 <el-tab-pane label="数字模型文件" name="first">
                   <div class="number-title">本地上传</div>
-                  <el-upload
-                    action=""
-                    accept=".stl"
-                    :show-file-list="false"
-                    :http-request="showProcess"
-                    :on-success="handleImgSuccessUpJawModel"
-                    :before-upload="beforeImgUploadUpJawModel"
-                    :on-error="handleError">
-                    <div v-if="prescriptionForm.upJawModelPathName">
-                      <span class="up-title">上颌</span>
-                      <el-button icon="el-icon-file" class="w210">{{prescriptionForm.upJawModelPathName}}</el-button>
-                    </div>
-                    <div v-else>
-                      <span class="up-title">上颌</span>
-                      <el-button icon="el-icon-upload" class="w210">点击上传带咬合STL文件</el-button>
-                    </div>
-                  </el-upload>
+                  <el-row>
+                    <el-col span="10">
+                      <div class="up-title">上颌</div>
+                      <el-upload
+                        class="ml56"
+                        action=""
+                        accept=".stl"
+                        :show-file-list="false"
+                        :http-request="showProcess"
+                        :on-success="handleImgSuccessUpJawModel"
+                        :before-upload="beforeImgUploadJawModel"
+                        :on-error="handleError">
+                        <div v-if="prescriptionForm.upJawModelPathName">
+                          <el-button icon="el-icon-file" class="model-icon-btn">{{prescriptionForm.upJawModelPathName}}</el-button>
+                        </div>
+                        <div v-else>
+                          <el-button icon="el-icon-upload" class="model-icon-btn">点击上传带咬合STL文件</el-button>
+                        </div>
+                      </el-upload>
+                      <el-button class="remove-up-btn" v-if="prescriptionForm.upJawModelPathName" type="text" @click="removeUpJawModel">删除</el-button>
+                      <div class="down-title">下颌</div>
+                      <el-upload
+                        class="mt20 ml56"
+                        action=""
+                        accept=".stl"
+                        :show-file-list="false"
+                        :http-request="showProcess"
+                        :on-success="handleImgSuccessDownJawModel"
+                        :before-upload="beforeImgUploadJawModel"
+                        :on-error="handleError">
+                        <div v-if="prescriptionForm.downJawModelPathName">
+                          <el-button icon="el-icon-file" class="model-icon-btn">{{prescriptionForm.downJawModelPathName}}</el-button>
+                        </div>
+                        <div v-else>
+                          <el-button icon="el-icon-upload" class="model-icon-btn">点击上传带咬合STL文件</el-button>
+                        </div>
+                      </el-upload>
+                      <el-button class="remove-down-btn" v-if="prescriptionForm.downJawModelPathName" type="text" @click="removeDownJawModel">删除</el-button>
+                    </el-col>
+                    <el-col span="14">
+                      <div class="jaw-model-desc">
+                        <div>1.口扫时扫过咬合，导出的上颌STL、下颌STL就会自动带上咬合数据；</div>
+                        <div>2.如需上传其他数据，请选择邮件发送，根据提示发送至邮箱即可。</div>
+                      </div>
+                    </el-col>
+                  </el-row>
                 </el-tab-pane>
-                <el-tab-pane label="硅橡胶模型" name="second">配置管理</el-tab-pane>
+                <!-- <el-tab-pane label="硅橡胶模型" name="second"></el-tab-pane> -->
               </el-tabs>
             </el-col>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <div class="diagnosis-title">照片池(0) <span class="diagnosis-tip">未分配照片可以在照片池中查看</span></div>
-            </el-col>
+              <div class="img-pool-contain">
+                <el-upload
+                  class="img-pool-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleImgSuccessImgPool"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <i class="el-icon-plus pool-icon"></i>
+                  <div class="pool-title">点击上传照片</div>
+                  <div class="pool-desc">点击可以上传更多图片</div>
+                </el-upload>
+              </div>
+            </el-col> -->
           </el-row>
         </el-tab-pane>
         <el-tab-pane :name="4">
           <span slot="label"><i class="el-icon-document-checked"></i> 提交</span>
-          444
+          <div class="error-submit">
+            <div v-show="showInfo || showPrescription || showFiles">
+              <div class="error-submit-tip">
+                <i class="el-icon-warning-outline error-submit-icon"></i>
+                <span>您还有以下项目待完善，请确认无误后再提交</span>
+              </div>
+              <div class="error-submit-noFilled">
+                <div class="mb20" v-show="showInfo">
+                  <span class="error-submit-noFilled-type">基本信息</span>
+                  <div class="error-submit-noFilled-content">
+                    <div v-show="!infoForm.name" class="error-submit-noFilled-content-every" @click="clickToInfo">患者姓名</div>
+                    <div v-show="!infoForm.doctorId" class="error-submit-noFilled-content-every" @click="clickToInfo">所属医生</div>
+                    <div v-show="!(infoForm.sex + '')" class="error-submit-noFilled-content-every" @click="clickToInfo">性别</div>
+                    <div v-show="!infoForm.birthday" class="error-submit-noFilled-content-every" @click="clickToInfo">出生日期</div>
+                    <div v-show="!infoForm.annType" class="error-submit-noFilled-content-every" @click="clickToInfo">安氏分类</div>
+                    <div v-show="!infoForm.malocclusionType.length" class="error-submit-noFilled-content-every" @click="clickToInfo">错合类型</div>
+                  </div>
+                </div>
+                <div class="mb20" v-show="showPrescription">
+                  <span class="error-submit-noFilled-type">诊断及矫治说明</span>
+                  <div class="error-submit-noFilled-content">
+                    <div v-show="!(prescriptionForm.ccTeeth.length || prescriptionForm.ccJaw.length)" class="error-submit-noFilled-content-every" @click="clickToDesc">主诉</div>
+                    <div v-show="!prescriptionForm.teeth.length" class="error-submit-noFilled-content-every" @click="clickToDesc">主要矫治目标</div>
+                    <div v-show="!prescriptionForm.orthodonticJaw" class="error-submit-noFilled-content-every" @click="clickToDesc">拟矫治牙颌</div>
+                    <div v-show="!prescriptionForm.surfaceType" class="error-submit-noFilled-content-every" @click="clickToDesc">面型</div>
+                    <div v-show="!(prescriptionForm.sagittalRight || prescriptionForm.sagittalLeft)" class="error-submit-noFilled-content-every" @click="clickToDesc">矢状关系</div>
+                    <div v-show="!prescriptionForm.midline" class="error-submit-noFilled-content-every" @click="clickToDesc">中线</div>
+                    <div v-show="!prescriptionForm.plantingNail" class="error-submit-noFilled-content-every" @click="clickToDesc">是否配合种植支抗钉</div>
+                  </div>
+                </div>
+                <div v-show="showFiles">
+                  <span class="error-submit-noFilled-type">影像资料及模型</span>
+                  <div class="error-submit-noFilled-content">
+                    <div v-show="showPhoto" class="error-submit-noFilled-content-every" @click="clickToPhoto">照片</div>
+                    <div v-show="!(prescriptionForm.upJawModelPath && prescriptionForm.downJawModelPath)" class="error-submit-noFilled-content-every" @click="clickToPhoto">牙颌模型</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-show="!(showInfo || showPrescription || showFiles)" class="error-submitTrue">
+              <i class="el-icon-circle-check error-submitTrue-img"></i>
+              <div class="error-submitTrue-tip">
+                <div>资料收集完毕，请点击提交</div>
+                <div>提交后，我司将尽快为您处理！</div>
+              </div>
+            </div>
+          </div>
         </el-tab-pane>
       </el-tabs>
     </div>
     <div class="all-add-footer">
       <el-button v-show="active>1" icon="el-icon-arrow-left" @click="prev">上一页</el-button>
       <el-button v-show="active<4" @click="next">下一页 <i class="el-icon-arrow-right"></i></el-button>
-      <el-button type="primary" plain @click="preserve">暂存</el-button>
+      <el-button type="primary" v-show="active<4 || showInfo || showPrescription || showFiles" plain @click="preserve">暂存</el-button>
+      <el-button type="primary" v-show="active === 4 && !(showInfo || showPrescription || showFiles)" plain @click="submitInfo">提交</el-button>
     </div>
   </div>
 </template>
@@ -972,9 +1063,46 @@ export default {
         otherXrayPath: "",
         upJawModelPath: "",
         upJawModelPathName: "",
+        downJawModelPath: "",
+        downJawModelPathName: "",
+        mailChecked: false,
       },
       activeName: "first",
     }
+  },
+  computed: {
+    showInfo () {
+      return !this.infoForm.name
+          || !this.infoForm.doctorId
+          || !(this.infoForm.sex + '')
+          || !this.infoForm.birthday
+          || !this.infoForm.annType
+          || !this.infoForm.malocclusionType.length;
+    },
+    showPrescription() {
+      return !(this.prescriptionForm.ccTeeth.length || this.prescriptionForm.ccJaw.length)
+          || !this.prescriptionForm.teeth.length
+          || !this.prescriptionForm.orthodonticJaw
+          || !this.prescriptionForm.surfaceType
+          || !(this.prescriptionForm.sagittalRight || this.prescriptionForm.sagittalLeft)
+          || !this.prescriptionForm.midline
+          || !this.prescriptionForm.plantingNail;
+    },
+    showPhoto() {
+      return !this.prescriptionForm.frontSmilingPath
+          || !this.prescriptionForm.frontPath
+          || !this.prescriptionForm.sidePath
+          || !this.prescriptionForm.upJawPath
+          || !this.prescriptionForm.downJawPath
+          || !this.prescriptionForm.rightJawPath
+          || !this.prescriptionForm.frontJawPath
+          || !this.prescriptionForm.leftJawPath
+          || !this.prescriptionForm.allXrayPath
+          || !this.prescriptionForm.sideXrayPath;
+    },
+    showFiles() {
+      return this.showPhoto || !(this.prescriptionForm.upJawModelPath && this.prescriptionForm.downJawModelPath);
+    },
   },
   created() {
     selectDoctor().then(res => {
@@ -991,7 +1119,6 @@ export default {
     next() {
       this.active++;
     },
-    preserve() {},
     firstClick() {
       this.active = 1;
     },
@@ -1040,19 +1167,15 @@ export default {
     beforeImgUpload(file) {
       const isJPG = file.type === 'image/jpeg';
       const isPNG = file.type === 'image/png';
-      const isLt2M = file.size / 1024 / 1024 < 2;
 
       if (!isJPG && !isPNG) {
         this.$message.error('您只能上传 jpg/png 类型的图片!');
       }
-      if (!isLt2M) {
-        this.$message.error('您上传的图片大小不能超过 2MB!');
-      }
-      return (isJPG || isPNG) && isLt2M;
+      return isJPG || isPNG;
     },
     async showProcess(params) {
       //调用分段上传OBS方法
-      return await cluploadOBS(params.file, 'order', (percentage) => {
+      return await uploadOBS(params.file, 'order/photo', (percentage) => {
         // 更新进度条
         params.onProgress({percent: percentage});
       });
@@ -1065,13 +1188,37 @@ export default {
       this.prescriptionForm.upJawModelPath = URL.createObjectURL(file.raw);
       this.prescriptionForm.upJawModelPathName = file.name;
     },
-    beforeImgUploadUpJawModel(file) {
+    beforeImgUploadJawModel(file) {
       const isSTL = file.name.toLocaleLowerCase().substring(file.name.lastIndexOf('.')) === ".stl";
       if (!isSTL) {
         this.$message.error('您只能上传 stl 类型的文件!');
       }
       return isSTL;
     },
+    handleImgSuccessDownJawModel(res, file) {
+      this.prescriptionForm.downJawModelPath = URL.createObjectURL(file.raw);
+      this.prescriptionForm.downJawModelPathName = file.name;
+    },
+    removeUpJawModel() {
+      this.prescriptionForm.upJawModelPath = "";
+      this.prescriptionForm.upJawModelPathName = "";
+    },
+    removeDownJawModel() {
+      this.prescriptionForm.downJawModelPath = "";
+      this.prescriptionForm.downJawModelPathName = "";
+    },
+    handleImgSuccessImgPool(res, file) {},
+    clickToInfo() {
+      this.active = 1;
+    },
+    clickToDesc() {
+      this.active = 2;
+    },
+    clickToPhoto() {
+      this.active = 3;
+    },
+    preserve() {},
+    submitInfo() {},
   },
 }
 </script>
@@ -1376,6 +1523,9 @@ export default {
 .mt20 {
   margin-top: 20px;
 }
+.mb20 {
+  margin-bottom: 20px;
+}
 .img-desc {
   width: 190px;
   height: 40px;
@@ -1406,9 +1556,150 @@ export default {
   font-size: 18px;
   color: #555;
   font-weight: 300;
-  margin-right: 20px;
+  width: 36px;
+  height: 40px;
+  line-height: 40px;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
-.w210 {
+.down-title {
+  font-size: 18px;
+  color: #555;
+  font-weight: 300;
+  width: 36px;
+  height: 40px;
+  line-height: 40px;
+  position: absolute;
+  left: 0;
+  top: 60px;
+}
+.ml56 {
+  margin-left: 56px;
+}
+.remove-up-btn {
+  position: absolute;
+  left: 286px;
+  top: 0px;
+}
+.remove-down-btn {
+  position: absolute;
+  left: 286px;
+  top: 60px;
+}
+.model-icon-btn {
   width: 210px;
+  height: 40px;
+}
+.jaw-model-desc {
+  font-size: 14px;
+  color: #666;
+  margin-top: 30px;
+}
+.img-pool-contain {
+  width: 325px;
+  height: 700px;
+  box-shadow: 0 2px 25px 0 rgb(170 178 195 / 22%);
+  border-radius: 10px;
+  padding: 30px;
+  overflow-y: auto;
+  margin-top: 30px;
+}
+.img-pool-uploader >>> .el-upload {
+  width: 160px;
+  height: 180px;
+  border: 1px dashed #c5c5c5;
+  background: #fafafa;
+  text-align: center;
+}
+.pool-icon {
+  width: 22px;
+  height: 22px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  font-size: 22px;
+  color: #8c939d;
+}
+.pool-title {
+  color: #333;
+  font-size: 14px;
+}
+.pool-desc {
+  color: #999;
+  font-size: 14px;
+  padding-top: 50px;
+  padding-bottom: 30px;
+}
+.error-submit {
+  padding: 50px;
+  min-height: 500px;
+}
+.error-submit-icon {
+  color: #f44336;
+  margin-right: 10px;
+  font-size: 20px;
+}
+.error-submit-tip {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: #555;
+  font-size: 20px;
+  height: 20px;
+  line-height: 20px;
+  white-space: nowrap;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+.error-submit-noFilled {
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid #f44336;
+  padding-left: 27px;
+  margin-bottom: 20px;
+}
+.error-submit-noFilled-type {
+  color: #333;
+  font-size: 16px;
+  line-height: 16px;
+  white-space: nowrap;
+  font-weight: 400;
+}
+.error-submit-noFilled-content:last-child {
+  margin-bottom: 0;
+}
+.error-submit-noFilled-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+.error-submit-noFilled-content-every {
+  margin-top: 10px;
+  color: #f44336;
+  font-size: 14px;
+  line-height: 24px;
+  white-space: nowrap;
+  font-weight: 400;
+  margin-right: 20px;
+  cursor: pointer;
+  border-bottom: 1px solid red;
+}
+.error-submitTrue {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.error-submitTrue-tip {
+  font-size: 20px;
+  font-weight: 500;
+  color: #555;
+  height: 54px;
+  margin-top: 13px;
+}
+.error-submitTrue-img {
+  font-size: 80px;
+  margin-right: 20px;
 }
 </style>
