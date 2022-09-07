@@ -11,7 +11,7 @@ export default {
   },
   data() {
     return {
-      status: 4, // 待提交
+      status: 3, // 待提交
     };
   },
 };

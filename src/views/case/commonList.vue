@@ -40,14 +40,14 @@
           prop="state"
           label="状态">
           <template slot-scope="scope">
-            <span v-if="scope.row.state == 10">暂存</span>
-            <span v-else-if="scope.row.state == 20">资料提交</span>
-            <span v-else-if="scope.row.state == 30">资料不合格</span>
-            <span v-else-if="scope.row.state == 40">资料通过</span>
+            <span v-if="scope.row.state == 10">资料已保存,待提交</span>
+            <span v-else-if="scope.row.state == 20">资料已提交,待审核</span>
+            <span v-else-if="scope.row.state == 30">资料不合格,请补齐</span>
+            <span v-else-if="scope.row.state == 40">资料审核通过,3D方案设计中</span>
             <span v-else-if="scope.row.state == 50">3D方案已上传</span>
-            <span v-else-if="scope.row.state == 60">3D方案不合格</span>
-            <span v-else-if="scope.row.state == 70">3D方案合格</span>
-            <span v-else-if="scope.row.state == 80">生产发货</span>
+            <span v-else-if="scope.row.state == 60">3D方案已提交反馈</span>
+            <span v-else-if="scope.row.state == 70">3D方案已批准</span>
+            <span v-else-if="scope.row.state == 80">完成</span>
             <span v-else>无</span>
           </template>
         </el-table-column>
@@ -67,10 +67,26 @@
         <el-table-column
           fixed="right"
           label="操作"
-          width="100">
+          width="200">
           <template slot-scope="scope">
-            <el-button @click="handleApproved(scope.row)" type="text">通过</el-button>
-            <el-button @click="handleRejected(scope.row)" type="text">拒绝</el-button>
+            <span v-if="scope.row.state == 10">
+              <el-button @click="handleEdit(scope.row)" type="text">编辑</el-button>
+            </span>
+            <span v-else-if="scope.row.state == 20">
+              <el-button @click="handleApproved(scope.row)" type="text">审核通过</el-button>
+              <el-button @click="handleRejected(scope.row)" type="text">审核不通过</el-button>
+            </span>
+            <span v-else-if="scope.row.state == 30">
+              <el-button @click="handleEdit(scope.row)" type="text">编辑</el-button>
+            </span>
+            <span v-else-if="scope.row.state == 40">
+              <el-button @click="handleUpload(scope.row)" type="text">上传</el-button>
+            </span>
+            <span v-else-if="scope.row.state == 60">
+              <el-button @click="handleUpload(scope.row)" type="text">上传</el-button>
+              <el-button @click="viewReason(scope.row)" type="text">查看原因</el-button>
+            </span>
+            <span v-else>--</span>
           </template>
         </el-table-column>
       </el-table>
@@ -89,11 +105,11 @@
       title="提示"
       :visible.sync="rejectVisible"
       width="30%">
-      <span>备注：</span>
+      <span>审核不通过原因：</span>
       <el-input
         type="textarea"
         :rows="3"
-        placeholder="请输入备注"
+        placeholder="请输入审核不通过原因"
         v-model="remark">
       </el-input>
       <span slot="footer" class="dialog-footer">
@@ -196,6 +212,7 @@ export default {
     rowClick(row) {
       console.log(row);
     },
+    handleEdit(row) {},
     handleApproved(row) {
       passCase({recordId: row.id}).then(res => {
         if (res.data.code == 200) {
@@ -211,6 +228,8 @@ export default {
       this.rejectVisible = true;
       this.remark = "";
     },
+    handleUpload(row) {},
+    viewReason(row) {},
     sureReject() {
       let params = {
         recordId: this.rejectId,

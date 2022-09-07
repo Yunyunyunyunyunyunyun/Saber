@@ -11,7 +11,7 @@ export default {
   },
   data() {
     return {
-      status: 3, // 治疗中
+      status: 4, // 治疗中
     };
   },
 };
