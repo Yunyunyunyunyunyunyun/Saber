@@ -10,7 +10,7 @@ export const getCaseList = (params) => {
 
 export const passCase = (params) => {
   return request({
-    url: '/api/blade-orth/treatmentrecord/doctor-pass',
+    url: '/api/blade-orth/case/record-pass',
     method: 'get',
     params: params,
   })
@@ -18,7 +18,7 @@ export const passCase = (params) => {
 
 export const rejectCase = (params) => {
   return request({
-    url: '/api/blade-orth/treatmentrecord/doctor-fail-pass',
+    url: '/api/blade-orth/case/record-fail-pass',
     method: 'get',
     params: params,
   })
