@@ -182,11 +182,13 @@ export default {
       this.loading = true;
       data.state = this.status;
       getCaseList(data).then(res => {
+        if (res.data.code == 200) {
           const data = res.data.data;
           this.total = data.total;
           this.caseTableData = data.records;
-          this.loading = false;
-      })
+        }
+        this.loading = false;
+      });
     },
     addCase() {
       this.$router.push({path: "/case/all_add"});

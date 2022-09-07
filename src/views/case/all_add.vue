@@ -926,16 +926,19 @@
     <div class="all-add-footer">
       <el-button v-show="active>1" icon="el-icon-arrow-left" @click="prev">上一页</el-button>
       <el-button v-show="active<4" @click="next">下一页 <i class="el-icon-arrow-right"></i></el-button>
-      <el-button type="primary" v-show="active<4 || showInfo || showPrescription || showFiles" plain @click="preserve">暂存</el-button>
-      <el-button type="primary" v-show="active === 4 && !(showInfo || showPrescription || showFiles)" plain @click="submitInfo">提交</el-button>
+      <el-button type="primary" v-show="active<4 || showInfo || showPrescription || showFiles" plain @click="caseSave('preserve')">暂存</el-button>
+      <el-button type="primary" v-show="active === 4 && !(showInfo || showPrescription || showFiles)" plain @click="caseSave('submit')">提交</el-button>
     </div>
   </div>
 </template>
 <script>
 import {
   selectDoctor,
+  saveCase,
+  preserveCase,
 } from "@/api/case/commonCase";
 import { uploadOBS } from "@/util/obs";
+import { dateFormat } from '@/util/upDate';
 export default {
   name: "AllAdd",
   data() {
@@ -1034,6 +1037,8 @@ export default {
         frontTeeth: "",
         afterTeeth: "",
         midline: "",
+        clearanceCorrectUp: "",
+        clearanceCorrectDown: "",
         enlargeBowUp: "",
         lipDipUp: "",
         adjacentGlazeUp: "",
@@ -1064,7 +1069,6 @@ export default {
         upJawModelPathName: "",
         downJawModelPath: "",
         downJawModelPathName: "",
-        mailChecked: false,
       },
       activeName: "first",
     }
@@ -1131,37 +1135,48 @@ export default {
       this.active = 4;
     },
     handleImgSuccessSimle(res, file) {
-      this.prescriptionForm.frontSmilingPath = URL.createObjectURL(file.raw);
+      const data = res.data || {};
+      this.prescriptionForm.frontSmilingPath = data.viewStlUrl;
     },
     handleImgSuccessFront(res, file) {
-      this.prescriptionForm.frontPath = URL.createObjectURL(file.raw);
+      const data = res.data || {};
+      this.prescriptionForm.frontPath = data.viewStlUrl;
     },
     handleImgSuccessSide(res, file) {
-      this.prescriptionForm.sidePath = URL.createObjectURL(file.raw);
+      const data = res.data || {};
+      this.prescriptionForm.sidePath = data.viewStlUrl;
     },
     handleImgSuccessSideUpJaw(res, file) {
-      this.prescriptionForm.upJawPath = URL.createObjectURL(file.raw);
+      const data = res.data || {};
+      this.prescriptionForm.upJawPath = data.viewStlUrl;
     },
     handleImgSuccessDownJaw(res, file) {
-      this.prescriptionForm.downJawPath = URL.createObjectURL(file.raw);
+      const data = res.data || {};
+      this.prescriptionForm.downJawPath = data.viewStlUrl;
     },
     handleImgSuccessRightJaw(res, file) {
-      this.prescriptionForm.rightJawPath = URL.createObjectURL(file.raw);
+      const data = res.data || {};
+      this.prescriptionForm.rightJawPath = data.viewStlUrl;
     },
     handleImgSuccessFrontJaw(res, file) {
-      this.prescriptionForm.frontJawPath = URL.createObjectURL(file.raw);
+      const data = res.data || {};
+      this.prescriptionForm.frontJawPath = data.viewStlUrl;
     },
     handleImgSuccessLeftJaw(res, file) {
-      this.prescriptionForm.leftJawPath = URL.createObjectURL(file.raw);
+      const data = res.data || {};
+      this.prescriptionForm.leftJawPath = data.viewStlUrl;
     },
     handleImgSuccessAllXray(res, file) {
-      this.prescriptionForm.allXrayPath = URL.createObjectURL(file.raw);
+      const data = res.data || {};
+      this.prescriptionForm.allXrayPath = data.viewStlUrl;
     },
     handleImgSuccessSideXray(res, file) {
-      this.prescriptionForm.sideXrayPath = URL.createObjectURL(file.raw);
+      const data = res.data || {};
+      this.prescriptionForm.sideXrayPath = data.viewStlUrl;
     },
     handleImgSuccessOtherXray(res, file) {
-      this.prescriptionForm.otherXrayPath = URL.createObjectURL(file.raw);
+      const data = res.data || {};
+      this.prescriptionForm.otherXrayPath = data.viewStlUrl;
     },
     beforeImgUpload(file) {
       const isJPG = file.type === 'image/jpeg';
@@ -1184,8 +1199,9 @@ export default {
       return false;
     },
     handleImgSuccessUpJawModel(res, file) {
-      this.prescriptionForm.upJawModelPath = URL.createObjectURL(file.raw);
-      this.prescriptionForm.upJawModelPathName = file.name;
+      const data = res.data || {};
+      this.prescriptionForm.upJawModelPath = data.viewStlUrl;
+      this.prescriptionForm.upJawModelPathName = data.originalName;
     },
     beforeImgUploadJawModel(file) {
       const isSTL = file.name.toLocaleLowerCase().substring(file.name.lastIndexOf('.')) === ".stl";
@@ -1195,8 +1211,9 @@ export default {
       return isSTL;
     },
     handleImgSuccessDownJawModel(res, file) {
-      this.prescriptionForm.downJawModelPath = URL.createObjectURL(file.raw);
-      this.prescriptionForm.downJawModelPathName = file.name;
+      const data = res.data || {};
+      this.prescriptionForm.downJawModelPath = data.viewStlUrl;
+      this.prescriptionForm.downJawModelPathName = data.originalName;
     },
     removeUpJawModel() {
       this.prescriptionForm.upJawModelPath = "";
@@ -1216,8 +1233,308 @@ export default {
     clickToPhoto() {
       this.active = 3;
     },
-    preserve() {},
-    submitInfo() {},
+    caseSave(state) {
+      let data = {};
+      if (this.infoForm.name) {
+        data.name = this.infoForm.name;
+      }
+      if (this.infoForm.doctorId) {
+        data.doctorId = this.infoForm.doctorId;
+      }
+      if (this.infoForm.sex) {
+        data.sex = this.infoForm.sex;
+      }
+      if (this.infoForm.birthday) {
+        data.birthday = dateFormat(this.infoForm.birthday, "yyyy-MM-dd");
+      }
+      if (this.infoForm.annType) {
+        data.annType = this.infoForm.annType;
+      }
+      if (this.infoForm.bonyType) {
+        data.bonyType = this.infoForm.bonyType;
+      }
+      if (this.infoForm.malocclusionType.length) {
+        data.malocclusionType = this.infoForm.malocclusionType.join(",");
+      }
+      if (this.prescriptionForm.ccTeeth.length) {
+        data.ccTeeth = this.prescriptionForm.ccTeeth.join(",");
+      }
+      if (this.prescriptionForm.ccJaw.length) {
+        data.ccJaw = this.prescriptionForm.ccJaw.join(",");
+      }
+      if (this.prescriptionForm.teeth.length) {
+        data.teeth = this.prescriptionForm.teeth.join(",");
+      }
+      if (this.prescriptionForm.orthodonticJaw) {
+        data.orthodonticJaw = this.prescriptionForm.orthodonticJaw;
+      }
+      let teethInformationString = "";
+      if (this.prescriptionForm.teethInformationOne.length) {
+        teethInformationString = this.prescriptionForm.teethInformationOne.join(",");
+      }
+      if (this.prescriptionForm.teethInformationTwo.length) {
+        if (teethInformationString) {
+          teethInformationString = teethInformationString + ',' + this.prescriptionForm.teethInformationTwo.join(",");
+        } else {
+          teethInformationString = this.prescriptionForm.teethInformationTwo.join(",");
+        }
+      }
+      if (this.prescriptionForm.teethInformationThree.length) {
+        if (teethInformationString) {
+          teethInformationString = teethInformationString + ',' + this.prescriptionForm.teethInformationThree.join(",");
+        } else {
+          teethInformationString = this.prescriptionForm.teethInformationThree.join(",");
+        }
+      }
+      if (this.prescriptionForm.teethInformationFour.length) {
+        if (teethInformationString) {
+          teethInformationString = teethInformationString + ',' + this.prescriptionForm.teethInformationFour.join(",");
+        } else {
+          teethInformationString = this.prescriptionForm.teethInformationFour.join(",");
+        }
+      }
+      if (teethInformationString) {
+        data.teethInformation = teethInformationString;
+      }
+      if (this.prescriptionForm.teethClearance === 0) {
+        data.teethClearance = this.prescriptionForm.teethClearance;
+      } else {
+        data.teethClearance = (this.prescriptionForm.teethClearance1||'none')+','+(this.prescriptionForm.teethClearance2||'none')
+                        +','+(this.prescriptionForm.teethClearance3||'none')+','+(this.prescriptionForm.teethClearance4||'none')+','+(this.prescriptionForm.teethClearance5||'none')
+                        +','+(this.prescriptionForm.teethClearance6||'none')+','+(this.prescriptionForm.teethClearance7||'none')
+                        +','+(this.prescriptionForm.teethClearance8||'none')+','+(this.prescriptionForm.teethClearance9||'none')+','+(this.prescriptionForm.teethClearance10||'none')
+                        +','+(this.prescriptionForm.teethClearance11||'none')+','+(this.prescriptionForm.teethClearance12||'none')
+                        +','+(this.prescriptionForm.teethClearance13||'none')+','+(this.prescriptionForm.teethClearance14||'none')+','+(this.prescriptionForm.teethClearance15||'none')
+                        +','+(this.prescriptionForm.teethClearance16||'none')+','+(this.prescriptionForm.teethClearance17||'none')
+                        +','+(this.prescriptionForm.teethClearance18||'none')+','+(this.prescriptionForm.teethClearance19||'none')+','+(this.prescriptionForm.teethClearance20||'none')
+                        +','+(this.prescriptionForm.teethClearance21||'none')+','+(this.prescriptionForm.teethClearance22||'none')
+                        +','+(this.prescriptionForm.teethClearance23||'none')+','+(this.prescriptionForm.teethClearance24||'none')+','+(this.prescriptionForm.teethClearance25||'none')
+                        +','+(this.prescriptionForm.teethClearance26||'none')+','+(this.prescriptionForm.teethClearance27||'none')
+                        +','+(this.prescriptionForm.teethClearance28||'none')+','+(this.prescriptionForm.teethClearance29||'none')+','+(this.prescriptionForm.teethClearance30||'none')
+      }
+      if (this.prescriptionForm.teethMobile === 0) {
+        data.teethMobile = this.prescriptionForm.teethMobile;
+      } else {
+        let teethMobileString = "";
+        if (this.prescriptionForm.teethMobileOne.length) {
+          teethMobileString = this.prescriptionForm.teethMobileOne.join(",");
+        }
+        if (this.prescriptionForm.teethMobileTwo.length) {
+          if (teethMobileString) {
+            teethMobileString = teethMobileString + ',' + this.prescriptionForm.teethMobileTwo.join(",");
+          } else {
+            teethMobileString = this.prescriptionForm.teethMobileTwo.join(",");
+          }
+        }
+        if (this.prescriptionForm.teethMobileThree.length) {
+          if (teethMobileString) {
+            teethMobileString = teethMobileString + ',' + this.prescriptionForm.teethMobileThree.join(",");
+          } else {
+            teethMobileString = this.prescriptionForm.teethMobileThree.join(",");
+          }
+        }
+        if (this.prescriptionForm.teethMobileFour.length) {
+          if (teethMobileString) {
+            teethMobileString = teethMobileString + ',' + this.prescriptionForm.teethMobileFour.join(",");
+          } else {
+            teethMobileString = this.prescriptionForm.teethMobileFour.join(",");
+          }
+        }
+        if (teethMobileString) {
+          data.teethMobile = teethMobileString;
+        }
+      }
+      if (this.prescriptionForm.teethAttachment === 0) {
+        data.teethAttachment = this.prescriptionForm.teethAttachment;
+      } else {
+        let teethAttachmentString = "";
+        if (this.prescriptionForm.teethAttachmentOne.length) {
+          teethAttachmentString = this.prescriptionForm.teethAttachmentOne.join(",");
+        }
+        if (this.prescriptionForm.teethAttachmentTwo.length) {
+          if (teethAttachmentString) {
+            teethAttachmentString = teethAttachmentString + ',' + this.prescriptionForm.teethAttachmentTwo.join(",");
+          } else {
+            teethAttachmentString = this.prescriptionForm.teethAttachmentTwo.join(",");
+          }
+        }
+        if (this.prescriptionForm.teethAttachmentThree.length) {
+          if (teethAttachmentString) {
+            teethAttachmentString = teethAttachmentString + ',' + this.prescriptionForm.teethAttachmentThree.join(",");
+          } else {
+            teethAttachmentString = this.prescriptionForm.teethAttachmentThree.join(",");
+          }
+        }
+        if (this.prescriptionForm.teethAttachmentFour.length) {
+          if (teethAttachmentString) {
+            teethAttachmentString = teethAttachmentString + ',' + this.prescriptionForm.teethAttachmentFour.join(",");
+          } else {
+            teethAttachmentString = this.prescriptionForm.teethAttachmentFour.join(",");
+          }
+        }
+        if (teethAttachmentString) {
+          data.teethAttachment = teethAttachmentString;
+        }
+      }
+      if (this.prescriptionForm.surfaceType) {
+        data.surfaceType = this.prescriptionForm.surfaceType;
+      }
+      if (this.prescriptionForm.sagittalRight) {
+        data.sagittalRight = this.prescriptionForm.sagittalRight;
+      }
+      if (this.prescriptionForm.sagittalLeft) {
+        data.sagittalLeft = this.prescriptionForm.sagittalLeft;
+      }
+      if (this.prescriptionForm.cover) {
+        data.cover = this.prescriptionForm.cover;
+      }
+      if (this.prescriptionForm.combined) {
+        data.combined = this.prescriptionForm.combined;
+      }
+      if (this.prescriptionForm.frontTeeth) {
+        data.frontTeeth = this.prescriptionForm.frontTeeth;
+      }
+      if (this.prescriptionForm.afterTeeth) {
+        data.afterTeeth = this.prescriptionForm.afterTeeth;
+      }
+      if (this.prescriptionForm.midline) {
+        data.midline = this.prescriptionForm.midline;
+      }
+      if (this.prescriptionForm.clearanceCorrectUp) {
+        data.clearanceCorrectUp = this.prescriptionForm.clearanceCorrectUp;
+      }
+      if (this.prescriptionForm.clearanceCorrectDown) {
+        data.clearanceCorrectDown = this.prescriptionForm.clearanceCorrectDown;
+      }
+      if (this.prescriptionForm.enlargeBowUp) {
+        data.enlargeBowUp = this.prescriptionForm.enlargeBowUp;
+      }
+      if (this.prescriptionForm.lipDipUp) {
+        data.lipDipUp = this.prescriptionForm.lipDipUp;
+      }
+      if (this.prescriptionForm.adjacentGlazeUp) {
+        data.adjacentGlazeUp = this.prescriptionForm.adjacentGlazeUp;
+      }
+      if (this.prescriptionForm.farRemovedMolarUp) {
+        data.farRemovedMolarUp = this.prescriptionForm.farRemovedMolarUp;
+      }
+      if (this.prescriptionForm.enlargeBowDown) {
+        data.enlargeBowDown = this.prescriptionForm.enlargeBowDown;
+      }
+      if (this.prescriptionForm.lipDipDown) {
+        data.lipDipDown = this.prescriptionForm.lipDipDown;
+      }
+      if (this.prescriptionForm.adjacentGlazeDown) {
+        data.adjacentGlazeDown = this.prescriptionForm.adjacentGlazeDown;
+      }
+      if (this.prescriptionForm.farRemovedMolarDown) {
+        data.farRemovedMolarDown = this.prescriptionForm.farRemovedMolarDown;
+      }
+      if (this.prescriptionForm.toothExtraction === 0) {
+        data.toothExtraction = this.prescriptionForm.toothExtraction;
+      } else {
+        let toothExtractionString = "";
+        if (this.prescriptionForm.toothExtractionOne.length) {
+          toothExtractionString = this.prescriptionForm.toothExtractionOne.join(",");
+        }
+        if (this.prescriptionForm.toothExtractionTwo.length) {
+          if (toothExtractionString) {
+            toothExtractionString = toothExtractionString + ',' + this.prescriptionForm.toothExtractionTwo.join(",");
+          } else {
+            toothExtractionString = this.prescriptionForm.toothExtractionTwo.join(",");
+          }
+        }
+        if (toothExtractionString) {
+          data.toothExtraction = toothExtractionString;
+        }
+      }
+      if (this.prescriptionForm.plantingNail) {
+        data.plantingNail = this.prescriptionForm.plantingNail;
+      }
+      if (this.prescriptionForm.temporomandibularJoint) {
+        data.temporomandibularJoint = this.prescriptionForm.temporomandibularJoint;
+      }
+      if (this.prescriptionForm.remoteTreatments) {
+        data.remoteTreatments = this.prescriptionForm.remoteTreatments;
+      }
+      if (this.prescriptionForm.specialInstructions) {
+        data.specialInstructions = this.prescriptionForm.specialInstructions;
+      }
+      if (this.prescriptionForm.frontSmilingPath) {
+        data.frontSmilingPath = this.prescriptionForm.frontSmilingPath;
+      }
+      if (this.prescriptionForm.frontPath) {
+        data.frontPath = this.prescriptionForm.frontPath;
+      }
+      if (this.prescriptionForm.sidePath) {
+        data.sidePath = this.prescriptionForm.sidePath;
+      }
+      if (this.prescriptionForm.upJawPath) {
+        data.upJawPath = this.prescriptionForm.upJawPath;
+      }
+      if (this.prescriptionForm.downJawPath) {
+        data.downJawPath = this.prescriptionForm.downJawPath;
+      }
+      if (this.prescriptionForm.rightJawPath) {
+        data.rightJawPath = this.prescriptionForm.rightJawPath;
+      }
+      if (this.prescriptionForm.frontJawPath) {
+        data.frontJawPath = this.prescriptionForm.frontJawPath;
+      }
+      if (this.prescriptionForm.leftJawPath) {
+        data.leftJawPath = this.prescriptionForm.leftJawPath;
+      }
+      if (this.prescriptionForm.allXrayPath) {
+        data.allXrayPath = this.prescriptionForm.allXrayPath;
+      }
+      if (this.prescriptionForm.sideXrayPath) {
+        data.sideXrayPath = this.prescriptionForm.sideXrayPath;
+      }
+      if (this.prescriptionForm.otherXrayPath) {
+        data.otherXrayPath = this.prescriptionForm.otherXrayPath;
+      }
+      if (this.prescriptionForm.upJawModelPath) {
+        data.upJawModelPath = this.prescriptionForm.upJawModelPath;
+      }
+      if (this.prescriptionForm.upJawModelPathName) {
+        data.upJawModelPathName = this.prescriptionForm.upJawModelPathName;
+      }
+      if (this.prescriptionForm.downJawModelPath) {
+        data.downJawModelPath = this.prescriptionForm.downJawModelPath;
+      }
+      if (this.prescriptionForm.downJawModelPathName) {
+        data.downJawModelPathName = this.prescriptionForm.downJawModelPathName;
+      }
+      if (state === "preserve") {
+        if (this.infoForm.doctorId) {
+          preserveCase(data).then(res => {
+            if (res.data.code == 200) {
+              this.$message({
+                type: "success",
+                message: "暂存成功!"
+              });
+            }
+          });
+        } else {
+          this.$message({
+            type: "warning",
+            message: "所属医生必须选择!"
+          });
+        }
+      } else if(state === "submit") {
+        saveCase(data).then(res => {
+          if (res.data.code == 200) {
+            this.$message({
+              type: "success",
+              message: "提交成功!"
+            });
+            this.$router.push({path: "/case/all"});
+          }
+        });
+      } else {
+        // 不存在这种情况，不做操作
+      }
+    },
   },
 }
 </script>

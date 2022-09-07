@@ -352,11 +352,13 @@ export default {
     getAllDoctorList(data) {
       this.loading = true;
       getDoctorList(data).then(res => {
+        if (res.data.code == 200) {
           const data = res.data.data;
           this.total = data.total;
           this.doctorTableData = data.records;
-          this.loading = false;
-      })
+        }
+        this.loading = false;
+      });
     },
     handleEdit(obj) {
       this.editVisible = true;

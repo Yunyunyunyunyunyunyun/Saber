@@ -307,11 +307,13 @@ export default {
     getAllStaffList(data) {
       this.loading = true;
       getStaffList(data).then(res => {
+        if (res.data.code == 200) {
           const data = res.data.data;
           this.total = data.total;
           this.staffTableData = data.records;
-          this.loading = false;
-      })
+        }
+        this.loading = false;
+      });
     },
     handleEdit(obj) {
       this.editVisible = true;

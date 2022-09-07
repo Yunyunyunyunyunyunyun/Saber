@@ -257,7 +257,8 @@ export default {
             if (res.data.code == 200) {
               this.$message({
                 type: "success",
-                message: "开通医生账号成功!"
+                message: "开通医生账号成功!",
+                duration: 5000,
               });
               this.resetDoctorForm('doctorForm')
             }
@@ -290,7 +291,8 @@ export default {
             if (res.data.code == 200) {
               this.$message({
                 type: "success",
-                message: "开通员工账号成功!"
+                message: "开通员工账号成功!",
+                duration: 5000,
               });
               this.resetStaffForm('staffForm')
             }

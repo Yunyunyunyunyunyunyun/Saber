@@ -30,3 +30,20 @@ export const selectDoctor = () => {
     method: 'post',
   })
 }
+
+export const saveCase = (row) => {
+  return request({
+    url: '/api/blade-orth/case/save',
+    method: 'post',
+    data: row
+  })
+}
+
+export const preserveCase = (row) => {
+  return request({
+    url: '/api/blade-orth/case/save_wait',
+    method: 'post',
+    data: row
+  })
+}
+
