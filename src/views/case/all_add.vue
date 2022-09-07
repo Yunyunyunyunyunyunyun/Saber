@@ -936,7 +936,6 @@ import {
   selectDoctor,
 } from "@/api/case/commonCase";
 import { uploadOBS } from "@/util/obs";
-import { uploadOBS as cluploadOBS } from "@/util/clobs";
 export default {
   name: "AllAdd",
   data() {
