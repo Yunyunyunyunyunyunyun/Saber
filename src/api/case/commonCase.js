@@ -54,3 +54,11 @@ export const uploadThreeD = (params) => {
     params: params,
   })
 }
+
+export const getDetails = (params) => {
+  return request({
+    url: '/api/blade-orth/treatmentrecord/doctor-detail',
+    method: 'get',
+    params: params,
+  })
+}

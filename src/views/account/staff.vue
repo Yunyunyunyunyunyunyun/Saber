@@ -265,6 +265,18 @@ export default {
         current: this.currentPage,
         size: val
       };
+      if (this.staffName) {
+        params.name = this.staffName;
+      }
+      if (this.staffPhone) {
+        params.phone = this.staffPhone;
+      }
+      if (this.$refs["staffArea"].getCheckedNodes()[0]) {
+        params.countries = "中国";
+        params.province = this.$refs["staffArea"].getCheckedNodes()[0].data.provinceName;
+        params.city = this.$refs["staffArea"].getCheckedNodes()[0].data.cityName;
+        params.district = this.$refs["staffArea"].getCheckedNodes()[0].data.districtName;
+      }
       this.getAllStaffList(params);
     },
     handleCurrentChange(val) {
@@ -273,6 +285,18 @@ export default {
         current: val,
         size: this.pageSize,
       };
+      if (this.staffName) {
+        params.name = this.staffName;
+      }
+      if (this.staffPhone) {
+        params.phone = this.staffPhone;
+      }
+      if (this.$refs["staffArea"].getCheckedNodes()[0]) {
+        params.countries = "中国";
+        params.province = this.$refs["staffArea"].getCheckedNodes()[0].data.provinceName;
+        params.city = this.$refs["staffArea"].getCheckedNodes()[0].data.cityName;
+        params.district = this.$refs["staffArea"].getCheckedNodes()[0].data.districtName;
+      }
       this.getAllStaffList(params);
     },
     resetSearch() {
@@ -386,6 +410,18 @@ export default {
                 current: this.currentPage,
                 size: this.pageSize,
               };
+              if (this.staffName) {
+                params.name = this.staffName;
+              }
+              if (this.staffPhone) {
+                params.phone = this.staffPhone;
+              }
+              if (this.$refs["staffArea"].getCheckedNodes()[0]) {
+                params.countries = "中国";
+                params.province = this.$refs["staffArea"].getCheckedNodes()[0].data.provinceName;
+                params.city = this.$refs["staffArea"].getCheckedNodes()[0].data.cityName;
+                params.district = this.$refs["staffArea"].getCheckedNodes()[0].data.districtName;
+              }
               this.getAllStaffList(params);
             }
           })

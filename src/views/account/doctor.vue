@@ -310,6 +310,18 @@ export default {
         current: this.currentPage,
         size: val
       };
+      if (this.doctorName) {
+        params.name = this.doctorName;
+      }
+      if (this.doctorPhone) {
+        params.phone = this.doctorPhone;
+      }
+      if (this.$refs["doctorArea"].getCheckedNodes()[0]) {
+        params.countries = "中国";
+        params.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
+        params.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
+        params.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
+      }
       this.getAllDoctorList(params);
     },
     handleCurrentChange(val) {
@@ -318,6 +330,18 @@ export default {
         current: val,
         size: this.pageSize,
       };
+      if (this.doctorName) {
+        params.name = this.doctorName;
+      }
+      if (this.doctorPhone) {
+        params.phone = this.doctorPhone;
+      }
+      if (this.$refs["doctorArea"].getCheckedNodes()[0]) {
+        params.countries = "中国";
+        params.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
+        params.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
+        params.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
+      }
       this.getAllDoctorList(params);
     },
     resetSearch() {
@@ -438,6 +462,18 @@ export default {
                 current: this.currentPage,
                 size: this.pageSize,
               };
+              if (this.doctorName) {
+                params.name = this.doctorName;
+              }
+              if (this.doctorPhone) {
+                params.phone = this.doctorPhone;
+              }
+              if (this.$refs["doctorArea"].getCheckedNodes()[0]) {
+                params.countries = "中国";
+                params.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
+                params.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
+                params.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
+              }
               this.getAllDoctorList(params);
             }
           })

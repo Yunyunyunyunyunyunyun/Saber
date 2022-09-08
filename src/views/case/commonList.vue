@@ -25,8 +25,8 @@
         style="width: 100%"
         @row-click="rowClick">
         <el-table-column
-          prop="prescriptionId"
-          label="病例处方ID">
+          prop="medicalCode"
+          label="病例编号">
         </el-table-column>
         <el-table-column
           prop="name"
@@ -52,8 +52,8 @@
           </template>
         </el-table-column>
         <el-table-column
-          prop="doctorId"
-          label="医生ID">
+          prop="doctorName"
+          label="医生姓名">
         </el-table-column>
         <el-table-column
           prop="org"
@@ -100,7 +100,6 @@
                 :on-error="handleError">
                 <el-button type="text">上传</el-button>
               </el-upload>
-              <el-button @click="viewReason(scope.row)" type="text">查看原因</el-button>
             </span>
             <span v-else>--</span>
           </template>
@@ -202,6 +201,12 @@ export default {
         current: this.currentPage,
         size: val
       };
+      if (this.doctorName) {
+        params.doctorName = this.doctorName;
+      }
+      if (this.patientName) {
+        params.name = this.patientName;
+      }
       this.getAllCaseList(params);
     },
     handleCurrentChange(val) {
@@ -210,6 +215,12 @@ export default {
         current: val,
         size: this.pageSize,
       };
+      if (this.doctorName) {
+        params.doctorName = this.doctorName;
+      }
+      if (this.patientName) {
+        params.name = this.patientName;
+      }
       this.getAllCaseList(params);
     },
     getAllCaseList(data) {
@@ -230,7 +241,15 @@ export default {
     rowClick(row) {
       console.log(row);
     },
-    handleEdit(row) {},
+    handleEdit(row) {
+      this.$router.push({
+        path: "/case/all_add",
+        query: {
+          id: row.id,
+          isEdit: true,
+        }
+      });
+    },
     handleApproved(row) {
       passCase({recordId: row.id}).then(res => {
         if (res.data.code == 200) {
@@ -238,6 +257,17 @@ export default {
             type: "success",
             message: "审核通过成功!"
           });
+          let params = {
+            current: this.currentPage,
+            size: this.pageSize,
+          };
+          if (this.doctorName) {
+            params.doctorName = this.doctorName;
+          }
+          if (this.patientName) {
+            params.name = this.patientName;
+          }
+          this.getAllCaseList(params);
         }
       })
     },
@@ -246,7 +276,6 @@ export default {
       this.rejectVisible = true;
       this.remark = "";
     },
-    viewReason(row) {},
     sureReject() {
       let params = {
         recordId: this.rejectId,
@@ -258,6 +287,17 @@ export default {
             type: "success",
             message: "审核拒绝成功!"
           });
+          let params = {
+            current: this.currentPage,
+            size: this.pageSize,
+          };
+          if (this.doctorName) {
+            params.doctorName = this.doctorName;
+          }
+          if (this.patientName) {
+            params.name = this.patientName;
+          }
+          this.getAllCaseList(params);
         }
       })
     },
@@ -276,6 +316,7 @@ export default {
       const data = res.data || {};
       let params = {
         filePath: data.viewStlUrl,
+        fileName: data.originalName,
         recordId: row.id,
       };
       uploadThreeD(params).then(res => {
@@ -284,6 +325,17 @@ export default {
             type: "success",
             message: "上传成功!"
           });
+          let params = {
+            current: this.currentPage,
+            size: this.pageSize,
+          };
+          if (this.doctorName) {
+            params.doctorName = this.doctorName;
+          }
+          if (this.patientName) {
+            params.name = this.patientName;
+          }
+          this.getAllCaseList(params);
         }
       });
     },
