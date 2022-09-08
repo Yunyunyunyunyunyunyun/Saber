@@ -34,6 +34,7 @@
                 v-model="infoForm.birthday"
                 type="date"
                 placeholder="请选择出生日期"
+                value-format="yyyy-MM-dd"
                 :picker-options="pickerOptions">
               </el-date-picker>
             </el-form-item>
@@ -813,14 +814,14 @@
                         :on-success="handleImgSuccessUpJawModel"
                         :before-upload="beforeImgUploadJawModel"
                         :on-error="handleError">
-                        <div v-if="prescriptionForm.upJawModelPathName">
-                          <el-button icon="el-icon-file" class="model-icon-btn">{{prescriptionForm.upJawModelPathName}}</el-button>
+                        <div v-if="prescriptionForm.upJawModelName">
+                          <el-button icon="el-icon-file" class="model-icon-btn">{{prescriptionForm.upJawModelName}}</el-button>
                         </div>
                         <div v-else>
                           <el-button icon="el-icon-upload" class="model-icon-btn">点击上传带咬合STL文件</el-button>
                         </div>
                       </el-upload>
-                      <el-button class="remove-up-btn" v-if="prescriptionForm.upJawModelPathName" type="text" @click="removeUpJawModel">删除</el-button>
+                      <el-button class="remove-up-btn" v-if="prescriptionForm.upJawModelName" type="text" @click="removeUpJawModel">删除</el-button>
                       <div class="down-title">下颌</div>
                       <el-upload
                         class="mt20 ml56"
@@ -831,14 +832,14 @@
                         :on-success="handleImgSuccessDownJawModel"
                         :before-upload="beforeImgUploadJawModel"
                         :on-error="handleError">
-                        <div v-if="prescriptionForm.downJawModelPathName">
-                          <el-button icon="el-icon-file" class="model-icon-btn">{{prescriptionForm.downJawModelPathName}}</el-button>
+                        <div v-if="prescriptionForm.downJawModelName">
+                          <el-button icon="el-icon-file" class="model-icon-btn">{{prescriptionForm.downJawModelName}}</el-button>
                         </div>
                         <div v-else>
                           <el-button icon="el-icon-upload" class="model-icon-btn">点击上传带咬合STL文件</el-button>
                         </div>
                       </el-upload>
-                      <el-button class="remove-down-btn" v-if="prescriptionForm.downJawModelPathName" type="text" @click="removeDownJawModel">删除</el-button>
+                      <el-button class="remove-down-btn" v-if="prescriptionForm.downJawModelName" type="text" @click="removeDownJawModel">删除</el-button>
                     </el-col>
                     <el-col span="14">
                       <div class="jaw-model-desc">
@@ -885,9 +886,9 @@
                   <div class="error-submit-noFilled-content">
                     <div v-show="!infoForm.name" class="error-submit-noFilled-content-every" @click="clickToInfo">患者姓名</div>
                     <div v-show="!infoForm.doctorId" class="error-submit-noFilled-content-every" @click="clickToInfo">所属医生</div>
-                    <div v-show="!(infoForm.sex + '')" class="error-submit-noFilled-content-every" @click="clickToInfo">性别</div>
+                    <div v-show="!(infoForm.sex + '') || infoForm.sex === -1" class="error-submit-noFilled-content-every" @click="clickToInfo">性别</div>
                     <div v-show="!infoForm.birthday" class="error-submit-noFilled-content-every" @click="clickToInfo">出生日期</div>
-                    <div v-show="!infoForm.annType" class="error-submit-noFilled-content-every" @click="clickToInfo">安氏分类</div>
+                    <div v-show="!infoForm.annType || infoForm.annType === -1" class="error-submit-noFilled-content-every" @click="clickToInfo">安氏分类</div>
                     <div v-show="!infoForm.malocclusionType.length" class="error-submit-noFilled-content-every" @click="clickToInfo">错合类型</div>
                   </div>
                 </div>
@@ -896,11 +897,11 @@
                   <div class="error-submit-noFilled-content">
                     <div v-show="!(prescriptionForm.ccTeeth.length || prescriptionForm.ccJaw.length)" class="error-submit-noFilled-content-every" @click="clickToDesc">主诉</div>
                     <div v-show="!prescriptionForm.teeth.length" class="error-submit-noFilled-content-every" @click="clickToDesc">主要矫治目标</div>
-                    <div v-show="!prescriptionForm.orthodonticJaw" class="error-submit-noFilled-content-every" @click="clickToDesc">拟矫治牙颌</div>
-                    <div v-show="!prescriptionForm.surfaceType" class="error-submit-noFilled-content-every" @click="clickToDesc">面型</div>
-                    <div v-show="!(prescriptionForm.sagittalRight || prescriptionForm.sagittalLeft)" class="error-submit-noFilled-content-every" @click="clickToDesc">矢状关系</div>
-                    <div v-show="!prescriptionForm.midline" class="error-submit-noFilled-content-every" @click="clickToDesc">中线</div>
-                    <div v-show="!prescriptionForm.plantingNail" class="error-submit-noFilled-content-every" @click="clickToDesc">是否配合种植支抗钉</div>
+                    <div v-show="!prescriptionForm.orthodonticJaw || prescriptionForm.orthodonticJaw === -1" class="error-submit-noFilled-content-every" @click="clickToDesc">拟矫治牙颌</div>
+                    <div v-show="!prescriptionForm.surfaceType || prescriptionForm.surfaceType === -1" class="error-submit-noFilled-content-every" @click="clickToDesc">面型</div>
+                    <div v-show="!(prescriptionForm.sagittalRight || prescriptionForm.sagittalLeft) || (prescriptionForm.sagittalRight === -1 && prescriptionForm.sagittalLeft === -1)" class="error-submit-noFilled-content-every" @click="clickToDesc">矢状关系</div>
+                    <div v-show="!prescriptionForm.midline || prescriptionForm.midline === -1" class="error-submit-noFilled-content-every" @click="clickToDesc">中线</div>
+                    <div v-show="!prescriptionForm.plantingNail || prescriptionForm.plantingNail === -1" class="error-submit-noFilled-content-every" @click="clickToDesc">是否配合种植支抗钉</div>
                   </div>
                 </div>
                 <div v-show="showFiles">
@@ -937,9 +938,9 @@ import {
   saveCase,
   preserveCase,
   getDetails,
+  updateCase,
 } from "@/api/case/commonCase";
 import { uploadOBS } from "@/util/obs";
-import { dateFormat } from '@/util/upDate';
 export default {
   name: "AllAdd",
   data() {
@@ -948,7 +949,7 @@ export default {
       infoForm: {
         name: "",
         doctorId: "",
-        sex: null,
+        sex: "",
         birthday: "",
         annType: "",
         bonyType: "",
@@ -1067,9 +1068,9 @@ export default {
         sideXrayPath: "",
         otherXrayPath: "",
         upJawModelPath: "",
-        upJawModelPathName: "",
+        upJawModelName: "",
         downJawModelPath: "",
-        downJawModelPathName: "",
+        downJawModelName: "",
       },
       activeName: "first",
       currentCaseId: "",
@@ -1081,18 +1082,25 @@ export default {
       return !this.infoForm.name
           || !this.infoForm.doctorId
           || !(this.infoForm.sex + '')
+          || this.infoForm.sex === -1
           || !this.infoForm.birthday
           || !this.infoForm.annType
+          || this.infoForm.annType === -1
           || !this.infoForm.malocclusionType.length;
     },
     showPrescription() {
       return !(this.prescriptionForm.ccTeeth.length || this.prescriptionForm.ccJaw.length)
           || !this.prescriptionForm.teeth.length
           || !this.prescriptionForm.orthodonticJaw
+          || this.prescriptionForm.orthodonticJaw === -1
           || !this.prescriptionForm.surfaceType
+          || this.prescriptionForm.surfaceType === -1
           || !(this.prescriptionForm.sagittalRight || this.prescriptionForm.sagittalLeft)
+          || (this.prescriptionForm.sagittalRight === -1 && this.prescriptionForm.sagittalLeft === -1)
           || !this.prescriptionForm.midline
-          || !this.prescriptionForm.plantingNail;
+          || this.prescriptionForm.midline === -1
+          || !this.prescriptionForm.plantingNail
+          || this.prescriptionForm.plantingNail === -1;
     },
     showPhoto() {
       return !this.prescriptionForm.frontSmilingPath
@@ -1209,7 +1217,7 @@ export default {
     handleImgSuccessUpJawModel(res, file) {
       const data = res.data || {};
       this.prescriptionForm.upJawModelPath = data.viewStlUrl;
-      this.prescriptionForm.upJawModelPathName = data.originalName;
+      this.prescriptionForm.upJawModelName = data.originalName;
     },
     beforeImgUploadJawModel(file) {
       const isSTL = file.name.toLocaleLowerCase().substring(file.name.lastIndexOf('.')) === ".stl";
@@ -1221,15 +1229,15 @@ export default {
     handleImgSuccessDownJawModel(res, file) {
       const data = res.data || {};
       this.prescriptionForm.downJawModelPath = data.viewStlUrl;
-      this.prescriptionForm.downJawModelPathName = data.originalName;
+      this.prescriptionForm.downJawModelName = data.originalName;
     },
     removeUpJawModel() {
       this.prescriptionForm.upJawModelPath = "";
-      this.prescriptionForm.upJawModelPathName = "";
+      this.prescriptionForm.upJawModelName = "";
     },
     removeDownJawModel() {
       this.prescriptionForm.downJawModelPath = "";
-      this.prescriptionForm.downJawModelPathName = "";
+      this.prescriptionForm.downJawModelName = "";
     },
     handleImgSuccessImgPool(res, file) {},
     clickToInfo() {
@@ -1253,7 +1261,7 @@ export default {
         data.sex = this.infoForm.sex;
       }
       if (this.infoForm.birthday) {
-        data.birthday = dateFormat(this.infoForm.birthday, "yyyy-MM-dd");
+        data.birthday = this.infoForm.birthday;
       }
       if (this.infoForm.annType) {
         data.annType = this.infoForm.annType;
@@ -1504,14 +1512,14 @@ export default {
       if (this.prescriptionForm.upJawModelPath) {
         data.upJawModelPath = this.prescriptionForm.upJawModelPath;
       }
-      if (this.prescriptionForm.upJawModelPathName) {
-        data.upJawModelPathName = this.prescriptionForm.upJawModelPathName;
+      if (this.prescriptionForm.upJawModelName) {
+        data.upJawModelName = this.prescriptionForm.upJawModelName;
       }
       if (this.prescriptionForm.downJawModelPath) {
         data.downJawModelPath = this.prescriptionForm.downJawModelPath;
       }
-      if (this.prescriptionForm.downJawModelPathName) {
-        data.downJawModelPathName = this.prescriptionForm.downJawModelPathName;
+      if (this.prescriptionForm.downJawModelName) {
+        data.downJawModelName = this.prescriptionForm.downJawModelName;
       }
       if (state === "preserve") {
         if (this.infoForm.doctorId) {
@@ -1530,18 +1538,34 @@ export default {
           });
         }
       } else if(state === "submit") {
-        saveCase(data).then(res => {
-          if (res.data.code == 200) {
-            this.$message({
-              type: "success",
-              message: "提交成功!"
-            });
-            this.$router.push({path: "/case/all"});
-          }
-        });
+        if (this.currentIsEdit) {
+          data.recordId = this.currentCaseId;
+          updateCase(data).then(res => {
+            if (res.data.code == 200) {
+              this.$message({
+                type: "success",
+                message: "修改病例成功!"
+              });
+              this.$router.push({path: "/case/all"});
+            }
+          });
+        } else {
+          saveCase(data).then(res => {
+            if (res.data.code == 200) {
+              this.$message({
+                type: "success",
+                message: "新建病例成功!"
+              });
+              this.$router.push({path: "/case/all"});
+            }
+          });
+        }
       } else {
         // 不存在这种情况，不做操作
       }
+    },
+    getArrEqual(arr1, arr2) {
+      return arr1.filter(item => arr2.indexOf(item)>-1);
     },
     getCaseDetails(id) {
       const params = {
@@ -1551,12 +1575,126 @@ export default {
         if (res.data.code == 200) {
           const data = res.data.data;
           this.infoForm.name = data.prescription.name;
-          this.infoForm.doctorId = data.prescription.doctorId;
+          this.infoForm.doctorId = data.record.doctorId;
           this.infoForm.sex = data.prescription.sex;
           this.infoForm.birthday = data.prescription.birthday;
           this.infoForm.annType = data.prescription.annType;
           this.infoForm.bonyType = data.prescription.bonyType;
-          this.infoForm.malocclusionType = data.prescription.malocclusionType;
+          this.infoForm.malocclusionType = data.prescription.malocclusionType ? data.prescription.malocclusionType.split(",").map(Number) : [];
+          this.prescriptionForm.ccTeeth = data.prescription.ccTeeth ? data.prescription.ccTeeth.split(",").map(Number) : [];
+          this.prescriptionForm.ccJaw = data.prescription.ccJaw ? data.prescription.ccJaw.split(",").map(Number) : [];
+          this.prescriptionForm.teeth = data.prescription.teeth ? data.prescription.teeth.split(",").map(Number) : [];
+          this.prescriptionForm.orthodonticJaw = data.prescription.orthodonticJaw;
+          let arrayOne = [55,54,53,52,51,61,62,63,64,65];
+          let arrayTwo = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28];
+          let arrayThree = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+          let arrayFour = [85,84,83,82,81,71,72,73,74,75];
+          let teethInformationArray = data.prescription.teethInformation ? data.prescription.teethInformation.split(",").map(Number) : [];
+          this.prescriptionForm.teethInformationOne = this.getArrEqual(arrayOne, teethInformationArray);
+          this.prescriptionForm.teethInformationTwo = this.getArrEqual(arrayTwo, teethInformationArray);
+          this.prescriptionForm.teethInformationThree = this.getArrEqual(arrayThree, teethInformationArray);
+          this.prescriptionForm.teethInformationFour = this.getArrEqual(arrayFour, teethInformationArray);
+          if (Number(data.prescription.teethClearance) == 0) {
+            this.prescriptionForm.teethClearance = 0;
+          } else {
+            this.prescriptionForm.teethClearance = 1;
+            let clearArray = data.prescription.teethClearance.split(",");
+            this.prescriptionForm.teethClearance1 = clearArray[0] == "none" ? "" : Number(clearArray[0]);
+            this.prescriptionForm.teethClearance2 = clearArray[1] == "none" ? "" : Number(clearArray[1]);
+            this.prescriptionForm.teethClearance3 = clearArray[2] == "none" ? "" : Number(clearArray[2]);
+            this.prescriptionForm.teethClearance4 = clearArray[3] == "none" ? "" : Number(clearArray[3]);
+            this.prescriptionForm.teethClearance5 = clearArray[4] == "none" ? "" : Number(clearArray[4]);
+            this.prescriptionForm.teethClearance6 = clearArray[5] == "none" ? "" : Number(clearArray[5]);
+            this.prescriptionForm.teethClearance7 = clearArray[6] == "none" ? "" : Number(clearArray[6]);
+            this.prescriptionForm.teethClearance8 = clearArray[7] == "none" ? "" : Number(clearArray[7]);
+            this.prescriptionForm.teethClearance9 = clearArray[8] == "none" ? "" : Number(clearArray[8]);
+            this.prescriptionForm.teethClearance10 = clearArray[9] == "none" ? "" : Number(clearArray[9]);
+            this.prescriptionForm.teethClearance11 = clearArray[10] == "none" ? "" : Number(clearArray[10]);
+            this.prescriptionForm.teethClearance12 = clearArray[11] == "none" ? "" : Number(clearArray[11]);
+            this.prescriptionForm.teethClearance13 = clearArray[12] == "none" ? "" : Number(clearArray[12]);
+            this.prescriptionForm.teethClearance14 = clearArray[13] == "none" ? "" : Number(clearArray[13]);
+            this.prescriptionForm.teethClearance15 = clearArray[14] == "none" ? "" : Number(clearArray[14]);
+            this.prescriptionForm.teethClearance16 = clearArray[15] == "none" ? "" : Number(clearArray[15]);
+            this.prescriptionForm.teethClearance17 = clearArray[16] == "none" ? "" : Number(clearArray[16]);
+            this.prescriptionForm.teethClearance18 = clearArray[17] == "none" ? "" : Number(clearArray[17]);
+            this.prescriptionForm.teethClearance19 = clearArray[18] == "none" ? "" : Number(clearArray[18]);
+            this.prescriptionForm.teethClearance20 = clearArray[19] == "none" ? "" : Number(clearArray[19]);
+            this.prescriptionForm.teethClearance21 = clearArray[20] == "none" ? "" : Number(clearArray[20]);
+            this.prescriptionForm.teethClearance22 = clearArray[21] == "none" ? "" : Number(clearArray[21]);
+            this.prescriptionForm.teethClearance23 = clearArray[22] == "none" ? "" : Number(clearArray[22]);
+            this.prescriptionForm.teethClearance24 = clearArray[23] == "none" ? "" : Number(clearArray[23]);
+            this.prescriptionForm.teethClearance25 = clearArray[24] == "none" ? "" : Number(clearArray[24]);
+            this.prescriptionForm.teethClearance26 = clearArray[25] == "none" ? "" : Number(clearArray[25]);
+            this.prescriptionForm.teethClearance27 = clearArray[26] == "none" ? "" : Number(clearArray[26]);
+            this.prescriptionForm.teethClearance28 = clearArray[27] == "none" ? "" : Number(clearArray[27]);
+            this.prescriptionForm.teethClearance29 = clearArray[28] == "none" ? "" : Number(clearArray[28]);
+            this.prescriptionForm.teethClearance30 = clearArray[29] == "none" ? "" : Number(clearArray[29]);
+          }
+          if (Number(data.prescription.teethMobile) == 0) {
+            this.prescriptionForm.teethMobile = 0;
+          } else {
+            this.prescriptionForm.teethMobile = 1;
+            let mobileArray = data.prescription.teethMobile ? data.prescription.teethMobile.split(",").map(Number) : [];
+            this.prescriptionForm.teethMobileOne = [];
+            this.prescriptionForm.teethMobileTwo = this.getArrEqual(arrayTwo, mobileArray);
+            this.prescriptionForm.teethMobileThree = this.getArrEqual(arrayThree, mobileArray);
+            this.prescriptionForm.teethMobileFour = [];
+          }
+          if (Number(data.prescription.teethAttachment) == 0) {
+            this.prescriptionForm.teethAttachment = 0;
+          } else {
+            this.prescriptionForm.teethAttachment = 1;
+            let attachArray = data.prescription.teethAttachment ? data.prescription.teethAttachment.split(",").map(Number) : [];
+            this.prescriptionForm.teethAttachmentOne = [];
+            this.prescriptionForm.teethAttachmentTwo = this.getArrEqual(arrayTwo, attachArray);
+            this.prescriptionForm.teethAttachmentThree = this.getArrEqual(arrayThree, attachArray);
+            this.prescriptionForm.teethAttachmentFour = [];
+          }
+          this.prescriptionForm.surfaceType = data.prescription.surfaceType;
+          this.prescriptionForm.sagittalRight = data.prescription.sagittalRight;
+          this.prescriptionForm.sagittalLeft = data.prescription.sagittalLeft;
+          this.prescriptionForm.cover = data.prescription.cover;
+          this.prescriptionForm.combined = data.prescription.combined;
+          this.prescriptionForm.frontTeeth = data.prescription.frontTeeth;
+          this.prescriptionForm.afterTeeth = data.prescription.afterTeeth;
+          this.prescriptionForm.midline = data.prescription.midline;
+          this.prescriptionForm.clearanceCorrectUp = data.prescription.clearanceCorrectUp;
+          this.prescriptionForm.clearanceCorrectDown = data.prescription.clearanceCorrectDown;
+          this.prescriptionForm.enlargeBowUp = data.prescription.enlargeBowUp;
+          this.prescriptionForm.lipDipUp = data.prescription.lipDipUp;
+          this.prescriptionForm.adjacentGlazeUp = data.prescription.adjacentGlazeUp;
+          this.prescriptionForm.farRemovedMolarUp = data.prescription.farRemovedMolarUp;
+          this.prescriptionForm.enlargeBowDown = data.prescription.enlargeBowDown;
+          this.prescriptionForm.lipDipDown = data.prescription.lipDipDown;
+          this.prescriptionForm.adjacentGlazeDown = data.prescription.adjacentGlazeDown;
+          this.prescriptionForm.farRemovedMolarDown = data.prescription.farRemovedMolarDown;
+          if (Number(data.prescription.toothExtraction) == 0) {
+            this.prescriptionForm.toothExtraction = 0;
+          } else {
+            this.prescriptionForm.toothExtraction = 1;
+            let extractionArray = data.prescription.toothExtraction ? data.prescription.toothExtraction.split(",").map(Number) : [];
+            this.prescriptionForm.toothExtractionOne = this.getArrEqual(arrayTwo, extractionArray);
+            this.prescriptionForm.toothExtractionTwo = this.getArrEqual(arrayThree, extractionArray);
+          }
+          this.prescriptionForm.plantingNail = data.prescription.plantingNail;
+          this.prescriptionForm.temporomandibularJoint = data.prescription.temporomandibularJoint;
+          this.prescriptionForm.remoteTreatments = data.prescription.remoteTreatments;
+          this.prescriptionForm.specialInstructions = data.prescription.specialInstructions;
+          this.prescriptionForm.frontSmilingPath = data.photo.frontSmilingPath;
+          this.prescriptionForm.frontPath = data.photo.frontPath;
+          this.prescriptionForm.sidePath = data.photo.sidePath;
+          this.prescriptionForm.upJawPath = data.photo.upJawPath;
+          this.prescriptionForm.downJawPath = data.photo.downJawPath;
+          this.prescriptionForm.rightJawPath = data.photo.rightJawPath;
+          this.prescriptionForm.frontJawPath = data.photo.frontJawPath;
+          this.prescriptionForm.leftJawPath = data.photo.leftJawPath;
+          this.prescriptionForm.allXrayPath = data.photo.allXrayPath;
+          this.prescriptionForm.sideXrayPath = data.photo.sideXrayPath;
+          this.prescriptionForm.otherXrayPath = data.photo.otherXrayPath;
+          this.prescriptionForm.upJawModelPath = data.photo.upJawModelPath;
+          this.prescriptionForm.upJawModelName = data.photo.upJawModelName;
+          this.prescriptionForm.downJawModelPath = data.photo.downJawModelPath;
+          this.prescriptionForm.downJawModelName = data.photo.downJawModelName;
         }
       });
     },

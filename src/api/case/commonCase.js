@@ -71,3 +71,10 @@ export const getFailRemark = (params) => {
   })
 }
 
+export const updateCase = (row) => {
+  return request({
+    url: '/api/blade-orth/case/update',
+    method: 'post',
+    data: row
+  })
+}
