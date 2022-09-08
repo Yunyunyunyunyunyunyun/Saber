@@ -22,8 +22,7 @@
         stripe
         border
         height="680"
-        style="width: 100%"
-        @row-click="rowClick">
+        style="width: 100%">
         <el-table-column
           prop="medicalCode"
           label="病例编号">
@@ -252,9 +251,6 @@ export default {
     },
     addCase() {
       this.$router.push({path: "/case/addEditCase"});
-    },
-    rowClick(row) {
-      console.log(row);
     },
     handleEdit(row) {
       this.$router.push({

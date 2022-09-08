@@ -924,7 +924,7 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-    <div class="all-add-footer">
+    <div class="all-add-footer" :class="{'doctor-footer': currentIsDoctor}">
       <el-button v-show="active>1" icon="el-icon-arrow-left" @click="prev">上一页</el-button>
       <el-button v-show="active<4" @click="next">下一页 <i class="el-icon-arrow-right"></i></el-button>
       <el-button type="primary" v-show="active<4 || showInfo || showPrescription || showFiles" plain @click="caseSave('preserve')">暂存</el-button>
@@ -1075,6 +1075,7 @@ export default {
       activeName: "first",
       currentCaseId: "",
       currentIsEdit: false,
+      currentIsDoctor: false,
     }
   },
   computed: {
@@ -1124,13 +1125,14 @@ export default {
     });
     this.currentCaseId = this.$route.query.id || "";
     this.currentIsEdit = this.$route.query.isEdit || false;
+    this.currentIsDoctor = this.$route.query.isDoctor || false;
     if (this.currentCaseId) {
       this.getCaseDetails(this.currentCaseId);
     }
   },
   methods: {
     back() {
-      this.$router.push({path: "/case/all"});
+      this.$router.go(-1);
     },
     prev() {
       this.active--;
@@ -1724,7 +1726,7 @@ export default {
   box-shadow: 0 2px 2px 1px #daecef;
   border-radius: 6px;
   padding: 20px;
-  width: 100%;
+  width: calc(100% - 40px);
   min-height: 80%;
   position: relative;
   margin-bottom: 93px;
@@ -1739,6 +1741,10 @@ export default {
   z-index: 1000;
   box-shadow: inset 0 1px 0 1px rgb(0 0 0 / 8%), 0 2px 14px 1px rgb(221 225 233 / 54%);
   padding: 11px 0;
+}
+.doctor-footer {
+  width: 100% !important;
+  left: 0 !important;
 }
 .all-add-main >>> .el-tabs__nav-wrap::after {
   height: 0;
