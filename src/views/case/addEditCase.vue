@@ -942,7 +942,7 @@ import {
 } from "@/api/case/commonCase";
 import { uploadOBS } from "@/util/obs";
 export default {
-  name: "AllAdd",
+  name: "AddEditCase",
   data() {
     return {
       active: 1,

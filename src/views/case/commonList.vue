@@ -251,14 +251,14 @@ export default {
       });
     },
     addCase() {
-      this.$router.push({path: "/case/all_add"});
+      this.$router.push({path: "/case/addEditCase"});
     },
     rowClick(row) {
       console.log(row);
     },
     handleEdit(row) {
       this.$router.push({
-        path: "/case/all_add",
+        path: "/case/addEditCase",
         query: {
           id: row.id,
           isEdit: true,

@@ -79,12 +79,12 @@ export default [{
   component: Layout,
   redirect: '/case/all',
   children: [{
-  path: 'all_add',
+  path: 'addEditCase',
   name: '新增病例',
   meta: {
     i18n: 'info'
   },
   component: () =>
-    import( /* webpackChunkName: "views" */ '@/views/case/all_add')
+    import( /* webpackChunkName: "views" */ '@/views/case/addEditCase')
   }]
 }]
