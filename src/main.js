@@ -19,10 +19,6 @@ import './styles/common.scss';
 import basicContainer from './components/basic-container/main'
 import thirdRegister from './components/third-register/main'
 
-if (!global._babelPolyfill) {
-    require('babel-polyfill');
-}
-
 Vue.use(router)
 Vue.use(VueAxios, axios)
 Vue.use(Element, {

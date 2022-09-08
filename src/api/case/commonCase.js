@@ -47,3 +47,10 @@ export const preserveCase = (row) => {
   })
 }
 
+export const uploadThreeD = (params) => {
+  return request({
+    url: '/api/blade-orth/case/upload-3d',
+    method: 'get',
+    params: params,
+  })
+}

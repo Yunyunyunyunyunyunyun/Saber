@@ -12,6 +12,9 @@ module.exports = {
     })
     const entry = config.entry('app')
     entry
+      .add('babel-polyfill')
+      .end()
+    entry
       .add('classlist-polyfill')
       .end()
     entry

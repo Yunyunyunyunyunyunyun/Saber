@@ -80,10 +80,26 @@
               <el-button @click="handleEdit(scope.row)" type="text">编辑</el-button>
             </span>
             <span v-else-if="scope.row.state == 40">
-              <el-button @click="handleUpload(scope.row)" type="text">上传</el-button>
+              <el-upload
+                class="three-d-uploader"
+                action=""
+                :show-file-list="false"
+                :http-request="showProcess"
+                :on-success="function(res, file) { return handleImgSuccess(res, file, scope.row) }"
+                :on-error="handleError">
+                <el-button type="text">上传</el-button>
+              </el-upload>
             </span>
             <span v-else-if="scope.row.state == 60">
-              <el-button @click="handleUpload(scope.row)" type="text">上传</el-button>
+              <el-upload
+                class="three-d-uploader"
+                action=""
+                :show-file-list="false"
+                :http-request="showProcess"
+                :on-success="function(res, file) { return handleImgSuccess(res, file, scope.row) }"
+                :on-error="handleError">
+                <el-button type="text">上传</el-button>
+              </el-upload>
               <el-button @click="viewReason(scope.row)" type="text">查看原因</el-button>
             </span>
             <span v-else>--</span>
@@ -124,7 +140,9 @@ import {
   getCaseList,
   passCase,
   rejectCase,
+  uploadThreeD,
 } from "@/api/case/commonCase";
+import { uploadOBS } from "@/util/obs";
 export default {
   name: "Case",
   data() {
@@ -228,7 +246,6 @@ export default {
       this.rejectVisible = true;
       this.remark = "";
     },
-    handleUpload(row) {},
     viewReason(row) {},
     sureReject() {
       let params = {
@@ -244,6 +261,32 @@ export default {
         }
       })
     },
+    async showProcess(params) {
+      //调用分段上传OBS方法
+      return await uploadOBS(params.file, 'order', (percentage) => {
+        // 更新进度条
+        params.onProgress({percent: percentage});
+      });
+    },
+    handleError(err) {
+      this.$message.warning(err.msg);
+      return false;
+    },
+    handleImgSuccess(res, file, row) {
+      const data = res.data || {};
+      let params = {
+        filePath: data.viewStlUrl,
+        recordId: row.id,
+      };
+      uploadThreeD(params).then(res => {
+        if (res.data.code == 200) {
+          this.$message({
+            type: "success",
+            message: "上传成功!"
+          });
+        }
+      });
+    },
   }
 }
 </script>
@@ -254,5 +297,9 @@ export default {
   .case-main {
     padding: 20px;
     background: white;
+  }
+  .three-d-uploader {
+    float: left;
+    margin-right: 10px;
   }
 </style>
