@@ -2,7 +2,7 @@
   <div class="all-add-contain">
     <div class="add-title">
       <el-button icon="el-icon-arrow-left" @click="back">返回</el-button>
-      <div class="add-title-main">新建病例</div>
+      <div class="add-title-main">{{currentIsEdit ? '编辑' : '新建'}}病例</div>
     </div>
     <div class="all-add-main">
       <el-tabs v-model="active">
@@ -936,6 +936,7 @@ import {
   selectDoctor,
   saveCase,
   preserveCase,
+  getDetails,
 } from "@/api/case/commonCase";
 import { uploadOBS } from "@/util/obs";
 import { dateFormat } from '@/util/upDate';
@@ -1071,6 +1072,8 @@ export default {
         downJawModelPathName: "",
       },
       activeName: "first",
+      currentCaseId: "",
+      currentIsEdit: false,
     }
   },
   computed: {
@@ -1111,6 +1114,11 @@ export default {
     selectDoctor().then(res => {
       this.doctorOptions = res.data.data;
     });
+    this.currentCaseId = this.$route.query.id || "";
+    this.currentIsEdit = this.$route.query.isEdit || false;
+    if (this.currentCaseId) {
+      this.getCaseDetails(this.currentCaseId);
+    }
   },
   methods: {
     back() {
@@ -1534,6 +1542,23 @@ export default {
       } else {
         // 不存在这种情况，不做操作
       }
+    },
+    getCaseDetails(id) {
+      const params = {
+        id: id,
+      };
+      getDetails(params).then(res => {
+        if (res.data.code == 200) {
+          const data = res.data.data;
+          this.infoForm.name = data.prescription.name;
+          this.infoForm.doctorId = data.prescription.doctorId;
+          this.infoForm.sex = data.prescription.sex;
+          this.infoForm.birthday = data.prescription.birthday;
+          this.infoForm.annType = data.prescription.annType;
+          this.infoForm.bonyType = data.prescription.bonyType;
+          this.infoForm.malocclusionType = data.prescription.malocclusionType;
+        }
+      });
     },
   },
 }
