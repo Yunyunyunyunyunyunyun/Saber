@@ -100,6 +100,7 @@
                 :on-error="handleError">
                 <el-button type="text">上传</el-button>
               </el-upload>
+              <el-button @click="viewReason(scope.row)" type="text">查看原因</el-button>
             </span>
             <span v-else>--</span>
           </template>
@@ -132,6 +133,16 @@
         <el-button type="primary" @click="sureReject">确 定</el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      title="查看原因"
+      :visible.sync="failReasonVisible"
+      width="30%">
+      <div>{{failRemark}} {{failRemarkTime}}</div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="failReasonVisible = false">取 消</el-button>
+        <el-button type="primary" @click="failReasonVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -140,6 +151,7 @@ import {
   passCase,
   rejectCase,
   uploadThreeD,
+  getFailRemark,
 } from "@/api/case/commonCase";
 import { uploadOBS } from "@/util/obs";
 export default {
@@ -157,6 +169,9 @@ export default {
       rejectId: null,
       rejectVisible: false,
       remark: "",
+      failReasonVisible: false,
+      failRemark: "",
+      failRemarkTime: "",
     };
   },
   props: {
@@ -336,6 +351,19 @@ export default {
             params.name = this.patientName;
           }
           this.getAllCaseList(params);
+        }
+      });
+    },
+    viewReason(row) {
+      let params = {
+        recordId: row.id,
+      };
+      getFailRemark(params).then(res => {
+        if (res.data.code == 200) {
+          const data = res.data.data;
+          this.failRemark = data.remark;
+          this.failRemarkTime = data.createTime;
+          this.failReasonVisible = true;
         }
       });
     },

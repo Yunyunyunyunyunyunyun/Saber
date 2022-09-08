@@ -62,3 +62,12 @@ export const getDetails = (params) => {
     params: params,
   })
 }
+
+export const getFailRemark = (params) => {
+  return request({
+    url: '/api/blade-orth/treatmentrecord/fail-reason',
+    method: 'get',
+    params: params,
+  })
+}
+
