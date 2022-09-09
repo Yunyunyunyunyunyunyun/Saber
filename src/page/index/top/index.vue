@@ -18,7 +18,7 @@
                   :content="$t('navbar.language')"
                   placement="bottom">
         <div class="top-bar__item top-bar__item--show">
-          <top-lang></top-lang>
+          <!-- <top-lang></top-lang> -->
         </div>
       </el-tooltip>
       <img class="top-bar__img"
