@@ -33,3 +33,11 @@ export const updateDoctor = (row) => {
     data: row,
   })
 }
+
+export const getExportDoctorList = (params) => {
+  return request({
+    url: '/api/blade-user/export-doctor-user',
+    method: 'get',
+    params: params
+  })
+}

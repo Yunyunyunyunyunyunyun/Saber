@@ -59,7 +59,7 @@
           label="医疗机构">
           <template slot-scope="scope">
             <span>
-              {{scope.row.clinicName}} {{scope.row.countries}} {{scope.row.province}} {{scope.row.city}} {{scope.row.district}}
+              {{scope.row.clinicName}}-{{scope.row.countries}}-{{scope.row.province}}-{{scope.row.city}}-{{scope.row.district}}
             </span>
           </template>
         </el-table-column>

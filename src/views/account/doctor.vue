@@ -48,10 +48,10 @@
         </el-table-column>
         <el-table-column
           prop="area"
-          label="所在地区">
+          label="医疗机构">
           <template slot-scope="scope">
             <span>
-              {{scope.row.countries}} {{scope.row.province}} {{scope.row.city}} {{scope.row.district}}
+              {{scope.row.clinicName}}-{{scope.row.countries}}-{{scope.row.province}}-{{scope.row.city}}-{{scope.row.district}}-{{scope.row.address}}
             </span>
           </template>
         </el-table-column>
@@ -179,6 +179,7 @@
 <script>
 import {
   getDoctorList,
+  getExportDoctorList,
   getDoctorDetail,
   modifyPassword,
   updateDoctor,
@@ -296,6 +297,7 @@ export default {
       hospitalOptions: [],
       schoolOptions: [],
       modalKey: 0,
+      doctorExportData: [],
     };
   },
   created() {
@@ -310,6 +312,7 @@ export default {
       size: this.pageSize,
     };
     this.getAllDoctorList(params);
+    this.getAllExportDoctorList({});
   },
   methods: {
     handleSizeChange(val) {
@@ -318,19 +321,27 @@ export default {
         current: this.currentPage,
         size: val
       };
+      let data = {};
       if (this.doctorName) {
         params.name = this.doctorName;
+        data.name = this.doctorName;
       }
       if (this.doctorPhone) {
         params.phone = this.doctorPhone;
+        data.phone = this.doctorPhone;
       }
       if (this.$refs["doctorArea"].getCheckedNodes()[0]) {
         params.countries = "中国";
         params.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
         params.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
         params.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
+        data.countries = "中国";
+        data.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
+        data.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
+        data.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
       }
       this.getAllDoctorList(params);
+      this.getAllExportDoctorList(data);
     },
     handleCurrentChange(val) {
       this.currentPage = val;
@@ -338,19 +349,27 @@ export default {
         current: val,
         size: this.pageSize,
       };
+      let data = {};
       if (this.doctorName) {
         params.name = this.doctorName;
+        data.name = this.doctorName;
       }
       if (this.doctorPhone) {
         params.phone = this.doctorPhone;
+        data.phone = this.doctorPhone;
       }
       if (this.$refs["doctorArea"].getCheckedNodes()[0]) {
         params.countries = "中国";
         params.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
         params.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
         params.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
+        data.countries = "中国";
+        data.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
+        data.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
+        data.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
       }
       this.getAllDoctorList(params);
+      this.getAllExportDoctorList(data);
     },
     resetSearch() {
       this.doctorName = '';
@@ -361,25 +380,34 @@ export default {
         size: this.pageSize,
       };
       this.getAllDoctorList(params);
+      this.getAllExportDoctorList({});
     },
     submitSearch() {
       let params = {
         current: 1,
         size: this.pageSize,
       };
+      let data = {};
       if (this.doctorName) {
         params.name = this.doctorName;
+        data.name = this.doctorName;
       }
       if (this.doctorPhone) {
         params.phone = this.doctorPhone;
+        data.phone = this.doctorPhone;
       }
       if (this.$refs["doctorArea"].getCheckedNodes()[0]) {
         params.countries = "中国";
         params.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
         params.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
         params.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
+        data.countries = "中国";
+        data.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
+        data.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
+        data.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
       }
       this.getAllDoctorList(params);
+      this.getAllExportDoctorList(data);
     },
     getAllDoctorList(data) {
       this.loading = true;
@@ -390,6 +418,13 @@ export default {
           this.doctorTableData = data.records;
         }
         this.loading = false;
+      });
+    },
+    getAllExportDoctorList(data) {
+      getExportDoctorList(data).then(res => {
+        if (res.data.code == 200) {
+          this.doctorExportData = res.data.data;
+        }
       });
     },
     handleEdit(obj) {
@@ -470,19 +505,27 @@ export default {
                 current: this.currentPage,
                 size: this.pageSize,
               };
+              let data = {};
               if (this.doctorName) {
                 params.name = this.doctorName;
+                data.name = this.doctorName;
               }
               if (this.doctorPhone) {
                 params.phone = this.doctorPhone;
+                data.phone = this.doctorPhone;
               }
               if (this.$refs["doctorArea"].getCheckedNodes()[0]) {
                 params.countries = "中国";
                 params.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
                 params.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
                 params.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
+                data.countries = "中国";
+                data.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
+                data.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
+                data.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
               }
               this.getAllDoctorList(params);
+              this.getAllExportDoctorList(data);
             }
           })
         } else {
@@ -491,6 +534,17 @@ export default {
       });
     },
     exportDoctorBtn() {
+      require.ensure([], () => {
+        const { export_json_to_excel } = require('../../vendor/Export2Excel');
+        const tHeader = ['医生ID', '姓名', '联系方式', '创建时间', '医疗机构', '状态'];
+        const filterVal = ['id', 'name', 'phone', 'createTime', 'address', 'status'];
+        const list = this.doctorExportData;
+        const data = this.formatJson(filterVal, list);
+        export_json_to_excel(tHeader, data, '医生列表');
+      });
+    },
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => v[j]));
     },
   }
 }
