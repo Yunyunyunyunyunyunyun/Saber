@@ -12,7 +12,7 @@
             <el-form-item label="患者姓名" prop="name">
               <el-input v-model="infoForm.name" placeholder="请输入患者姓名" class="item-width"></el-input>
             </el-form-item>
-            <el-form-item label="所属医生" prop="doctorId">
+            <el-form-item label="所属医生" prop="doctorId" v-show="!currentIsDoctor">
               <el-select v-model="infoForm.doctorId" placeholder="请选择所属医生" class="item-width">
                 <el-option
                   v-for="item in doctorOptions"
@@ -885,7 +885,7 @@
                   <span class="error-submit-noFilled-type">基本信息</span>
                   <div class="error-submit-noFilled-content">
                     <div v-show="!infoForm.name" class="error-submit-noFilled-content-every" @click="clickToInfo">患者姓名</div>
-                    <div v-show="!infoForm.doctorId" class="error-submit-noFilled-content-every" @click="clickToInfo">所属医生</div>
+                    <div v-show="!infoForm.doctorId && !currentIsDoctor" class="error-submit-noFilled-content-every" @click="clickToInfo">所属医生</div>
                     <div v-show="!(infoForm.sex + '') || infoForm.sex === -1" class="error-submit-noFilled-content-every" @click="clickToInfo">性别</div>
                     <div v-show="!infoForm.birthday" class="error-submit-noFilled-content-every" @click="clickToInfo">出生日期</div>
                     <div v-show="!infoForm.annType || infoForm.annType === -1" class="error-submit-noFilled-content-every" @click="clickToInfo">安氏分类</div>
@@ -933,6 +933,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import {
   selectDoctor,
   saveCase,
@@ -1079,9 +1080,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(["userInfo"]),
     showInfo () {
       return !this.infoForm.name
-          || !this.infoForm.doctorId
+          || (!this.infoForm.doctorId && !this.currentIsDoctor)
           || !(this.infoForm.sex + '')
           || this.infoForm.sex === -1
           || !this.infoForm.birthday
@@ -1128,6 +1130,9 @@ export default {
     this.currentIsDoctor = this.$route.query.isDoctor || false;
     if (this.currentCaseId) {
       this.getCaseDetails(this.currentCaseId);
+    }
+    if (this.currentIsDoctor) {
+      this.infoForm.doctorId = this.userInfo.userId;
     }
   },
   methods: {
@@ -1256,8 +1261,12 @@ export default {
       if (this.infoForm.name) {
         data.name = this.infoForm.name;
       }
-      if (this.infoForm.doctorId) {
-        data.doctorId = this.infoForm.doctorId;
+      if (this.currentIsDoctor) {
+        data.doctorId = this.userInfo.userId;
+      } else {
+        if (this.infoForm.doctorId) {
+          data.doctorId = this.infoForm.doctorId;
+        }
       }
       if (this.infoForm.sex) {
         data.sex = this.infoForm.sex;
@@ -1577,7 +1586,9 @@ export default {
         if (res.data.code == 200) {
           const data = res.data.data;
           this.infoForm.name = data.prescription.name;
-          this.infoForm.doctorId = data.record.doctorId;
+          if (!this.currentIsDoctor) {
+            this.infoForm.doctorId = data.record.doctorId;
+          }
           this.infoForm.sex = data.prescription.sex;
           this.infoForm.birthday = data.prescription.birthday;
           this.infoForm.annType = data.prescription.annType;

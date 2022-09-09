@@ -15,7 +15,7 @@
         prop="frontPath"
         label="正面照">
         <template slot-scope="scope">
-          <img :src="scope.row.frontPath" alt="">
+          <img :src="scope.row.frontPath" alt="" class="img-pack">
         </template>
       </el-table-column>
       <el-table-column
@@ -242,5 +242,8 @@
   <style scoped>
     .doctor-pack {
       padding: 20px;
+    }
+    .img-pack {
+      height: 50px;
     }
   </style>
