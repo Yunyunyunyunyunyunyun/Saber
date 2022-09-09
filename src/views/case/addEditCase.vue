@@ -9,10 +9,10 @@
         <el-tab-pane :name="1">
           <span slot="label"><i class="el-icon-edit"></i> 基本信息<i class="el-icon-arrow-right arrow-style"></i></span>
           <el-form :model="infoForm" :rules="infoRules" ref="infoForm" label-width="100px" class="form-main">
-            <el-form-item label="患者姓名" prop="name">
+            <el-form-item label="患者姓名" prop="name" class="name">
               <el-input v-model="infoForm.name" placeholder="请输入患者姓名" class="item-width"></el-input>
             </el-form-item>
-            <el-form-item label="所属医生" prop="doctorId" v-show="!currentIsDoctor">
+            <el-form-item label="所属医生" prop="doctorId" v-show="!currentIsDoctor" class="doctorId">
               <el-select v-model="infoForm.doctorId" placeholder="请选择所属医生" class="item-width">
                 <el-option
                   v-for="item in doctorOptions"
@@ -22,13 +22,13 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="性别" prop="sex">
+            <el-form-item label="性别" prop="sex" class="sex">
               <el-radio-group v-model="infoForm.sex">
                 <el-radio :label="1">男</el-radio>
                 <el-radio :label="0">女</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="出生日期" prop="birthday">
+            <el-form-item label="出生日期" prop="birthday" class="birthday">
               <el-date-picker
                 class="item-width"
                 v-model="infoForm.birthday"
@@ -38,7 +38,7 @@
                 :picker-options="pickerOptions">
               </el-date-picker>
             </el-form-item>
-            <el-form-item label="安氏分类" prop="annType">
+            <el-form-item label="安氏分类" prop="annType" class="annType">
               <el-radio-group v-model="infoForm.annType" class="common-select">
                 <el-radio :label="1" border>安氏I类</el-radio>
                 <el-radio :label="2" border>安氏II类</el-radio>
@@ -53,7 +53,7 @@
                 <el-radio :label="3" border>骨性III类</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="错合类型" prop="malocclusionType">
+            <el-form-item label="错合类型" prop="malocclusionType" class="malocclusionType">
               <el-checkbox-group v-model="infoForm.malocclusionType" class="common-select">
                 <el-checkbox :label="1" border>牙前突</el-checkbox>
                 <el-checkbox :label="2" border>拥挤</el-checkbox>
@@ -74,7 +74,7 @@
         <el-tab-pane :name="2">
           <span slot="label"><i class="el-icon-document"></i> 诊断及矫治说明<i class="el-icon-arrow-right arrow-style"></i></span>
           <el-form :model="prescriptionForm" ref="prescriptionForm" label-width="100px" class="form-main">
-            <div class="diagnosis-title diagnosis-title-required">1. 主诉</div>
+            <div class="diagnosis-title diagnosis-title-required chief">1. 主诉</div>
             <el-form-item label="牙齿问题" prop="ccTeeth">
               <el-checkbox-group v-model="prescriptionForm.ccTeeth" class="common-select">
                 <el-checkbox :label="1" border>牙前突</el-checkbox>
@@ -94,7 +94,7 @@
                 <el-checkbox :label="4" border>下颌后缩</el-checkbox>
               </el-checkbox-group>
             </el-form-item>
-            <div class="diagnosis-title diagnosis-title-required">2. 主要矫治目标</div>
+            <div class="diagnosis-title diagnosis-title-required goals">2. 主要矫治目标</div>
             <el-form-item label="牙齿问题" prop="teeth">
               <el-checkbox-group v-model="prescriptionForm.teeth" class="common-select">
                 <el-checkbox :label="1" border>改善牙前突</el-checkbox>
@@ -106,7 +106,7 @@
                 <el-checkbox :label="7" border>其他</el-checkbox>
               </el-checkbox-group>
             </el-form-item>
-            <div class="diagnosis-title diagnosis-title-required">3. 拟矫治牙颌<span class="diagnosis-tip">即使单颌矫治，也需要提交全颌硅橡胶印模或数字文件</span></div>
+            <div class="diagnosis-title diagnosis-title-required orthodontics">3. 拟矫治牙颌<span class="diagnosis-tip">即使单颌矫治，也需要提交全颌硅橡胶印模或数字文件</span></div>
             <el-form-item prop="orthodonticJaw" label-width="0px">
               <el-radio-group v-model="prescriptionForm.orthodonticJaw" class="common-select">
                 <el-radio :label="1" border>全颌</el-radio>
@@ -394,14 +394,14 @@
                 </el-checkbox-group>
               </div>
             </el-form-item>
-            <div class="diagnosis-title diagnosis-title-required">8. 面型</div>
+            <div class="diagnosis-title diagnosis-title-required facial">8. 面型</div>
             <el-form-item prop="surfaceType" label-width="0px">
               <el-radio-group v-model="prescriptionForm.surfaceType" class="common-select">
                 <el-radio :label="1" border>维持</el-radio>
                 <el-radio :label="2" border>改善</el-radio>
               </el-radio-group>
             </el-form-item>
-            <div class="diagnosis-title diagnosis-title-required">9. 矢状关系</div>
+            <div class="diagnosis-title diagnosis-title-required sagittal">9. 矢状关系</div>
             <el-form-item prop="sagittalRight" label="右">
               <el-radio-group v-model="prescriptionForm.sagittalRight" class="common-select">
                 <el-radio :label="1" border>维持</el-radio>
@@ -448,7 +448,7 @@
                 <el-radio :label="2" border>纠正</el-radio>
               </el-radio-group>
             </el-form-item>
-            <div class="diagnosis-title diagnosis-title-required">14. 中线</div>
+            <div class="diagnosis-title diagnosis-title-required midline">14. 中线</div>
             <el-form-item prop="midline" label-width="0px">
               <el-radio-group v-model="prescriptionForm.midline" class="common-select">
                 <el-radio :label="1" border>维持中线</el-radio>
@@ -576,7 +576,7 @@
                 </el-checkbox-group>
               </div>
             </el-form-item>
-            <div class="diagnosis-title diagnosis-title-required">17. 是否配合种植支抗钉</div>
+            <div class="diagnosis-title diagnosis-title-required nails">17. 是否配合种植支抗钉</div>
             <el-form-item prop="plantingNail" label-width="0px">
               <el-radio-group v-model="prescriptionForm.plantingNail" class="common-select">
                 <el-radio :label="1" border>是</el-radio>
@@ -612,7 +612,7 @@
           <span slot="label"><i class="el-icon-video-camera"></i> 影像资料及模型<i class="el-icon-arrow-right arrow-style"></i></span>
           <el-row class="form-main">
             <el-col :span="24">
-              <div class="diagnosis-title diagnosis-title-required">照片信息</div>
+              <div class="diagnosis-title diagnosis-title-required photos">照片信息</div>
               <div class="diagnosis-desc">面相照及口内照</div>
               <el-row class="mt20">
                 <el-col :span="8">
@@ -798,7 +798,7 @@
                   <div class="img-desc">其他</div>
                 </el-col>
               </el-row>
-              <div class="diagnosis-title diagnosis-title-required mt20">牙颌模型</div>
+              <div class="diagnosis-title diagnosis-title-required mt20 dental">牙颌模型</div>
               <el-tabs v-model="activeName" class="model-tabs">
                 <el-tab-pane label="数字模型文件" name="first">
                   <div class="number-title">本地上传</div>
@@ -884,31 +884,31 @@
                 <div class="mb20" v-show="showInfo">
                   <span class="error-submit-noFilled-type">基本信息</span>
                   <div class="error-submit-noFilled-content">
-                    <div v-show="!infoForm.name" class="error-submit-noFilled-content-every" @click="clickToInfo">患者姓名</div>
-                    <div v-show="!infoForm.doctorId && !currentIsDoctor" class="error-submit-noFilled-content-every" @click="clickToInfo">所属医生</div>
-                    <div v-show="!(infoForm.sex + '') || infoForm.sex === -1" class="error-submit-noFilled-content-every" @click="clickToInfo">性别</div>
-                    <div v-show="!infoForm.birthday" class="error-submit-noFilled-content-every" @click="clickToInfo">出生日期</div>
-                    <div v-show="!infoForm.annType || infoForm.annType === -1" class="error-submit-noFilled-content-every" @click="clickToInfo">安氏分类</div>
-                    <div v-show="!infoForm.malocclusionType.length" class="error-submit-noFilled-content-every" @click="clickToInfo">错合类型</div>
+                    <div v-show="!infoForm.name" class="error-submit-noFilled-content-every" @click="clickToInfo('name')">患者姓名</div>
+                    <div v-show="!infoForm.doctorId && !currentIsDoctor" class="error-submit-noFilled-content-every" @click="clickToInfo('doctorId')">所属医生</div>
+                    <div v-show="!(infoForm.sex + '') || infoForm.sex === -1" class="error-submit-noFilled-content-every" @click="clickToInfo('sex')">性别</div>
+                    <div v-show="!infoForm.birthday" class="error-submit-noFilled-content-every" @click="clickToInfo('birthday')">出生日期</div>
+                    <div v-show="!infoForm.annType || infoForm.annType === -1" class="error-submit-noFilled-content-every" @click="clickToInfo('annType')">安氏分类</div>
+                    <div v-show="!infoForm.malocclusionType.length" class="error-submit-noFilled-content-every" @click="clickToInfo('malocclusionType')">错合类型</div>
                   </div>
                 </div>
                 <div class="mb20" v-show="showPrescription">
                   <span class="error-submit-noFilled-type">诊断及矫治说明</span>
                   <div class="error-submit-noFilled-content">
-                    <div v-show="!(prescriptionForm.ccTeeth.length || prescriptionForm.ccJaw.length)" class="error-submit-noFilled-content-every" @click="clickToDesc">主诉</div>
-                    <div v-show="!prescriptionForm.teeth.length" class="error-submit-noFilled-content-every" @click="clickToDesc">主要矫治目标</div>
-                    <div v-show="!prescriptionForm.orthodonticJaw || prescriptionForm.orthodonticJaw === -1" class="error-submit-noFilled-content-every" @click="clickToDesc">拟矫治牙颌</div>
-                    <div v-show="!prescriptionForm.surfaceType || prescriptionForm.surfaceType === -1" class="error-submit-noFilled-content-every" @click="clickToDesc">面型</div>
-                    <div v-show="!(prescriptionForm.sagittalRight || prescriptionForm.sagittalLeft) || (prescriptionForm.sagittalRight === -1 && prescriptionForm.sagittalLeft === -1)" class="error-submit-noFilled-content-every" @click="clickToDesc">矢状关系</div>
-                    <div v-show="!prescriptionForm.midline || prescriptionForm.midline === -1" class="error-submit-noFilled-content-every" @click="clickToDesc">中线</div>
-                    <div v-show="!prescriptionForm.plantingNail || prescriptionForm.plantingNail === -1" class="error-submit-noFilled-content-every" @click="clickToDesc">是否配合种植支抗钉</div>
+                    <div v-show="!(prescriptionForm.ccTeeth.length || prescriptionForm.ccJaw.length)" class="error-submit-noFilled-content-every" @click="clickToDesc('chief')">主诉</div>
+                    <div v-show="!prescriptionForm.teeth.length" class="error-submit-noFilled-content-every" @click="clickToDesc('goals')">主要矫治目标</div>
+                    <div v-show="!prescriptionForm.orthodonticJaw || prescriptionForm.orthodonticJaw === -1" class="error-submit-noFilled-content-every" @click="clickToDesc('orthodontics')">拟矫治牙颌</div>
+                    <div v-show="!prescriptionForm.surfaceType || prescriptionForm.surfaceType === -1" class="error-submit-noFilled-content-every" @click="clickToDesc('facial')">面型</div>
+                    <div v-show="!(prescriptionForm.sagittalRight || prescriptionForm.sagittalLeft) || (prescriptionForm.sagittalRight === -1 && prescriptionForm.sagittalLeft === -1)" class="error-submit-noFilled-content-every" @click="clickToDesc('sagittal')">矢状关系</div>
+                    <div v-show="!prescriptionForm.midline || prescriptionForm.midline === -1" class="error-submit-noFilled-content-every" @click="clickToDesc('midline')">中线</div>
+                    <div v-show="!prescriptionForm.plantingNail || prescriptionForm.plantingNail === -1" class="error-submit-noFilled-content-every" @click="clickToDesc('nails')">是否配合种植支抗钉</div>
                   </div>
                 </div>
                 <div v-show="showFiles">
                   <span class="error-submit-noFilled-type">影像资料及模型</span>
                   <div class="error-submit-noFilled-content">
-                    <div v-show="showPhoto" class="error-submit-noFilled-content-every" @click="clickToPhoto">照片</div>
-                    <div v-show="!(prescriptionForm.upJawModelPath && prescriptionForm.downJawModelPath)" class="error-submit-noFilled-content-every" @click="clickToPhoto">牙颌模型</div>
+                    <div v-show="showPhoto" class="error-submit-noFilled-content-every" @click="clickToPhoto('photos')">照片</div>
+                    <div v-show="!(prescriptionForm.upJawModelPath && prescriptionForm.downJawModelPath)" class="error-submit-noFilled-content-every" @click="clickToPhoto('dental')">牙颌模型</div>
                   </div>
                 </div>
               </div>
@@ -1247,14 +1247,35 @@ export default {
       this.prescriptionForm.downJawModelName = "";
     },
     handleImgSuccessImgPool(res, file) {},
-    clickToInfo() {
+    clickToInfo(className) {
       this.active = 1;
+      this.$nextTick(() => {
+        document.querySelector("."+className).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        })
+      });
     },
-    clickToDesc() {
+    clickToDesc(className) {
       this.active = 2;
+      this.$nextTick(() => {
+        document.querySelector("."+className).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        })
+      });
     },
-    clickToPhoto() {
+    clickToPhoto(className) {
       this.active = 3;
+      this.$nextTick(() => {
+        document.querySelector("."+className).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        })
+      });
     },
     caseSave(state) {
       let data = {};
