@@ -55,6 +55,15 @@
           </template>
         </el-table-column>
         <el-table-column
+          prop="status"
+          label="状态">
+          <template slot-scope="scope">
+            <span v-if="scope.row.status == 0">启用</span>
+            <span v-else-if="scope.row.status == 1">禁用</span>
+            <span v-else>--</span>
+          </template>
+        </el-table-column>
+        <el-table-column
           fixed="right"
           label="操作"
           width="100">

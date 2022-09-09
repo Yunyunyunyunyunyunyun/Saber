@@ -7,7 +7,7 @@
       <el-col :span="6">
         <el-input v-model="doctorPhone" placeholder="请输入联系方式"></el-input>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="4">
         <el-cascader
           ref="doctorArea"
           :props="doctorProps"
@@ -16,10 +16,10 @@
           v-model="doctorAddressValue">
         </el-cascader>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="8">
         <el-button @click="resetSearch">重置</el-button>
         <el-button type="primary" @click="submitSearch">搜索</el-button>
-        <!-- <el-button type="primary" @click="exportDoctorBtn">导出医生</el-button> -->
+        <el-button type="primary" @click="exportDoctorBtn">导出医生</el-button>
       </el-col>
     </el-row>
     <div class="doctor-main">
@@ -53,6 +53,15 @@
             <span>
               {{scope.row.countries}} {{scope.row.province}} {{scope.row.city}} {{scope.row.district}}
             </span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="status"
+          label="状态">
+          <template slot-scope="scope">
+            <span v-if="scope.row.status == 0">启用</span>
+            <span v-else-if="scope.row.status == 1">禁用</span>
+            <span v-else>--</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -173,7 +182,6 @@ import {
   getDoctorDetail,
   modifyPassword,
   updateDoctor,
-  exportDoctor,
 } from "@/api/account/doctor";
 import {
   getHospitalList,
@@ -483,9 +491,6 @@ export default {
       });
     },
     exportDoctorBtn() {
-      exportDoctor().then(res => {
-        console.log(res)
-      });
     },
   }
 }
