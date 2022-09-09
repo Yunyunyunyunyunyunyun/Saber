@@ -122,6 +122,22 @@ import {
 export default {
   name: "Open",
   data() {
+    // 自定义联系方式规则
+    let checkPhoneReg = (rule, value, callback) => {
+      // 邮箱规则
+      const regEmail = /^\w+@\w+(\.\w+)+$/;
+      // 手机号规则
+      const regMobile = /^1[34578]\d{9}$/;
+      if (value === '') {
+        callback(new Error('请输入联系方式'));
+      } else {
+        if (regEmail.test(value) || regMobile.test(value)) {
+          // 合法联系方式
+          return callback();
+        }
+        callback(new Error('联系方式格式不正确'));
+      }
+    }
     return {
       activeName: 'openDoctorPage',
       doctorForm: {
@@ -142,7 +158,7 @@ export default {
           { required: true, message: '请输入医生姓名', trigger: 'blur' },
         ],
         phone: [
-          { required: true, message: '请输入联系方式', trigger: 'blur' },
+          { required: true, validator: checkPhoneReg, trigger: 'blur' },
         ],
         hospitalId: [
           { required: true, message: '请选择医院', trigger: 'blur' },
@@ -174,7 +190,7 @@ export default {
           { required: true, message: '请输入姓名', trigger: 'blur' },
         ],
         phone: [
-          { required: true, message: '请输入联系方式', trigger: 'blur' },
+          { required: true, validator: checkPhoneReg, trigger: 'blur' },
         ],
         orgAddress: [
           { required: true, message: '请选择住址', trigger: 'blur' },
