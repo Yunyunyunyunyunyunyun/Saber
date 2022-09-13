@@ -70,16 +70,16 @@
           width="200">
           <template slot-scope="scope">
             <span v-if="scope.row.state == 10">
-              <el-button @click="handleEdit(scope.row)" type="text">编辑</el-button>
+              <el-button @click.stop="handleEdit(scope.row)" type="text">编辑</el-button>
             </span>
             <span v-else-if="scope.row.state == 20">
-              <el-button @click="handleApproved(scope.row)" type="text">审核通过</el-button>
-              <el-button @click="handleRejected(scope.row)" type="text">审核不通过</el-button>
+              <el-button @click.stop="handleApproved(scope.row)" type="text">审核通过</el-button>
+              <el-button @click.stop="handleRejected(scope.row)" type="text">审核不通过</el-button>
             </span>
             <span v-else-if="scope.row.state == 30">
-              <el-button @click="handleEdit(scope.row)" type="text">编辑</el-button>
+              <el-button @click.stop="handleEdit(scope.row)" type="text">编辑</el-button>
             </span>
-            <span v-else-if="scope.row.state == 40">
+            <span v-else-if="scope.row.state == 40" @click.stop>
               <el-upload
                 class="three-d-uploader"
                 action=""
@@ -90,7 +90,7 @@
                 <el-button type="text">上传</el-button>
               </el-upload>
             </span>
-            <span v-else-if="scope.row.state == 60">
+            <span v-else-if="scope.row.state == 60" @click.stop>
               <el-upload
                 class="three-d-uploader"
                 action=""
@@ -100,7 +100,7 @@
                 :on-error="handleError">
                 <el-button type="text">上传</el-button>
               </el-upload>
-              <el-button @click="viewReason(scope.row)" type="text">查看原因</el-button>
+              <el-button @click.stop="viewReason(scope.row)" type="text">查看原因</el-button>
             </span>
             <span v-else>--</span>
           </template>

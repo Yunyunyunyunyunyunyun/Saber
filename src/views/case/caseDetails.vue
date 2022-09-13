@@ -2,7 +2,7 @@
   <div class="detail-contain">
     <div class="detail-title">
       <el-button icon="el-icon-arrow-left" @click="back">返回</el-button>
-      <div class="detail-title-main">病例号：{{caseData.record.medicalCode}}</div>
+      <div class="detail-title-main">病例号：{{caseData.record ? caseData.record.medicalCode : ""}}</div>
     </div>
     <div class="detail-out">
       <div class="detail-out-information">
@@ -16,9 +16,9 @@
                 </div>
               </div>
               <div class="detail-out-information-main-patient-information-basic">
-                <div class="detail-out-information-main-patient-information-basic-name">{{caseData.prescription.name}}</div>
-                <div class="detail-out-information-main-patient-information-basic-status">{{caseData.record.state | filterState}}</div>
-                <div class="detail-out-information-main-patient-information-basic-sex_age">{{caseData.prescription.sex | filterSex}}</div>
+                <div class="detail-out-information-main-patient-information-basic-name" v-if="caseData.prescription">{{caseData.prescription.name}}</div>
+                <div class="detail-out-information-main-patient-information-basic-status" v-if="caseData.record">{{caseData.record.state | filterState}}</div>
+                <div class="detail-out-information-main-patient-information-basic-sex_age" v-if="caseData.prescription">{{caseData.prescription.sex | filterSex}}</div>
                 <div class="detail-out-information-main-patient-information-basic-sex_age">{{caseData.age}}</div>
               </div>
             </div>
