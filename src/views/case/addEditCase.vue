@@ -2017,12 +2017,15 @@ export default {
   color: #555;
   font-weight: 300;
 }
-.common-img-uploader {
+.common-img-uploader >>> .el-upload {
   border: 1px solid #d9d9d9;
   width: 190px;
   height: 180px;
   line-height: 180px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .common-img-uploader-icon {
   font-size: 28px;
@@ -2033,8 +2036,8 @@ export default {
   text-align: center;
 }
 .common-img {
-  width: 190px;
-  height: 180px;
+  max-width: 190px;
+  max-height: 180px;
   display: block;
 }
 .mt20 {

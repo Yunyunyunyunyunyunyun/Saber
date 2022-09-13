@@ -41,7 +41,7 @@ export const saveCase = (row) => {
 
 export const preserveCase = (row) => {
   return request({
-    url: '/api/blade-orth/case/save_wait',
+    url: '/api/blade-orth/case/wait',
     method: 'post',
     data: row
   })

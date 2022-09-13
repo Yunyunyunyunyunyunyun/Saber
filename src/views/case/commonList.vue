@@ -22,7 +22,8 @@
         stripe
         border
         height="680"
-        style="width: 100%">
+        style="width: 100%"
+        @row-click="rowClick">
         <el-table-column
           prop="medicalCode"
           label="病例编号">
@@ -360,6 +361,14 @@ export default {
           this.failRemark = data.remark;
           this.failRemarkTime = data.createTime;
           this.failReasonVisible = true;
+        }
+      });
+    },
+    rowClick(row) {
+      this.$router.push({
+        path: "/case/caseDetails",
+        query: {
+          id: row.id,
         }
       });
     },

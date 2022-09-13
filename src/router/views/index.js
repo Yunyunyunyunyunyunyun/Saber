@@ -77,7 +77,7 @@ export default [{
 }, {
   path: '/case',
   component: Layout,
-  redirect: '/case/all',
+  redirect: '/case/addEditCase',
   children: [{
   path: 'addEditCase',
   name: '新增病例',
@@ -86,5 +86,18 @@ export default [{
   },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/addEditCase')
+  }]
+}, {
+  path: '/case',
+  component: Layout,
+  redirect: '/case/caseDetails',
+  children: [{
+  path: 'caseDetails',
+  name: '病例详情',
+  meta: {
+    i18n: 'info'
+  },
+  component: () =>
+    import( /* webpackChunkName: "views" */ '@/views/case/caseDetails')
   }]
 }]
