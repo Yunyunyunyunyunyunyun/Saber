@@ -1289,7 +1289,7 @@ export default {
           data.doctorId = this.infoForm.doctorId;
         }
       }
-      if (this.infoForm.sex) {
+      if (this.infoForm.sex+'') {
         data.sex = this.infoForm.sex;
       }
       if (this.infoForm.birthday) {
