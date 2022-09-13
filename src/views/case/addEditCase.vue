@@ -1555,6 +1555,9 @@ export default {
       }
       if (state === "preserve") {
         if (this.infoForm.doctorId) {
+          if (this.currentIsEdit) {
+            data.recordId = this.currentCaseId;
+          }
           preserveCase(data).then(res => {
             if (res.data.code == 200) {
               this.$message({

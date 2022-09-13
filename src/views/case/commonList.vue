@@ -19,6 +19,7 @@
       <el-table
         v-loading="loading"
         :data="caseTableData"
+        ref="caseTable"
         stripe
         border
         height="680"
@@ -246,6 +247,9 @@ export default {
           const data = res.data.data;
           this.total = data.total;
           this.caseTableData = data.records;
+          this.$nextTick(() => {
+            this.$refs["caseTable"].doLayout();
+          });
         }
         this.loading = false;
       });

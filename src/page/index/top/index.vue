@@ -29,14 +29,7 @@
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <router-link to="/">{{$t('navbar.dashboard')}}</router-link>
-          </el-dropdown-item>
-          <el-dropdown-item>
-            <router-link to="/info/index">{{$t('navbar.userinfo')}}</router-link>
-          </el-dropdown-item>
-          <el-dropdown-item @click.native="logout"
-                            divided>{{$t('navbar.logOut')}}</el-dropdown-item>
+          <el-dropdown-item @click.native="logout">{{$t('navbar.logOut')}}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>

@@ -3,6 +3,7 @@
     <el-table
       v-loading="loading"
       :data="doctorTableData"
+      ref="doctorTable"
       stripe
       border
       height="560"
@@ -170,6 +171,9 @@
             const data = res.data.data;
             this.total = data.total;
             this.doctorTableData = data.records;
+            this.$nextTick(() => {
+              this.$refs["doctorTable"].doLayout();
+            });
           }
           this.loading = false;
         });

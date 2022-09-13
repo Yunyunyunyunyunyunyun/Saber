@@ -78,3 +78,11 @@ export const updateCase = (row) => {
     data: row
   })
 }
+
+export const getThreeDDetail = (params) => {
+  return request({
+    url: '/api/blade-orth/treatmentrecord/detail-ddd',
+    method: 'get',
+    params: params,
+  })
+}

@@ -59,7 +59,8 @@
         </div>
       </div>
       <div class="detail-out-show">
-        <div class="detail-out-show-three">3D方案</div>
+        <div class="detail-out-show-three" v-if="caseData.record && caseData.record.dId && caseData.record.dId !== -1" @click="toThreeD">3D方案</div>
+        <div class="detail-out-show-three detail-out-show-three-disabled" v-else>暂无3D方案</div>
         <div class="detail-out-show-see">
           <div class="detail-out-show-see-basic">
             <div class="detail-out-show-see-basic-item" @click="toPhoto"><i class="el-icon-picture-outline item-icon"></i>照片</div>
@@ -70,6 +71,23 @@
       <div class="detail-out-history_expert">
         <div class="detail-out-history_expert-history">
           <div class="detail-out-history_expert-history-title">病例进度记录</div>
+          <div class="detail-out-history_expert-history-content">
+            <div class="detail-out-history-every" v-for="item in caseData.historyList" :key="item.id">
+              <div class="detail-out-history-every-date">{{item.updateTime}}</div>
+              <div class="detail-out-history-every-rate"></div>
+              <div class="detail-out-history-every-disableBtn" v-if="item && item.state">
+                <span v-if="item.state === 10">资料已保存</span>
+                <span v-else-if="item.state === 20">资料已提交</span>
+                <span v-else-if="item.state === 30">资料不合格,请补齐。</span>
+                <span v-else-if="item.state === 40">资料审核通过,3D方案设计中</span>
+                <span v-else-if="item.state === 50">{{item.fileName}}</span>
+                <span v-else-if="item.state === 60">{{item.fileName}},未批准</span>
+                <span v-else-if="item.state === 70">{{item.fileName}},已批准</span>
+                <span v-else-if="item.state === 80">完成发货</span>
+                <span v-else>未知</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -177,7 +195,7 @@
   </div>
 </template>
 <script>
-  import { getDetails } from "@/api/case/commonCase";
+  import { getDetails, getThreeDDetail } from "@/api/case/commonCase";
   export default {
     name: "CaseDetails",
     data() {
@@ -336,6 +354,17 @@
       toPhoto() {
         this.showPhotoVisible = true;
       },
+      toThreeD() {
+        let params = {};
+        if (this.caseData.record && this.caseData.record.dId && this.caseData.record.dId !== -1) {
+          params.id = this.caseData.record.dId;
+          getThreeDDetail(params).then(res => {
+            if (res.data.code == 200) {
+              const data = res.data.data;
+            }
+          });
+        }
+      },
     },
   }
 </script>
@@ -481,6 +510,10 @@
     cursor: pointer;
     box-sizing: border-box;
   }
+  .detail-out-show-three-disabled {
+    background-color: #a0cfff;
+    cursor: not-allowed;
+  }
   .detail-out-show-see {
     display: flex;
     align-items: center;
@@ -552,7 +585,6 @@
     width: 190px;
     height: 180px;
     line-height: 180px;
-    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -588,5 +620,46 @@
   .picture-diagnosis-desc {
     font-size: 18px;
     color: #303133;
+  }
+  .detail-out-history_expert-history-content {
+    padding: 14px 0;
+  }
+  .detail-out-history-every {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .detail-out-history-every-date {
+    color: #666;
+    font-size: 14px;
+    line-height: 14px;
+    white-space: nowrap;
+    font-weight: 400;
+    margin-right: 16px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    min-width: 120px;
+  }
+  .detail-out-history-every-rate {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #a0cfff;
+  }
+  .detail-out-history-every-disableBtn {
+    background-color: rgba(0,0,0,.04);
+    color: #999;
+    font-size: 14px;
+    line-height: 24px;
+    white-space: nowrap;
+    font-weight: 400;
+    padding: 4px 16px;
+    border-radius: 4px;
+    margin-left: 16px;
+    margin-right: 8px;
+    box-sizing: border-box;
   }
 </style>
