@@ -58,7 +58,122 @@
           </div>
         </div>
       </div>
+      <div class="detail-out-show">
+        <div class="detail-out-show-three">3D方案</div>
+        <div class="detail-out-show-see">
+          <div class="detail-out-show-see-basic">
+            <div class="detail-out-show-see-basic-item" @click="toPhoto"><i class="el-icon-picture-outline item-icon"></i>照片</div>
+            <div class="detail-out-show-see-basic-item"><i class="el-icon-tickets item-icon"></i>处方表</div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-out-history_expert">
+        <div class="detail-out-history_expert-history">
+          <div class="detail-out-history_expert-history-title">病例进度记录</div>
+        </div>
+      </div>
     </div>
+    <el-dialog
+      title="面向及口内照"
+      :visible.sync="showPhotoVisible">
+      <div>
+        <el-row class="mb20">
+          <el-col :span="8">
+            <div class="picture-contain">
+              <img v-if="caseData.photo && caseData.photo.frontSmilingPath" :src="caseData.photo.frontSmilingPath" class="picture-img">
+              <i v-else class="el-icon-picture picture-icon"></i>
+            </div>
+            <div class="picture-desc">正面微笑照</div>
+          </el-col>
+          <el-col :span="8">
+            <div class="picture-contain">
+              <img v-if="caseData.photo && caseData.photo.frontPath" :src="caseData.photo.frontPath" class="picture-img">
+              <i v-else class="el-icon-picture picture-icon"></i>
+            </div>
+            <div class="picture-desc">正面照</div>
+          </el-col>
+          <el-col :span="8">
+            <div class="picture-contain">
+              <img v-if="caseData.photo && caseData.photo.sidePath" :src="caseData.photo.sidePath" class="picture-img">
+              <i v-else class="el-icon-picture picture-icon"></i>
+            </div>
+            <div class="picture-desc">侧面照</div>
+          </el-col>
+        </el-row>
+        <el-row class="mb20">
+          <el-col :span="8">
+            <div class="picture-contain">
+              <img v-if="caseData.photo && caseData.photo.upJawPath" :src="caseData.photo.upJawPath" class="picture-img">
+              <i v-else class="el-icon-picture picture-icon"></i>
+            </div>
+            <div class="picture-desc">上颌口内照</div>
+          </el-col>
+          <el-col :span="8"></el-col>
+          <el-col :span="8">
+            <div class="picture-contain">
+              <img v-if="caseData.photo && caseData.photo.downJawPath" :src="caseData.photo.downJawPath" class="picture-img">
+              <i v-else class="el-icon-picture picture-icon"></i>
+            </div>
+            <div class="picture-desc">下颌口内照</div>
+          </el-col>
+        </el-row>
+        <el-row class="mb20">
+          <el-col :span="8">
+            <div class="picture-contain">
+              <img v-if="caseData.photo && caseData.photo.rightJawPath" :src="caseData.photo.rightJawPath" class="picture-img">
+              <i v-else class="el-icon-picture picture-icon"></i>
+            </div>
+            <div class="picture-desc">右侧口内照</div>
+          </el-col>
+          <el-col :span="8">
+            <div class="picture-contain">
+              <img v-if="caseData.photo && caseData.photo.frontJawPath" :src="caseData.photo.frontJawPath" class="picture-img">
+              <i v-else class="el-icon-picture picture-icon"></i>
+            </div>
+            <div class="picture-desc">正面口内照</div>
+          </el-col>
+          <el-col :span="8">
+            <div class="picture-contain">
+              <img v-if="caseData.photo && caseData.photo.leftJawPath" :src="caseData.photo.leftJawPath" class="picture-img">
+              <i v-else class="el-icon-picture picture-icon"></i>
+            </div>
+            <div class="picture-desc">左侧口内照</div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8">
+            <div class="picture-diagnosis-desc">X光照片</div>
+          </el-col>
+          <el-col :span="8"></el-col>
+          <el-col :span="8">
+            <div class="picture-diagnosis-desc">其他影像</div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8">
+            <div class="picture-contain">
+              <img v-if="caseData.photo && caseData.photo.allXrayPath" :src="caseData.photo.allXrayPath" class="picture-img">
+              <i v-else class="el-icon-picture picture-icon"></i>
+            </div>
+            <div class="picture-desc">全景片</div>
+          </el-col>
+          <el-col :span="8">
+            <div class="picture-contain">
+              <img v-if="caseData.photo && caseData.photo.sideXrayPath" :src="caseData.photo.sideXrayPath" class="picture-img">
+              <i v-else class="el-icon-picture picture-icon"></i>
+            </div>
+            <div class="picture-desc">侧位片</div>
+          </el-col>
+          <el-col :span="8">
+            <div class="picture-contain">
+              <img v-if="caseData.photo && caseData.photo.otherXrayPath" :src="caseData.photo.otherXrayPath" class="picture-img">
+              <i v-else class="el-icon-picture picture-icon"></i>
+            </div>
+            <div class="picture-desc">其他</div>
+          </el-col>
+        </el-row>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -69,6 +184,7 @@
       return {
         currentCaseId: "",
         caseData: {},
+        showPhotoVisible: false,
       }
     },
     created() {
@@ -217,6 +333,9 @@
           }
         });
       },
+      toPhoto() {
+        this.showPhotoVisible = true;
+      },
     },
   }
 </script>
@@ -250,7 +369,7 @@
     margin-bottom: 16px;
   }
   .detail-out-information-main {
-    padding: 16px;
+    padding: 24px 16px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -339,5 +458,135 @@
     font-size: 14px;
     font-weight: 300;
     margin-right: 10px;
+  }
+  .detail-out-show {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 16px;
+  }
+  .detail-out-show-three {
+    padding: 8px 16px;
+    background-color: #409EFF;
+    color: #fff;
+    font-size: 20px;
+    white-space: nowrap;
+    font-weight: 400;
+    border-radius: 6px;
+    min-width: 220px;
+    height: 70px;
+    margin-right: 16px;
+    text-align: center;
+    line-height: 54px;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  .detail-out-show-see {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1 1;
+  }
+  .detail-out-show-see-basic {
+    padding: 14px 24px;
+    min-height: 68px;
+    background-color: #fff;
+    flex: 1 1;
+    box-shadow: 0 2px 2px 1px #daecef;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+  }
+  .detail-out-show-see-basic-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: #333;
+    font-size: 14px;
+    line-height: 40px;
+    white-space: nowrap;
+    font-weight: 400;
+    padding-right: 24px;
+    border-right: 1px solid #e5eaec;
+    margin-right: 24px;
+  }
+  .detail-out-show-see-basic-item:last-child {
+    border: none;
+  }
+  .item-icon {
+    font-size: 20px;
+    color: #666;
+    margin-right: 8px;
+  }
+  .detail-out-history_expert {
+    box-shadow: 0 2px 2px 1px #daecef;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
+  }
+  .detail-out-history_expert-history {
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 8px 16px;
+    flex: 1 1;
+  }
+  .detail-out-history_expert-history-title {
+    color: #333;
+    font-size: 14px;
+    line-height: 24px;
+    white-space: nowrap;
+    font-weight: 400;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #edf0f5;
+  }
+  .detail-contain >>> .el-dialog__body {
+    padding: 10px 20px 20px;
+  }
+  .picture-contain {
+    border: 1px solid #d9d9d9;
+    width: 190px;
+    height: 180px;
+    line-height: 180px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .picture-img {
+    max-width: 190px;
+    max-height: 180px;
+    display: block;
+  }
+  .picture-icon {
+    font-size: 180px;
+    color: #d9d9d9;
+    width: 190px;
+    height: 180px;
+    line-height: 180px;
+    text-align: center;
+  }
+  .picture-desc {
+    width: 190px;
+    height: 40px;
+    line-height: 40px;
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    font-size: 14px;
+    font-weight: 300;
+    color: #555;
+    text-align: center;
+  }
+  .mb20 {
+    margin-bottom: 20px;
+  }
+  .picture-diagnosis-desc {
+    font-size: 18px;
+    color: #303133;
   }
 </style>
