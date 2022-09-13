@@ -73,7 +73,7 @@
           <div class="detail-out-history_expert-history-title">病例进度记录</div>
           <div class="detail-out-history_expert-history-content">
             <div class="detail-out-history-every" v-for="item in caseData.historyList" :key="item.id">
-              <div class="detail-out-history-every-date">{{item.updateTime}}</div>
+              <div class="detail-out-history-every-date">{{item.createTime}}</div>
               <div class="detail-out-history-every-rate"></div>
               <div class="detail-out-history-every-disableBtn" v-if="item && item.state">
                 <span v-if="item.state === 10">资料已保存</span>
