@@ -76,16 +76,15 @@
               <div class="detail-out-history-every-date">{{item.createTime}}</div>
               <div class="detail-out-history-every-rate"></div>
               <div class="detail-out-history-every-disableBtn" v-if="item && item.state">
-                <span v-if="item.state === 10">资料已保存，待提交。</span>
+                <span v-if="item.state === 10">资料已保存，待提交。<span v-if="caseData.record.state === 10" class="detail-out-history-every-disableBtn-canClick" @click="toEditPage">点击进入继续编辑</span></span>
                 <span v-else-if="item.state === 20">资料已提交</span>
-                <span v-else-if="item.state === 30">资料不合格,请补齐。</span>
+                <span v-else-if="item.state === 30">资料不合格,请补齐。<span v-if="caseData.record.state === 30" class="detail-out-history-every-disableBtn-canClick" @click="toEditPage">点击进入继续编辑</span></span>
                 <span v-else-if="item.state === 40">资料审核通过,3D方案设计中</span>
                 <span v-else-if="item.state === 50">方案：<span class="detail-out-history-every-disableBtn-canClick" @click="toThreeD(item.dId)">{{item.fileName}}</span></span>
                 <span v-else-if="item.state === 60">方案：<span class="detail-out-history-every-disableBtn-canClick" @click="toThreeD(item.dId)">{{item.fileName}}</span>,未批准</span>
                 <span v-else-if="item.state === 70">方案：<span class="detail-out-history-every-disableBtn-canClick" @click="toThreeD(item.dId)">{{item.fileName}}</span>,已批准</span>
                 <span v-else-if="item.state === 80">完成发货</span>
                 <span v-else>未知</span>
-                <span v-if="item.state === 10 || item.state === 30" class="detail-out-history-every-disableBtn-canClick" @click="toEditPage">点击进入继续编辑</span>
               </div>
               <span v-if="item && item.state">
                 <el-button v-if="item.state === 10 || item.state === 20" type="primary" size="small" @click="toPhotoDetails(item.photoId)">照片</el-button>
@@ -605,6 +604,7 @@
     overflow: hidden;
     word-break: break-all;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .detail-out-information-main-patient-information-basic-status {
     color: #409EFF;

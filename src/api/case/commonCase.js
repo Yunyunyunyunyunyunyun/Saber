@@ -102,3 +102,11 @@ export const getPhotoDetail = (params) => {
     params: params,
   })
 }
+
+export const getPrescriptionDetail = (params) => {
+  return request({
+    url: '/api/blade-orth/treatmentrecord/detail-record',
+    method: 'get',
+    params: params,
+  })
+}

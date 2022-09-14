@@ -125,6 +125,7 @@ export default {
     overflow: hidden;
     word-break: break-all;
     text-overflow: ellipsis;
+    white-space: nowrap;
     float: left;
     height: 64px;
     line-height: 64px;
