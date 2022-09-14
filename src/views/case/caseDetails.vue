@@ -64,7 +64,7 @@
         <div class="detail-out-show-see">
           <div class="detail-out-show-see-basic">
             <div class="detail-out-show-see-basic-item" @click="toPhoto"><i class="el-icon-picture-outline item-icon"></i>照片</div>
-            <div class="detail-out-show-see-basic-item"><i class="el-icon-tickets item-icon"></i>处方表</div>
+            <div class="detail-out-show-see-basic-item" @click="toPrescription(caseData.record)"><i class="el-icon-tickets item-icon"></i>处方表</div>
           </div>
         </div>
       </div>
@@ -89,7 +89,7 @@
               </div>
               <span v-if="item && item.state">
                 <el-button v-if="item.state === 10 || item.state === 20" type="primary" size="small" @click="toPhotoDetails(item.photoId)">照片</el-button>
-                <el-button v-if="item.state === 10 || item.state === 20" type="primary" size="small">处方表</el-button>
+                <el-button v-if="item.state === 10 || item.state === 20" type="primary" size="small" @click="toPrescription(item)">处方表</el-button>
                 <el-button v-if="item.state === 30 || item.state === 60" type="primary" size="small" @click="viewFailReason(item.id)">查看原因</el-button>
               </span>
             </div>
@@ -509,6 +509,16 @@
             this.failHistoryReasonVisible = true;
           }
         });
+      },
+      toPrescription(item) {
+        let routeData = this.$router.resolve({
+          path: "/case/prescriptionDetails",
+          query: {
+            photoId: item.photoId || "",
+            prescriptionId: item.prescriptionId || "",
+          }
+        });
+        window.open(routeData.href, '_blank');
       },
     },
   }

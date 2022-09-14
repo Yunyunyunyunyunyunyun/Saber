@@ -100,4 +100,17 @@ export default [{
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/caseDetails')
   }]
+}, {
+  path: '/case',
+  component: Layout,
+  redirect: '/case/prescriptionDetails',
+  children: [{
+  path: 'prescriptionDetails',
+  name: '处方表详情',
+  meta: {
+    i18n: 'info'
+  },
+  component: () =>
+    import( /* webpackChunkName: "views" */ '@/views/case/prescriptionDetails')
+  }]
 }]

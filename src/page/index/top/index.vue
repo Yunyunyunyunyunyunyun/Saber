@@ -25,7 +25,7 @@
            :src="userInfo.avatar">
       <el-dropdown>
         <span class="el-dropdown-link">
-          {{userInfo.userName}}
+          <span class="user-name" :title="userInfo.userName">{{userInfo.userName}}</span>
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -119,5 +119,14 @@ export default {
     height: 64px;
     line-height: 62px;
     font-size: 16px;
+  }
+  .user-name {
+    max-width: 100px;
+    overflow: hidden;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    float: left;
+    height: 64px;
+    line-height: 64px;
   }
 </style>

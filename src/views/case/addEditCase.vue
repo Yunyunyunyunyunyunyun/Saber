@@ -2232,5 +2232,6 @@ export default {
 .error-submitTrue-img {
   font-size: 80px;
   margin-right: 20px;
+  color: green;
 }
 </style>
