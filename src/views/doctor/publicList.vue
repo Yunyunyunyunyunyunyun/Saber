@@ -100,7 +100,7 @@
       title="查看原因"
       :visible.sync="failReasonVisible"
       width="30%">
-      <div>{{failRemark}} {{failRemarkTime}}</div>
+      <div>{{failRemark}}</div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="failReasonVisible = false">取 消</el-button>
         <el-button type="primary" @click="failReasonVisible = false">确 定</el-button>
@@ -130,7 +130,6 @@
         remark: "",
         failReasonVisible: false,
         failRemark: "",
-        failRemarkTime: "",
       };
     },
     props: {
@@ -235,7 +234,6 @@
           if (res.data.code == 200) {
             const data = res.data.data;
             this.failRemark = data.remark;
-            this.failRemarkTime = data.createTime;
             this.failReasonVisible = true;
           }
         });

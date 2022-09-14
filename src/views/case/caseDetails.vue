@@ -201,7 +201,7 @@
     <el-dialog
       title="查看原因"
       :visible.sync="failHistoryReasonVisible">
-      <div>{{failHistoryRemark}} {{failHistoryRemarkTime}}</div>
+      <div>{{failHistoryRemark}}</div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="failHistoryReasonVisible = false">取 消</el-button>
         <el-button type="primary" @click="failHistoryReasonVisible = false">确 定</el-button>
@@ -220,7 +220,6 @@
         caseData: {},
         showPhotoVisible: false,
         failHistoryRemark: "",
-        failHistoryRemarkTime: "",
         failHistoryReasonVisible: false,
         frontSmilingPath: "",
         frontPath: "",
@@ -504,7 +503,6 @@
           if (res.data.code == 200) {
             const data = res.data.data;
             this.failHistoryRemark = data.remark;
-            this.failHistoryRemarkTime = data.createTime;
             this.failHistoryReasonVisible = true;
           }
         });

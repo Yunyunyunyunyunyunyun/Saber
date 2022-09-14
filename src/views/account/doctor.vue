@@ -10,7 +10,7 @@
       <el-col :span="4">
         <el-cascader
           ref="doctorArea"
-          :props="doctorProps"
+          :props="doctorAllProps"
           clearable
           placeholder="请选择地区"
           v-model="doctorAddressValue">
@@ -183,6 +183,7 @@ import {
   getDoctorDetail,
   modifyPassword,
   updateDoctor,
+  selectCityAll,
 } from "@/api/account/doctor";
 import {
   getHospitalList,
@@ -243,6 +244,43 @@ export default {
               });
             } else if (level == 2) {
               selectCity({code: value}).then(res => {
+                list = res.data.data;
+                callback();
+              });
+            } else if (level > 2) {
+              list = [];
+              callback();
+            }
+          }, 100);
+        }
+      },
+      doctorAllProps: {
+        label: "name",
+        value: "code",
+        lazy: true,
+        lazyLoad (node, resolve) {
+          const { value, level } = node;
+          let list = [];
+          let callback = () => {
+            resolve((list || []).map(ele => {
+              return Object.assign(ele, {
+                leaf: ele.code == "00" ? level >= 0 : level >= 2
+              })
+            }));
+          }
+          setTimeout(() => {
+            if (level == 0) {
+              selectCityAll().then(res => {
+                list = res.data.data;
+                callback();
+              });
+            } else if (level == 1) {
+              selectCityAll({code: value}).then(res => {
+                list = res.data.data;
+                callback();
+              });
+            } else if (level == 2) {
+              selectCityAll({code: value}).then(res => {
                 list = res.data.data;
                 callback();
               });
@@ -330,15 +368,21 @@ export default {
         params.phone = this.doctorPhone;
         data.phone = this.doctorPhone;
       }
-      if (this.$refs["doctorArea"].getCheckedNodes()[0]) {
+      if (this.$refs["doctorArea"].getCheckedNodes()[0] && this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels.length) {
         params.countries = "中国";
-        params.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
-        params.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
-        params.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
         data.countries = "中国";
-        data.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
-        data.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
-        data.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
+        if (this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[0] !== "全部") {
+          params.province = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[0];
+          data.province = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[0];
+        }
+        if (this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[1] !== "全部") {
+          params.city = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[1];
+          data.city = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[1];
+        }
+        if (this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[2] !== "全部") {
+          params.district = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[2];
+          data.district = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[2];
+        }
       }
       this.getAllDoctorList(params);
       this.getAllExportDoctorList(data);
@@ -358,15 +402,21 @@ export default {
         params.phone = this.doctorPhone;
         data.phone = this.doctorPhone;
       }
-      if (this.$refs["doctorArea"].getCheckedNodes()[0]) {
+      if (this.$refs["doctorArea"].getCheckedNodes()[0] && this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels.length) {
         params.countries = "中国";
-        params.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
-        params.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
-        params.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
         data.countries = "中国";
-        data.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
-        data.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
-        data.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
+        if (this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[0] !== "全部") {
+          params.province = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[0];
+          data.province = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[0];
+        }
+        if (this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[1] !== "全部") {
+          params.city = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[1];
+          data.city = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[1];
+        }
+        if (this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[2] !== "全部") {
+          params.district = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[2];
+          data.district = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[2];
+        }
       }
       this.getAllDoctorList(params);
       this.getAllExportDoctorList(data);
@@ -396,15 +446,21 @@ export default {
         params.phone = this.doctorPhone;
         data.phone = this.doctorPhone;
       }
-      if (this.$refs["doctorArea"].getCheckedNodes()[0]) {
+      if (this.$refs["doctorArea"].getCheckedNodes()[0] && this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels.length) {
         params.countries = "中国";
-        params.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
-        params.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
-        params.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
         data.countries = "中国";
-        data.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
-        data.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
-        data.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
+        if (this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[0] !== "全部") {
+          params.province = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[0];
+          data.province = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[0];
+        }
+        if (this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[1] !== "全部") {
+          params.city = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[1];
+          data.city = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[1];
+        }
+        if (this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[2] !== "全部") {
+          params.district = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[2];
+          data.district = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[2];
+        }
       }
       this.getAllDoctorList(params);
       this.getAllExportDoctorList(data);
@@ -515,15 +571,21 @@ export default {
                 params.phone = this.doctorPhone;
                 data.phone = this.doctorPhone;
               }
-              if (this.$refs["doctorArea"].getCheckedNodes()[0]) {
+              if (this.$refs["doctorArea"].getCheckedNodes()[0] && this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels.length) {
                 params.countries = "中国";
-                params.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
-                params.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
-                params.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
                 data.countries = "中国";
-                data.province = this.$refs["doctorArea"].getCheckedNodes()[0].data.provinceName;
-                data.city = this.$refs["doctorArea"].getCheckedNodes()[0].data.cityName;
-                data.district = this.$refs["doctorArea"].getCheckedNodes()[0].data.districtName;
+                if (this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[0] !== "全部") {
+                  params.province = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[0];
+                  data.province = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[0];
+                }
+                if (this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[1] !== "全部") {
+                  params.city = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[1];
+                  data.city = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[1];
+                }
+                if (this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[2] !== "全部") {
+                  params.district = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[2];
+                  data.district = this.$refs["doctorArea"].getCheckedNodes()[0].pathLabels[2];
+                }
               }
               this.getAllDoctorList(params);
               this.getAllExportDoctorList(data);

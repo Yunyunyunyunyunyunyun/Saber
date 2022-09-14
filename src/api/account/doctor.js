@@ -41,3 +41,14 @@ export const getExportDoctorList = (params) => {
     params: params
   })
 }
+
+export const selectCityAll = (params) => {
+  return request({
+    url: '/api/blade-user/select-city-all',
+    method: 'get',
+    params: {
+      ...params,
+    }
+  })
+}
+
