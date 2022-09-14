@@ -97,9 +97,10 @@
             <el-input v-model="baseInfoForm.name" placeholder="请输入姓名"></el-input>
           </el-form-item>
           <el-form-item label="性别" prop="sex">
-            <span v-if="baseInfoForm.sex == 1">男</span>
-            <span v-else-if="baseInfoForm.sex == 0">女</span>
-            <span v-else>未知</span>
+            <el-radio-group v-model="baseInfoForm.sex">
+              <el-radio :label="1">男</el-radio>
+              <el-radio :label="0">女</el-radio>
+            </el-radio-group>
           </el-form-item>
           <el-form-item label="启用账号" prop="status">
             <el-radio-group v-model="baseInfoForm.status">
