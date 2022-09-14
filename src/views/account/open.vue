@@ -127,7 +127,7 @@ export default {
       // 邮箱规则
       const regEmail = /^\w+@\w+(\.\w+)+$/;
       // 手机号规则
-      const regMobile = /^1[34578]\d{9}$/;
+      const regMobile = /^1[3456789]\d{9}$/;
       if (value === '') {
         callback(new Error('请输入联系方式'));
       } else {

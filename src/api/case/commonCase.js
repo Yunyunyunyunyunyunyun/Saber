@@ -86,3 +86,19 @@ export const getThreeDDetail = (params) => {
     params: params,
   })
 }
+
+export const getFailHistoryReason = (params) => {
+  return request({
+    url: '/api/blade-orth/treatmentrecord/fail-history-reason',
+    method: 'get',
+    params: params,
+  })
+}
+
+export const getPhotoDetail = (params) => {
+  return request({
+    url: '/api/blade-orth/treatmentrecord/detail-photo',
+    method: 'get',
+    params: params,
+  })
+}

@@ -59,7 +59,7 @@
         </div>
       </div>
       <div class="detail-out-show">
-        <div class="detail-out-show-three" v-if="caseData.record && caseData.record.dId && caseData.record.dId !== -1" @click="toThreeD">3D方案</div>
+        <div class="detail-out-show-three" v-if="caseData.record && caseData.record.dId && caseData.record.dId !== -1" @click="toThreeD(caseData.record.dId)">3D方案</div>
         <div class="detail-out-show-three detail-out-show-three-disabled" v-else>暂无3D方案</div>
         <div class="detail-out-show-see">
           <div class="detail-out-show-see-basic">
@@ -76,16 +76,22 @@
               <div class="detail-out-history-every-date">{{item.createTime}}</div>
               <div class="detail-out-history-every-rate"></div>
               <div class="detail-out-history-every-disableBtn" v-if="item && item.state">
-                <span v-if="item.state === 10">资料已保存</span>
+                <span v-if="item.state === 10">资料已保存，待提交。</span>
                 <span v-else-if="item.state === 20">资料已提交</span>
                 <span v-else-if="item.state === 30">资料不合格,请补齐。</span>
                 <span v-else-if="item.state === 40">资料审核通过,3D方案设计中</span>
-                <span v-else-if="item.state === 50">{{item.fileName}}</span>
-                <span v-else-if="item.state === 60">{{item.fileName}},未批准</span>
-                <span v-else-if="item.state === 70">{{item.fileName}},已批准</span>
+                <span v-else-if="item.state === 50">方案：<span class="detail-out-history-every-disableBtn-canClick" @click="toThreeD(item.dId)">{{item.fileName}}</span></span>
+                <span v-else-if="item.state === 60">方案：<span class="detail-out-history-every-disableBtn-canClick" @click="toThreeD(item.dId)">{{item.fileName}}</span>,未批准</span>
+                <span v-else-if="item.state === 70">方案：<span class="detail-out-history-every-disableBtn-canClick" @click="toThreeD(item.dId)">{{item.fileName}}</span>,已批准</span>
                 <span v-else-if="item.state === 80">完成发货</span>
                 <span v-else>未知</span>
+                <span v-if="item.state === 10 || item.state === 30" class="detail-out-history-every-disableBtn-canClick" @click="toEditPage">点击进入继续编辑</span>
               </div>
+              <span v-if="item && item.state">
+                <el-button v-if="item.state === 10 || item.state === 20" type="primary" size="small" @click="toPhotoDetails(item.photoId)">照片</el-button>
+                <el-button v-if="item.state === 10 || item.state === 20" type="primary" size="small">处方表</el-button>
+                <el-button v-if="item.state === 30 || item.state === 60" type="primary" size="small" @click="viewFailReason(item.id)">查看原因</el-button>
+              </span>
             </div>
           </div>
         </div>
@@ -93,26 +99,27 @@
     </div>
     <el-dialog
       title="面向及口内照"
-      :visible.sync="showPhotoVisible">
+      :visible.sync="showPhotoVisible"
+      @close="closePhoto">
       <div>
         <el-row class="mb20">
           <el-col :span="8">
             <div class="picture-contain">
-              <img v-if="caseData.photo && caseData.photo.frontSmilingPath" :src="caseData.photo.frontSmilingPath" class="picture-img">
+              <img v-if="frontSmilingPath" :src="frontSmilingPath" class="picture-img">
               <i v-else class="el-icon-picture picture-icon"></i>
             </div>
             <div class="picture-desc">正面微笑照</div>
           </el-col>
           <el-col :span="8">
             <div class="picture-contain">
-              <img v-if="caseData.photo && caseData.photo.frontPath" :src="caseData.photo.frontPath" class="picture-img">
+              <img v-if="frontPath" :src="frontPath" class="picture-img">
               <i v-else class="el-icon-picture picture-icon"></i>
             </div>
             <div class="picture-desc">正面照</div>
           </el-col>
           <el-col :span="8">
             <div class="picture-contain">
-              <img v-if="caseData.photo && caseData.photo.sidePath" :src="caseData.photo.sidePath" class="picture-img">
+              <img v-if="sidePath" :src="sidePath" class="picture-img">
               <i v-else class="el-icon-picture picture-icon"></i>
             </div>
             <div class="picture-desc">侧面照</div>
@@ -121,7 +128,7 @@
         <el-row class="mb20">
           <el-col :span="8">
             <div class="picture-contain">
-              <img v-if="caseData.photo && caseData.photo.upJawPath" :src="caseData.photo.upJawPath" class="picture-img">
+              <img v-if="upJawPath" :src="upJawPath" class="picture-img">
               <i v-else class="el-icon-picture picture-icon"></i>
             </div>
             <div class="picture-desc">上颌口内照</div>
@@ -129,7 +136,7 @@
           <el-col :span="8"></el-col>
           <el-col :span="8">
             <div class="picture-contain">
-              <img v-if="caseData.photo && caseData.photo.downJawPath" :src="caseData.photo.downJawPath" class="picture-img">
+              <img v-if="downJawPath" :src="downJawPath" class="picture-img">
               <i v-else class="el-icon-picture picture-icon"></i>
             </div>
             <div class="picture-desc">下颌口内照</div>
@@ -138,21 +145,21 @@
         <el-row class="mb20">
           <el-col :span="8">
             <div class="picture-contain">
-              <img v-if="caseData.photo && caseData.photo.rightJawPath" :src="caseData.photo.rightJawPath" class="picture-img">
+              <img v-if="rightJawPath" :src="rightJawPath" class="picture-img">
               <i v-else class="el-icon-picture picture-icon"></i>
             </div>
             <div class="picture-desc">右侧口内照</div>
           </el-col>
           <el-col :span="8">
             <div class="picture-contain">
-              <img v-if="caseData.photo && caseData.photo.frontJawPath" :src="caseData.photo.frontJawPath" class="picture-img">
+              <img v-if="frontJawPath" :src="frontJawPath" class="picture-img">
               <i v-else class="el-icon-picture picture-icon"></i>
             </div>
             <div class="picture-desc">正面口内照</div>
           </el-col>
           <el-col :span="8">
             <div class="picture-contain">
-              <img v-if="caseData.photo && caseData.photo.leftJawPath" :src="caseData.photo.leftJawPath" class="picture-img">
+              <img v-if="leftJawPath" :src="leftJawPath" class="picture-img">
               <i v-else class="el-icon-picture picture-icon"></i>
             </div>
             <div class="picture-desc">左侧口内照</div>
@@ -170,21 +177,21 @@
         <el-row>
           <el-col :span="8">
             <div class="picture-contain">
-              <img v-if="caseData.photo && caseData.photo.allXrayPath" :src="caseData.photo.allXrayPath" class="picture-img">
+              <img v-if="allXrayPath" :src="allXrayPath" class="picture-img">
               <i v-else class="el-icon-picture picture-icon"></i>
             </div>
             <div class="picture-desc">全景片</div>
           </el-col>
           <el-col :span="8">
             <div class="picture-contain">
-              <img v-if="caseData.photo && caseData.photo.sideXrayPath" :src="caseData.photo.sideXrayPath" class="picture-img">
+              <img v-if="sideXrayPath" :src="sideXrayPath" class="picture-img">
               <i v-else class="el-icon-picture picture-icon"></i>
             </div>
             <div class="picture-desc">侧位片</div>
           </el-col>
           <el-col :span="8">
             <div class="picture-contain">
-              <img v-if="caseData.photo && caseData.photo.otherXrayPath" :src="caseData.photo.otherXrayPath" class="picture-img">
+              <img v-if="otherXrayPath" :src="otherXrayPath" class="picture-img">
               <i v-else class="el-icon-picture picture-icon"></i>
             </div>
             <div class="picture-desc">其他</div>
@@ -192,21 +199,46 @@
         </el-row>
       </div>
     </el-dialog>
+    <el-dialog
+      title="查看原因"
+      :visible.sync="failHistoryReasonVisible">
+      <div>{{failHistoryRemark}} {{failHistoryRemarkTime}}</div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="failHistoryReasonVisible = false">取 消</el-button>
+        <el-button type="primary" @click="failHistoryReasonVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
-  import { getDetails, getThreeDDetail } from "@/api/case/commonCase";
+  import { getDetails, getThreeDDetail, getFailHistoryReason, getPhotoDetail } from "@/api/case/commonCase";
   export default {
     name: "CaseDetails",
     data() {
       return {
         currentCaseId: "",
+        currentIsDoctor: false,
         caseData: {},
         showPhotoVisible: false,
+        failHistoryRemark: "",
+        failHistoryRemarkTime: "",
+        failHistoryReasonVisible: false,
+        frontSmilingPath: "",
+        frontPath: "",
+        sidePath: "",
+        upJawPath: "",
+        downJawPath: "",
+        rightJawPath: "",
+        frontJawPath: "",
+        leftJawPath: "",
+        allXrayPath: "",
+        sideXrayPath: "",
+        otherXrayPath: "",
       }
     },
     created() {
       this.currentCaseId = this.$route.query.id || "";
+      this.currentIsDoctor = this.$route.query.isDoctor || false;
       if (this.currentCaseId) {
         this.getCaseDetails(this.currentCaseId);
       }
@@ -353,17 +385,130 @@
       },
       toPhoto() {
         this.showPhotoVisible = true;
-      },
-      toThreeD() {
-        let params = {};
-        if (this.caseData.record && this.caseData.record.dId && this.caseData.record.dId !== -1) {
-          params.id = this.caseData.record.dId;
-          getThreeDDetail(params).then(res => {
-            if (res.data.code == 200) {
-              const data = res.data.data;
-            }
-          });
+        if (this.caseData.photo && this.caseData.photo.frontSmilingPath) {
+          this.frontSmilingPath = this.caseData.photo.frontSmilingPath;
         }
+        if (this.caseData.photo && this.caseData.photo.frontPath) {
+          this.frontPath = this.caseData.photo.frontPath;
+        }
+        if (this.caseData.photo && this.caseData.photo.sidePath) {
+          this.sidePath = this.caseData.photo.sidePath;
+        }
+        if (this.caseData.photo && this.caseData.photo.upJawPath) {
+          this.upJawPath = this.caseData.photo.upJawPath;
+        }
+        if (this.caseData.photo && this.caseData.photo.downJawPath) {
+          this.downJawPath = this.caseData.photo.downJawPath;
+        }
+        if (this.caseData.photo && this.caseData.photo.rightJawPath) {
+          this.rightJawPath = this.caseData.photo.rightJawPath;
+        }
+        if (this.caseData.photo && this.caseData.photo.frontJawPath) {
+          this.frontJawPath = this.caseData.photo.frontJawPath;
+        }
+        if (this.caseData.photo && this.caseData.photo.leftJawPath) {
+          this.leftJawPath = this.caseData.photo.leftJawPath;
+        }
+        if (this.caseData.photo && this.caseData.photo.allXrayPath) {
+          this.allXrayPath = this.caseData.photo.allXrayPath;
+        }
+        if (this.caseData.photo && this.caseData.photo.sideXrayPath) {
+          this.sideXrayPath = this.caseData.photo.sideXrayPath;
+        }
+        if (this.caseData.photo && this.caseData.photo.otherXrayPath) {
+          this.otherXrayPath = this.caseData.photo.otherXrayPath;
+        }
+      },
+      toPhotoDetails(id) {
+        let params = {
+          photoId: id,
+        }
+        getPhotoDetail(params).then(res => {
+          if (res.data.code == 200) {
+            const data = res.data.data;
+            if (data.frontSmilingPath) {
+              this.frontSmilingPath = data.frontSmilingPath;
+            }
+            if (data.frontPath) {
+              this.frontPath = data.frontPath;
+            }
+            if (data.sidePath) {
+              this.sidePath = data.sidePath;
+            }
+            if (data.upJawPath) {
+              this.upJawPath = data.upJawPath;
+            }
+            if (data.downJawPath) {
+              this.downJawPath = data.downJawPath;
+            }
+            if (data.rightJawPath) {
+              this.rightJawPath = data.rightJawPath;
+            }
+            if (data.frontJawPath) {
+              this.frontJawPath = data.frontJawPath;
+            }
+            if (data.leftJawPath) {
+              this.leftJawPath = data.leftJawPath;
+            }
+            if (data.allXrayPath) {
+              this.allXrayPath = data.allXrayPath;
+            }
+            if (data.sideXrayPath) {
+              this.sideXrayPath = data.sideXrayPath;
+            }
+            if (data.otherXrayPath) {
+              this.otherXrayPath = data.otherXrayPath;
+            }
+            this.showPhotoVisible = true;
+          }
+        })
+      },
+      closePhoto() {
+        this.showPhotoVisible = false;
+        this.frontSmilingPath = "";
+        this.frontPath = "";
+        this.sidePath = "";
+        this.upJawPath = "";
+        this.downJawPath = "";
+        this.rightJawPath = "";
+        this.frontJawPath = "";
+        this.leftJawPath = "";
+        this.allXrayPath = "";
+        this.sideXrayPath = "";
+        this.otherXrayPath = "";
+      },
+      toThreeD(id) {
+        let params = {
+          id: id,
+        };
+        getThreeDDetail(params).then(res => {
+          if (res.data.code == 200) {
+            const data = res.data.data;
+          }
+        });
+      },
+      toEditPage() {
+        this.$router.push({
+          path: "/case/addEditCase",
+          query: {
+            id: this.currentCaseId,
+            isEdit: true,
+            isDoctor: this.currentIsDoctor,
+          }
+        });
+      },
+      viewFailReason(id) {
+        let params = {
+          historyId: id,
+        };
+        getFailHistoryReason(params).then(res => {
+          if (res.data.code == 200) {
+            const data = res.data.data;
+            this.failHistoryRemark = data.remark;
+            this.failHistoryRemarkTime = data.createTime;
+            this.failHistoryReasonVisible = true;
+          }
+        });
       },
     },
   }
@@ -661,5 +806,9 @@
     margin-left: 16px;
     margin-right: 8px;
     box-sizing: border-box;
+  }
+  .detail-out-history-every-disableBtn-canClick {
+    color: #409eff;
+    cursor: pointer;
   }
 </style>

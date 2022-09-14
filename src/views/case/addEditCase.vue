@@ -1581,7 +1581,11 @@ export default {
                 type: "success",
                 message: "修改病例成功!"
               });
-              this.$router.push({path: "/case/all"});
+              if (this.currentIsDoctor) {
+                this.$router.push({path: "/doctor/list"});
+              } else {
+                this.$router.push({path: "/case/all"});
+              }
             }
           });
         } else {
@@ -1591,7 +1595,11 @@ export default {
                 type: "success",
                 message: "新建病例成功!"
               });
-              this.$router.push({path: "/case/all"});
+              if (this.currentIsDoctor) {
+                this.$router.push({path: "/doctor/list"});
+              } else {
+                this.$router.push({path: "/case/all"});
+              }
             }
           });
         }
