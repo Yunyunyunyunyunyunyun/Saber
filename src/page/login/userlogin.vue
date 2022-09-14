@@ -144,7 +144,7 @@
               spinner: "el-icon-loading"
             });
             this.$store.dispatch("LoginByUsername", this.loginForm).then(() => {
-              if (this.userInfo.authority == "administrator") {
+              if (this.userInfo.authority == "administrator" || this.userInfo.authority == "backUser") {
                 this.$router.push({path: "/case/all"});
               } else if (this.userInfo.authority == "doctorUser") {
                 this.$router.push({path: "/doctor/list"});
