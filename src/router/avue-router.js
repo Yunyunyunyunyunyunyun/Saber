@@ -26,10 +26,8 @@ RouterPlugin.install = function (vue, router, store, i18n) {
         meta: {},
         safe: this,
         // 设置标题
-        setTitle: (title) => {
-            const defaultTitle = this.$vue.$t('title');
-            title = title ? `${title}-${defaultTitle}` : defaultTitle;
-            document.title = title;
+        setTitle: () => {
+            document.title = this.$vue.$t('systemTitle');
         },
         closeTag: (value) => {
             let tag = value || this.$store.getters.tag;

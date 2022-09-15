@@ -53,10 +53,10 @@ export default [{
   component: Layout,
   redirect: '/case/all',
   children: [{
-  path: 'all',
+  path: 'case',
   name: '全部',
   meta: {
-    i18n: 'info'
+    i18n: 'case'
   },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/all')
@@ -66,10 +66,10 @@ export default [{
   component: Layout,
   redirect: '/doctor/list',
   children: [{
-  path: 'list',
+  path: 'doctor',
   name: '医生病例列表',
   meta: {
-    i18n: 'info'
+    i18n: 'doctor'
   },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/doctor/list')
@@ -82,7 +82,7 @@ export default [{
   path: 'addEditCase',
   name: '新增病例',
   meta: {
-    i18n: 'info'
+    i18n: 'addEditCase'
   },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/addEditCase')
@@ -95,7 +95,7 @@ export default [{
   path: 'caseDetails',
   name: '病例详情',
   meta: {
-    i18n: 'info'
+    i18n: 'caseDetails'
   },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/caseDetails')
@@ -108,7 +108,7 @@ export default [{
   path: 'prescriptionDetails',
   name: '处方表详情',
   meta: {
-    i18n: 'info'
+    i18n: 'prescriptionDetails'
   },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/prescriptionDetails')
