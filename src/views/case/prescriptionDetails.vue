@@ -596,11 +596,11 @@
       <div v-if="photoData.upJawModelName && photoData.downJawModelName" class="prescription-photo-model">
         <div class="mb10">
           <span>上颌</span>
-          <div class="prescription-photo-model-text">{{photoData.upJawModelName}}</div>
+          <div class="prescription-photo-model-text" :title="photoData.upJawModelName">{{photoData.upJawModelName}}</div>
         </div>
         <div>
           <span>下颌</span>
-          <div class="prescription-photo-model-text">{{photoData.downJawModelName}}</div>
+          <div class="prescription-photo-model-text" :title="photoData.downJawModelName">{{photoData.downJawModelName}}</div>
         </div>
       </div>
     </div>
