@@ -53,10 +53,10 @@ export default [{
   component: Layout,
   redirect: '/case/all',
   children: [{
-  path: 'case',
+  path: 'all',
   name: '全部',
   meta: {
-    i18n: 'case'
+    i18n: 'all'
   },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/all')
@@ -66,10 +66,10 @@ export default [{
   component: Layout,
   redirect: '/doctor/list',
   children: [{
-  path: 'doctor',
+  path: 'list',
   name: '医生病例列表',
   meta: {
-    i18n: 'doctor'
+    i18n: 'list'
   },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/doctor/list')
