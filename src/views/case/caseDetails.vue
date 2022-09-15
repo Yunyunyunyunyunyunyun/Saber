@@ -522,8 +522,7 @@
 </script>
 <style scoped>
   .detail-contain {
-    width: 100%;
-    max-width: 950px;
+    width: 950px;
     margin: 0 auto;
   }
   .detail-title {

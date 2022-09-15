@@ -302,6 +302,7 @@ export default {
             type: "success",
             message: "审核拒绝成功!"
           });
+          this.rejectVisible = false;
           let params = {
             current: this.currentPage,
             size: this.pageSize,

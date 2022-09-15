@@ -1748,8 +1748,7 @@ export default {
 </script>
 <style scoped>
 .all-add-contain {
-  width: 100%;
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
 }
 .add-title {
@@ -1981,7 +1980,7 @@ export default {
 .clearance-number {
   color: #bbb;
   font-size: 16px;
-  margin-left: 6px;
+  padding-left: 6px;
   width: 1100px;
 }
 .clearance-number-bootom {
