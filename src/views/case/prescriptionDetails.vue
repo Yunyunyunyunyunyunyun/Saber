@@ -485,6 +485,124 @@
       <div class="prescription-main-title mt60">
         <i class="el-icon-video-camera icon-color"></i>影像及资料
       </div>
+      <div class="prescription-photo-title">面像及口内照片</div>
+      <el-row class="mb20">
+        <el-col :span="8">
+          <div class="prescription-photo-picture-contain">
+            <img v-if="photoData.frontSmilingPath" :src="photoData.frontSmilingPath" class="prescription-photo-picture-img">
+            <i v-else class="el-icon-picture prescription-photo-picture-icon"></i>
+          </div>
+          <div class="prescription-photo-picture-desc">正面微笑照</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="prescription-photo-picture-contain">
+            <img v-if="photoData.frontPath" :src="photoData.frontPath" class="prescription-photo-picture-img">
+            <i v-else class="el-icon-picture prescription-photo-picture-icon"></i>
+          </div>
+          <div class="prescription-photo-picture-desc">正面照</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="prescription-photo-picture-contain">
+            <img v-if="photoData.sidePath" :src="photoData.sidePath" class="prescription-photo-picture-img">
+            <i v-else class="el-icon-picture prescription-photo-picture-icon"></i>
+          </div>
+          <div class="prescription-photo-picture-desc">侧面照</div>
+        </el-col>
+      </el-row>
+      <el-row class="mb20">
+        <el-col :span="8">
+          <div class="prescription-photo-picture-contain">
+            <img v-if="photoData.upJawPath" :src="photoData.upJawPath" class="prescription-photo-picture-img">
+            <i v-else class="el-icon-picture prescription-photo-picture-icon"></i>
+          </div>
+          <div class="prescription-photo-picture-desc">上颌口内照</div>
+        </el-col>
+        <el-col :span="8"></el-col>
+        <el-col :span="8">
+          <div class="prescription-photo-picture-contain">
+            <img v-if="photoData.downJawPath" :src="photoData.downJawPath" class="prescription-photo-picture-img">
+            <i v-else class="el-icon-picture prescription-photo-picture-icon"></i>
+          </div>
+          <div class="prescription-photo-picture-desc">下颌口内照</div>
+        </el-col>
+      </el-row>
+      <el-row class="mb20">
+        <el-col :span="8">
+          <div class="prescription-photo-picture-contain">
+            <img v-if="photoData.rightJawPath" :src="photoData.rightJawPath" class="prescription-photo-picture-img">
+            <i v-else class="el-icon-picture prescription-photo-picture-icon"></i>
+          </div>
+          <div class="prescription-photo-picture-desc">右侧口内照</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="prescription-photo-picture-contain">
+            <img v-if="photoData.frontJawPath" :src="photoData.frontJawPath" class="prescription-photo-picture-img">
+            <i v-else class="el-icon-picture prescription-photo-picture-icon"></i>
+          </div>
+          <div class="prescription-photo-picture-desc">正面口内照</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="prescription-photo-picture-contain">
+            <img v-if="photoData.leftJawPath" :src="photoData.leftJawPath" class="prescription-photo-picture-img">
+            <i v-else class="el-icon-picture prescription-photo-picture-icon"></i>
+          </div>
+          <div class="prescription-photo-picture-desc">左侧口内照</div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="8">
+          <div class="prescription-photo-title">X光照片</div>
+        </el-col>
+        <el-col :span="8"></el-col>
+        <el-col :span="8">
+          <div class="prescription-photo-title">其他影像</div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="8">
+          <div class="prescription-photo-picture-contain">
+            <img v-if="photoData.allXrayPath" :src="photoData.allXrayPath" class="prescription-photo-picture-img">
+            <i v-else class="el-icon-picture prescription-photo-picture-icon"></i>
+          </div>
+          <div class="prescription-photo-picture-desc">全景片</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="prescription-photo-picture-contain">
+            <img v-if="photoData.sideXrayPath" :src="photoData.sideXrayPath" class="prescription-photo-picture-img">
+            <i v-else class="el-icon-picture prescription-photo-picture-icon"></i>
+          </div>
+          <div class="prescription-photo-picture-desc">侧位片</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="prescription-photo-picture-contain">
+            <img v-if="photoData.otherXrayPath" :src="photoData.otherXrayPath" class="prescription-photo-picture-img">
+            <i v-else class="el-icon-picture prescription-photo-picture-icon"></i>
+          </div>
+          <div class="prescription-photo-picture-desc">其他</div>
+        </el-col>
+      </el-row>
+      <div class="prescription-main-double-every">
+        <div>牙颌模型：</div>
+        <div>
+          <div class="mb17">
+            <span class="mr10">数字模型文件</span>
+            <span v-if="photoData.upJawModelName && photoData.downJawModelName">
+              <span class="prescription-main-every-content">本地上传</span>
+            </span>
+            <span class="prescription-main-every-content" v-else>无</span>
+          </div>
+        </div>
+      </div>
+      <div v-if="photoData.upJawModelName && photoData.downJawModelName" class="prescription-photo-model">
+        <div class="mb10">
+          <span>上颌</span>
+          <div class="prescription-photo-model-text">{{photoData.upJawModelName}}</div>
+        </div>
+        <div>
+          <span>下颌</span>
+          <div class="prescription-photo-model-text">{{photoData.downJawModelName}}</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -1069,5 +1187,80 @@ export default {
   font-size: 17px;
   word-break: break-all;
   white-space: pre-wrap;
+}
+.prescription-photo-title {
+  margin: 30px 0 20px;
+  color: #333;
+  font-size: 16px;
+  line-height: 16px;
+  white-space: nowrap;
+  font-weight: 400;
+}
+.prescription-photo-picture-contain {
+  border: 1px solid #d9d9d9;
+  width: 190px;
+  height: 180px;
+  line-height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.prescription-photo-picture-img {
+  max-width: 190px;
+  max-height: 180px;
+  display: block;
+}
+.prescription-photo-picture-icon {
+  font-size: 180px;
+  color: #d9d9d9;
+  width: 190px;
+  height: 180px;
+  line-height: 180px;
+  text-align: center;
+}
+.prescription-photo-picture-desc {
+  width: 190px;
+  height: 40px;
+  line-height: 40px;
+  border-left: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+  font-size: 14px;
+  font-weight: 300;
+  color: #555;
+  text-align: center;
+}
+.mb20 {
+  margin-bottom: 20px;
+}
+.prescription-photo-model {
+    margin: 0 0 0 170px;
+    width: 500px;
+    padding: 13px 26px;
+    background: #f6f7fa;
+    border-radius: 4px;
+}
+.prescription-photo-model>div {
+  color: #555;
+  font-size: 16px;
+  line-height: 16px;
+  white-space: nowrap;
+  font-weight: 400;
+  display: flex;
+}
+.prescription-photo-model-text {
+  color: #333;
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 400;
+  margin-left: 10px;
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+.mb10 {
+  margin-bottom: 10px
 }
 </style>

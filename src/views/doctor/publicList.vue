@@ -7,7 +7,8 @@
       stripe
       border
       height="560"
-      style="width: 100%">
+      style="width: 100%"
+      @row-click="rowClick">
       <el-table-column
         prop="medicalCode"
         label="病例编号">
@@ -56,15 +57,15 @@
         width="200">
         <template slot-scope="scope">
           <span v-if="scope.row.state == 10">
-            <el-button @click="handleEdit(scope.row)" type="text">编辑</el-button>
+            <el-button @click.stop="handleEdit(scope.row)" type="text">编辑</el-button>
           </span>
           <span v-else-if="scope.row.state == 30">
-            <el-button @click="handleEdit(scope.row)" type="text">编辑</el-button>
-            <el-button @click="viewReason(scope.row)" type="text">查看原因</el-button>
+            <el-button @click.stop="handleEdit(scope.row)" type="text">编辑</el-button>
+            <el-button @click.stop="viewReason(scope.row)" type="text">查看原因</el-button>
           </span>
           <span v-else-if="scope.row.state == 50">
-            <el-button @click="handleApproved(scope.row)" type="text">审核通过</el-button>
-            <el-button @click="handleRejected(scope.row)" type="text">审核不通过</el-button>
+            <el-button @click.stop="handleApproved(scope.row)" type="text">审核通过</el-button>
+            <el-button @click.stop="handleRejected(scope.row)" type="text">审核不通过</el-button>
           </span>
           <span v-else>--</span>
         </template>
@@ -236,6 +237,15 @@
             const data = res.data.data;
             this.failRemark = data.remark;
             this.failReasonVisible = true;
+          }
+        });
+      },
+      rowClick(row) {
+        this.$router.push({
+          path: "/case/caseDetails",
+          query: {
+            id: row.id,
+            isDoctor: true,
           }
         });
       },

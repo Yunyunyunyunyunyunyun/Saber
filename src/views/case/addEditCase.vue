@@ -945,6 +945,16 @@ import { uploadOBS } from "@/util/obs";
 export default {
   name: "AddEditCase",
   data() {
+    let checkNameReg = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入患者姓名'));
+      } else {
+        if (value.length <= 100) {
+          return callback();
+        }
+        callback(new Error('患者姓名必须在100字符以内'));
+      }
+    }
     return {
       active: 1,
       infoForm: {
@@ -958,7 +968,7 @@ export default {
       },
       infoRules: {
         name: [
-          { required: true, message: '请输入患者姓名', trigger: 'blur' },
+          { required: true, validator: checkNameReg, trigger: 'blur' },
         ],
         doctorId: [
           { required: true, message: '请选择所属医生', trigger: 'blur' },
@@ -1564,6 +1574,11 @@ export default {
                 type: "success",
                 message: "暂存成功!"
               });
+              if (this.currentIsDoctor) {
+                this.$router.push({path: "/doctor/list"});
+              } else {
+                this.$router.push({path: "/case/all"});
+              }
             }
           });
         } else {
