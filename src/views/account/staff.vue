@@ -363,6 +363,7 @@ export default {
       this.staffName = '';
       this.staffPhone = '';
       this.staffAddressValue = null;
+      this.currentPage = 1;
       let params = {
         current: 1,
         size: this.pageSize,
@@ -370,6 +371,7 @@ export default {
       this.getAllStaffList(params);
     },
     submitSearch() {
+      this.currentPage = 1;
       let params = {
         current: 1,
         size: this.pageSize,

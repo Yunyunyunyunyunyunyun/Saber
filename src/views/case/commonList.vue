@@ -201,6 +201,7 @@ export default {
     resetSearch() {
       this.doctorName = "";
       this.patientName = "";
+      this.currentPage = 1;
       let params = {
         current: 1,
         size: this.pageSize,
@@ -208,6 +209,7 @@ export default {
       this.getAllCaseList(params);
     },
     submitSearch() {
+      this.currentPage = 1;
       let params = {
         current: 1,
         size: this.pageSize,

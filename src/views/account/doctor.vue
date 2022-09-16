@@ -425,6 +425,7 @@ export default {
       this.doctorName = '';
       this.doctorPhone = '';
       this.doctorAddressValue = null;
+      this.currentPage = 1;
       let params = {
         current: 1,
         size: this.pageSize,
@@ -433,6 +434,7 @@ export default {
       this.getAllExportDoctorList({});
     },
     submitSearch() {
+      this.currentPage = 1;
       let params = {
         current: 1,
         size: this.pageSize,
