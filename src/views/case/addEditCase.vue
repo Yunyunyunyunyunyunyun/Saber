@@ -1087,6 +1087,7 @@ export default {
       currentCaseId: "",
       currentIsEdit: false,
       currentIsDoctor: false,
+      addRecordId: "",
     }
   },
   computed: {
@@ -1568,16 +1569,18 @@ export default {
           if (this.currentIsEdit) {
             data.recordId = this.currentCaseId;
           }
+          if (!this.currentIsEdit && this.addRecordId) {
+            data.recordId = this.addRecordId;
+          }
           preserveCase(data).then(res => {
             if (res.data.code == 200) {
               this.$message({
                 type: "success",
                 message: "暂存成功!"
               });
-              if (this.currentIsDoctor) {
-                this.$router.push({path: "/doctor/list"});
-              } else {
-                this.$router.push({path: "/case/all"});
+              let resData = res.data.data;
+              if (!this.currentIsEdit && resData.length) {
+                this.addRecordId = resData[0];
               }
             }
           });
