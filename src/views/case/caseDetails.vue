@@ -482,6 +482,9 @@
         getThreeDDetail(params).then(res => {
           if (res.data.code == 200) {
             const data = res.data.data;
+            if (data.filePath) {
+              window.open(data.filePath);
+            }
           }
         });
       },
