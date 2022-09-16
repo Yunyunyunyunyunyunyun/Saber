@@ -140,20 +140,23 @@
       },
     },
     created() {
-      let params = {
-        current: this.currentPage,
-        size: this.pageSize,
-      };
-      this.getAllDoctorList(params);
+      this.startPage(this.status);
     },
     methods: {
+      startPage(status) {
+        let params = {
+          current: this.currentPage,
+          size: this.pageSize,
+        };
+        this.getAllDoctorList(params, status);
+      },
       handleSizeChange(val) {
         this.pageSize = val;
         let params = {
           current: this.currentPage,
           size: val
         };
-        this.getAllDoctorList(params);
+        this.getAllDoctorList(params, this.status);
       },
       handleCurrentChange(val) {
         this.currentPage = val;
@@ -161,11 +164,11 @@
           current: val,
           size: this.pageSize,
         };
-        this.getAllDoctorList(params);
+        this.getAllDoctorList(params, this.status);
       },
-      getAllDoctorList(data) {
+      getAllDoctorList(data, status) {
         this.loading = true;
-        data.state = this.status;
+        data.state = status;
         getDoctorList(data).then(res => {
           if (res.data.code == 200) {
             const data = res.data.data;
@@ -199,7 +202,7 @@
               current: this.currentPage,
               size: this.pageSize,
             };
-            this.getAllDoctorList(params);
+            this.getAllDoctorList(params, this.status);
           }
         })
       },
@@ -224,7 +227,7 @@
               current: this.currentPage,
               size: this.pageSize,
             };
-            this.getAllDoctorList(params);
+            this.getAllDoctorList(params, this.status);
           }
         })
       },

@@ -765,7 +765,7 @@
                     <img v-if="prescriptionForm.allXrayPath" :src="prescriptionForm.allXrayPath" class="common-img">
                     <i v-else class="el-icon-plus common-img-uploader-icon"></i>
                   </el-upload>
-                  <div class="img-desc img-desc-required">全景片</div>
+                  <div class="img-desc">全景片</div>
                 </el-col>
                 <el-col :span="8">
                   <el-upload
@@ -780,7 +780,7 @@
                     <img v-if="prescriptionForm.sideXrayPath" :src="prescriptionForm.sideXrayPath" class="common-img">
                     <i v-else class="el-icon-plus common-img-uploader-icon"></i>
                   </el-upload>
-                  <div class="img-desc img-desc-required">侧位片</div>
+                  <div class="img-desc">侧位片</div>
                 </el-col>
                 <el-col :span="8">
                   <el-upload
@@ -843,8 +843,8 @@
                     </el-col>
                     <el-col span="14">
                       <div class="jaw-model-desc">
-                        <div>1.口扫时扫过咬合，导出的上颌STL、下颌STL就会自动带上咬合数据；</div>
-                        <div>2.如需上传其他数据，请选择邮件发送，根据提示发送至邮箱即可。</div>
+                        <div>1.口扫时扫过咬合，导出的上颌STL、下颌STL就会自动带上咬合数据。</div>
+                        <!-- <div>2.如需上传其他数据，请选择邮件发送，根据提示发送至邮箱即可。</div> -->
                       </div>
                     </el-col>
                   </el-row>
@@ -1124,9 +1124,7 @@ export default {
           || !this.prescriptionForm.downJawPath
           || !this.prescriptionForm.rightJawPath
           || !this.prescriptionForm.frontJawPath
-          || !this.prescriptionForm.leftJawPath
-          || !this.prescriptionForm.allXrayPath
-          || !this.prescriptionForm.sideXrayPath;
+          || !this.prescriptionForm.leftJawPath;
     },
     showFiles() {
       return this.showPhoto || !(this.prescriptionForm.upJawModelPath && this.prescriptionForm.downJawModelPath);

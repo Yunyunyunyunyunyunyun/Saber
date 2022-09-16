@@ -2,18 +2,18 @@
   <div class="doctor-contain">
     <el-button type="primary" icon="el-icon-plus" @click="addCaseList">新建病例</el-button>
     <div class="doctor-main">
-      <el-tabs v-model="activeName">
+      <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="'全部('+total+')'" name="first">
-          <public-list :status="1"></public-list>
+          <public-list :status="1" ref="firstList"></public-list>
         </el-tab-pane>
         <el-tab-pane :label="'待处理('+waitDeal+')'" name="second">
-          <public-list :status="2"></public-list>
+          <public-list :status="2" ref="secondList"></public-list>
         </el-tab-pane>
         <el-tab-pane :label="'待提交('+stage+')'" name="third">
-          <public-list :status="3"></public-list>
+          <public-list :status="3" ref="thirdList"></public-list>
         </el-tab-pane>
         <el-tab-pane :label="'治疗中('+underTreatment+')'" name="fourth">
-          <public-list :status="4"></public-list>
+          <public-list :status="4" ref="fourtList"></public-list>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -56,6 +56,19 @@ export default {
         }
       });
     },
+    handleClick(tab, event) {
+      if (tab.name == "first" && this.$refs["firstList"]) {
+        this.$refs["firstList"].startPage(1);
+      } else if (tab.name == "second" && this.$refs["secondList"]) {
+        this.$refs["secondList"].startPage(2);
+      } else if (tab.name == "third" && this.$refs["thirdList"]) {
+        this.$refs["thirdList"].startPage(3);
+      } else if (tab.name == "fourth" && this.$refs["fourtList"]) {
+        this.$refs["fourtList"].startPage(4);
+      } else {
+        // 不存在，不做操作
+      }
+    }
   },
 }
 </script>

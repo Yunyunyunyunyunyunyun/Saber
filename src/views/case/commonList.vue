@@ -149,6 +149,8 @@
     <el-dialog
       title="上传进度"
       :visible.sync="uploadVisible"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
       :show-close="false">
       <el-progress :text-inside="true" :stroke-width="20" :percentage="percentageNumber"></el-progress>
     </el-dialog>
