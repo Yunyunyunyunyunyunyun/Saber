@@ -15,6 +15,8 @@ import {
 } from '@/config/env';
 import i18n from './lang' // Internationalization
 import './styles/common.scss';
+import Viewer from 'v-viewer';
+import 'viewerjs/dist/viewer.css';
 
 import basicContainer from './components/basic-container/main'
 import thirdRegister from './components/third-register/main'
@@ -27,6 +29,16 @@ Vue.use(Element, {
 Vue.use(window.AVUE, {
     i18n: (key, value) => i18n.t(key, value)
 })
+
+Vue.use(Viewer, {
+  defaultOptions: {
+    zIndex: 99999
+  }
+})
+Viewer.setDefaults({
+  Options: { 'inline': true, 'button': true, 'navbar': true, 'title': false, 'toolbar': true, 'tooltip': true, 'movable': true, 'zoomable': true, 'rotatable': true, 'scalable': true, 'transition': true, 'fullscreen': true, 'keyboard': true, 'url': 'data-source' }
+})
+
 //注册全局容器
 Vue.component('basicContainer', basicContainer)
 Vue.component('thirdRegister', thirdRegister);

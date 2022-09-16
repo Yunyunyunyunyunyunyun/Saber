@@ -100,7 +100,7 @@
       title="面向及口内照"
       :visible.sync="showPhotoVisible"
       @close="closePhoto">
-      <div>
+      <viewer :images="images">
         <el-row class="mb20">
           <el-col :span="8">
             <div class="picture-contain">
@@ -196,7 +196,7 @@
             <div class="picture-desc">其他</div>
           </el-col>
         </el-row>
-      </div>
+      </viewer>
     </el-dialog>
     <el-dialog
       title="查看原因"
@@ -232,6 +232,7 @@
         allXrayPath: "",
         sideXrayPath: "",
         otherXrayPath: "",
+        images: [],
       }
     },
     created() {
@@ -378,6 +379,39 @@
         getDetails(params).then(res => {
           if (res.data.code == 200) {
             this.caseData = res.data.data;
+            if (this.caseData.photo && this.caseData.photo.frontSmilingPath) {
+              this.images.push(this.caseData.photo.frontSmilingPath);
+            }
+            if (this.caseData.photo && this.caseData.photo.frontPath) {
+              this.images.push(this.caseData.photo.frontPath);
+            }
+            if (this.caseData.photo && this.caseData.photo.sidePath) {
+              this.images.push(this.caseData.photo.sidePath);
+            }
+            if (this.caseData.photo && this.caseData.photo.upJawPath) {
+              this.images.push(this.caseData.photo.upJawPath);
+            }
+            if (this.caseData.photo && this.caseData.photo.downJawPath) {
+              this.images.push(this.caseData.photo.downJawPath);
+            }
+            if (this.caseData.photo && this.caseData.photo.rightJawPath) {
+              this.images.push(this.caseData.photo.rightJawPath);
+            }
+            if (this.caseData.photo && this.caseData.photo.frontJawPath) {
+              this.images.push(this.caseData.photo.frontJawPath);
+            }
+            if (this.caseData.photo && this.caseData.photo.leftJawPath) {
+              this.images.push(this.caseData.photo.leftJawPath);
+            }
+            if (this.caseData.photo && this.caseData.photo.allXrayPath) {
+              this.images.push(this.caseData.photo.allXrayPath);
+            }
+            if (this.caseData.photo && this.caseData.photo.sideXrayPath) {
+              this.images.push(this.caseData.photo.sideXrayPath);
+            }
+            if (this.caseData.photo && this.caseData.photo.otherXrayPath) {
+              this.images.push(this.caseData.photo.otherXrayPath);
+            }
           }
         });
       },
@@ -426,36 +460,47 @@
             const data = res.data.data;
             if (data.frontSmilingPath) {
               this.frontSmilingPath = data.frontSmilingPath;
+              this.images.push(data.frontSmilingPath);
             }
             if (data.frontPath) {
               this.frontPath = data.frontPath;
+              this.images.push(data.frontPath);
             }
             if (data.sidePath) {
               this.sidePath = data.sidePath;
+              this.images.push(data.sidePath);
             }
             if (data.upJawPath) {
               this.upJawPath = data.upJawPath;
+              this.images.push(data.upJawPath);
             }
             if (data.downJawPath) {
               this.downJawPath = data.downJawPath;
+              this.images.push(data.downJawPath);
             }
             if (data.rightJawPath) {
               this.rightJawPath = data.rightJawPath;
+              this.images.push(data.rightJawPath);
             }
             if (data.frontJawPath) {
               this.frontJawPath = data.frontJawPath;
+              this.images.push(data.frontJawPath);
             }
             if (data.leftJawPath) {
               this.leftJawPath = data.leftJawPath;
+              this.images.push(data.leftJawPath);
             }
             if (data.allXrayPath) {
               this.allXrayPath = data.allXrayPath;
+              this.images.push(data.allXrayPath);
             }
             if (data.sideXrayPath) {
               this.sideXrayPath = data.sideXrayPath;
+              this.images.push(data.sideXrayPath);
             }
             if (data.otherXrayPath) {
               this.otherXrayPath = data.otherXrayPath;
+              this.images.push(data.otherXrayPath);
             }
             this.showPhotoVisible = true;
           }
@@ -474,6 +519,7 @@
         this.allXrayPath = "";
         this.sideXrayPath = "";
         this.otherXrayPath = "";
+        this.images = [];
       },
       toThreeD(id) {
         let params = {
@@ -748,6 +794,7 @@
     max-width: 190px;
     max-height: 180px;
     display: block;
+    cursor: pointer;
   }
   .picture-icon {
     font-size: 180px;
