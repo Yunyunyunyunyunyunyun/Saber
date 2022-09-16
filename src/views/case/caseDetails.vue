@@ -23,7 +23,7 @@
                 </div>
                 <div class="detail-out-information-main-patient-information-basic-status" v-if="caseData.record && caseData.record.state">{{caseData.record.state | filterState}}</div>
                 <div class="detail-out-information-main-patient-information-basic-sex_age" v-if="caseData.prescription && caseData.prescription.sex+''">{{caseData.prescription.sex | filterSex}}</div>
-                <div class="detail-out-information-main-patient-information-basic-sex_age" v-if="caseData.age+''">{{caseData.age}}</div>
+                <div class="detail-out-information-main-patient-information-basic-sex_age" v-if="caseData.age+''">{{caseData.age}}岁</div>
               </div>
             </div>
           </div>
@@ -278,7 +278,7 @@
         } else if (value === 7) {
           return "其他";
         } else {
-          return "未知";
+          return "";
         }
       },
       filterCcJaw(value) {
@@ -291,7 +291,7 @@
         } else if (value === 4) {
           return "下颌后缩";
         } else {
-          return "未知";
+          return "";
         }
       },
       filterTeeth(value) {
@@ -310,7 +310,7 @@
         } else if (value === 7) {
           return "其他";
         } else {
-          return "未知";
+          return "";
         }
       },
       filterAnnType(value) {
@@ -323,7 +323,7 @@
         } else if (value === 4) {
           return "不确定";
         } else {
-          return "未知";
+          return "";
         }
       },
       filterBonyType(value) {
@@ -334,7 +334,7 @@
         } else if (value === 3) {
           return "骨性III类";
         } else {
-          return "未知";
+          return "";
         }
       },
       filterMalocclusionType(value) {
@@ -363,7 +363,7 @@
         } else if (value === 12) {
           return "下颌后缩";
         } else {
-          return "未知";
+          return "";
         }
       },
     },

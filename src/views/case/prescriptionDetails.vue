@@ -723,7 +723,7 @@ export default {
       } else if (value === 12) {
         return "下颌后缩";
       } else {
-        return "未知";
+        return "无";
       }
     },
     filterCcTeeth(value) {
@@ -742,7 +742,7 @@ export default {
       } else if (value === 7) {
         return "其他";
       } else {
-        return "未知";
+        return "无";
       }
     },
     filterCcJaw(value) {
@@ -755,7 +755,7 @@ export default {
       } else if (value === 4) {
         return "下颌后缩";
       } else {
-        return "未知";
+        return "无";
       }
     },
     filterTeeth(value) {
@@ -774,7 +774,7 @@ export default {
       } else if (value === 7) {
         return "其他";
       } else {
-        return "未知";
+        return "无";
       }
     },
     filterOrthodonticJaw(value) {

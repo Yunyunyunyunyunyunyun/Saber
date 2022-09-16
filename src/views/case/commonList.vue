@@ -86,6 +86,7 @@
                 action=""
                 :show-file-list="false"
                 :http-request="showProcess"
+                :before-upload="beforeUpload"
                 :on-success="function(res, file) { return handleImgSuccess(res, file, scope.row) }"
                 :on-error="handleError">
                 <el-button type="text">上传</el-button>
@@ -97,6 +98,7 @@
                 action=""
                 :show-file-list="false"
                 :http-request="showProcess"
+                :before-upload="beforeUpload"
                 :on-success="function(res, file) { return handleImgSuccess(res, file, scope.row) }"
                 :on-error="handleError">
                 <el-button type="text">上传</el-button>
@@ -144,6 +146,12 @@
         <el-button type="primary" @click="failReasonVisible = false">确 定</el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      title="上传进度"
+      :visible.sync="uploadVisible"
+      :show-close="false">
+      <el-progress :text-inside="true" :stroke-width="20" :percentage="percentageNumber"></el-progress>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -172,6 +180,8 @@ export default {
       remark: "",
       failReasonVisible: false,
       failRemark: "",
+      uploadVisible: false,
+      percentageNumber: 0,
     };
   },
   props: {
@@ -320,9 +330,16 @@ export default {
     async showProcess(params) {
       //调用分段上传OBS方法
       return await uploadOBS(params.file, 'order', (percentage) => {
+        this.percentageNumber = parseInt(percentage);
         // 更新进度条
         params.onProgress({percent: percentage});
       });
+    },
+    beforeUpload(file) {
+      if (file.type) {
+        this.percentageNumber = 0;
+        this.uploadVisible = true;
+      }
     },
     handleError(err) {
       this.$message.warning(err.msg);
@@ -337,6 +354,7 @@ export default {
       };
       uploadThreeD(params).then(res => {
         if (res.data.code == 200) {
+          this.uploadVisible = false;
           this.$message({
             type: "success",
             message: "上传成功!"
