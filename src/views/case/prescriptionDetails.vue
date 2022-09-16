@@ -593,14 +593,14 @@
           </div>
         </div>
       </div>
-      <div v-if="photoData.upJawModelName && photoData.downJawModelName" class="prescription-photo-model">
+      <div v-if="photoData.upJawModelName && photoData.downJawModelName && photoData.upJawModelPath && photoData.downJawModelPath" class="prescription-photo-model">
         <div class="mb10">
           <span>上颌</span>
-          <div class="prescription-photo-model-text" :title="photoData.upJawModelName">{{photoData.upJawModelName}}</div>
+          <div class="prescription-photo-model-text" :title="photoData.upJawModelName" @click="downloadPhoto(photoData.upJawModelPath)">{{photoData.upJawModelName}}</div>
         </div>
         <div>
           <span>下颌</span>
-          <div class="prescription-photo-model-text" :title="photoData.downJawModelName">{{photoData.downJawModelName}}</div>
+          <div class="prescription-photo-model-text" :title="photoData.downJawModelName" @click="downloadPhoto(photoData.downJawModelPath)">{{photoData.downJawModelName}}</div>
         </div>
       </div>
     </div>
@@ -984,7 +984,10 @@ export default {
           }
         }
       });
-    }
+    },
+    downloadPhoto(path) {
+      window.open(path);
+    },
   },
 }
 </script>
@@ -1249,7 +1252,7 @@ export default {
   display: flex;
 }
 .prescription-photo-model-text {
-  color: #333;
+  color: #409EFF;
   font-size: 18px;
   line-height: 18px;
   font-weight: 400;
@@ -1259,6 +1262,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
+  cursor: pointer;
 }
 .mb10 {
   margin-bottom: 10px
