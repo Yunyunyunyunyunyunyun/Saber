@@ -482,11 +482,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
   }
   .shoot-standard-main-document-main-img>img {
     max-width: 100%;
-    height: 100%;
+    max-height: 100%;
   }
   .mt28 {
     margin-top: 28px;
