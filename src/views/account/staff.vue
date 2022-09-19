@@ -23,6 +23,7 @@
     </el-row>
     <div class="staff-main">
       <el-table
+        ref="staffTable"
         v-loading="loading"
         :data="staffTableData"
         stripe
@@ -31,7 +32,8 @@
         style="width: 100%">
         <el-table-column
           prop="id"
-          label="员工ID">
+          label="员工ID"
+          sortable>
         </el-table-column>
         <el-table-column
           prop="name"
@@ -403,6 +405,9 @@ export default {
           const data = res.data.data;
           this.total = data.total;
           this.staffTableData = data.records;
+          this.$nextTick(() => {
+            this.$refs["staffTable"].doLayout();
+          });
         }
         this.loading = false;
       });

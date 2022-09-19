@@ -24,10 +24,12 @@
         border
         height="680"
         style="width: 100%"
+        :default-sort = "{prop: 'medicalCode', order: 'descending'}"
         @row-click="rowClick">
         <el-table-column
           prop="medicalCode"
-          label="病例编号">
+          label="病例编号"
+          sortable>
         </el-table-column>
         <el-table-column
           prop="name"
@@ -35,7 +37,8 @@
         </el-table-column>
         <el-table-column
           prop="createTime"
-          label="创建时间">
+          label="创建时间"
+          sortable>
         </el-table-column>
         <el-table-column
           prop="state"

@@ -24,6 +24,7 @@
     </el-row>
     <div class="doctor-main">
       <el-table
+        ref="doctorTable"
         v-loading="loading"
         :data="doctorTableData"
         stripe
@@ -32,7 +33,8 @@
         style="width: 100%">
         <el-table-column
           prop="id"
-          label="医生ID">
+          label="医生ID"
+          sortable>
         </el-table-column>
         <el-table-column
           prop="name"
@@ -474,6 +476,9 @@ export default {
           const data = res.data.data;
           this.total = data.total;
           this.doctorTableData = data.records;
+          this.$nextTick(() => {
+            this.$refs["doctorTable"].doLayout();
+          });
         }
         this.loading = false;
       });
