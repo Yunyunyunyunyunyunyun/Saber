@@ -349,6 +349,7 @@ export default {
       }
     },
     handleError(err) {
+      this.uploadVisible = false;
       this.$message.warning(err.msg);
       return false;
     },

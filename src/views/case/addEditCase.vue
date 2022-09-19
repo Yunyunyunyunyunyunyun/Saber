@@ -852,24 +852,6 @@
                 <!-- <el-tab-pane label="硅橡胶模型" name="second"></el-tab-pane> -->
               </el-tabs>
             </el-col>
-            <!-- <el-col :span="8">
-              <div class="diagnosis-title">照片池(0) <span class="diagnosis-tip">未分配照片可以在照片池中查看</span></div>
-              <div class="img-pool-contain">
-                <el-upload
-                  class="img-pool-uploader"
-                  action=""
-                  accept=".jpeg,.jpg,.png"
-                  :show-file-list="false"
-                  :http-request="showProcess"
-                  :on-success="handleImgSuccessImgPool"
-                  :before-upload="beforeImgUpload"
-                  :on-error="handleError">
-                  <i class="el-icon-plus pool-icon"></i>
-                  <div class="pool-title">点击上传照片</div>
-                  <div class="pool-desc">点击可以上传更多图片</div>
-                </el-upload>
-              </div>
-            </el-col> -->
           </el-row>
         </el-tab-pane>
         <el-tab-pane :name="4">
@@ -930,6 +912,14 @@
       <el-button type="primary" v-show="active<4 || showInfo || showPrescription || showFiles" plain @click="caseSave('preserve')">暂存</el-button>
       <el-button type="primary" v-show="active === 4 && !(showInfo || showPrescription || showFiles)" plain @click="caseSave('submit')">提交</el-button>
     </div>
+    <el-dialog
+      title="上传进度"
+      :visible.sync="uploadVisible"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      :show-close="false">
+      <el-progress :text-inside="true" :stroke-width="20" :percentage="percentageNumber"></el-progress>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -1088,6 +1078,8 @@ export default {
       currentIsEdit: false,
       currentIsDoctor: false,
       addRecordId: "",
+      uploadVisible: false,
+      percentageNumber: 0,
     }
   },
   computed: {
@@ -1169,48 +1161,63 @@ export default {
     handleImgSuccessSimle(res, file) {
       const data = res.data || {};
       this.prescriptionForm.frontSmilingPath = data.viewStlUrl;
+      this.uploadVisible = false;
     },
     handleImgSuccessFront(res, file) {
       const data = res.data || {};
       this.prescriptionForm.frontPath = data.viewStlUrl;
+      this.uploadVisible = false;
     },
     handleImgSuccessSide(res, file) {
       const data = res.data || {};
       this.prescriptionForm.sidePath = data.viewStlUrl;
+      this.uploadVisible = false;
     },
     handleImgSuccessSideUpJaw(res, file) {
       const data = res.data || {};
       this.prescriptionForm.upJawPath = data.viewStlUrl;
+      this.uploadVisible = false;
     },
     handleImgSuccessDownJaw(res, file) {
       const data = res.data || {};
       this.prescriptionForm.downJawPath = data.viewStlUrl;
+      this.uploadVisible = false;
     },
     handleImgSuccessRightJaw(res, file) {
       const data = res.data || {};
       this.prescriptionForm.rightJawPath = data.viewStlUrl;
+      this.uploadVisible = false;
     },
     handleImgSuccessFrontJaw(res, file) {
       const data = res.data || {};
       this.prescriptionForm.frontJawPath = data.viewStlUrl;
+      this.uploadVisible = false;
     },
     handleImgSuccessLeftJaw(res, file) {
       const data = res.data || {};
       this.prescriptionForm.leftJawPath = data.viewStlUrl;
+      this.uploadVisible = false;
     },
     handleImgSuccessAllXray(res, file) {
       const data = res.data || {};
       this.prescriptionForm.allXrayPath = data.viewStlUrl;
+      this.uploadVisible = false;
     },
     handleImgSuccessSideXray(res, file) {
       const data = res.data || {};
       this.prescriptionForm.sideXrayPath = data.viewStlUrl;
+      this.uploadVisible = false;
     },
     handleImgSuccessOtherXray(res, file) {
       const data = res.data || {};
       this.prescriptionForm.otherXrayPath = data.viewStlUrl;
+      this.uploadVisible = false;
     },
     beforeImgUpload(file) {
+      if (file.type) {
+        this.percentageNumber = 0;
+        this.uploadVisible = true;
+      }
       const isJPG = file.type === 'image/jpeg';
       const isPNG = file.type === 'image/png';
 
@@ -1222,11 +1229,13 @@ export default {
     async showProcess(params) {
       //调用分段上传OBS方法
       return await uploadOBS(params.file, 'order/photo', (percentage) => {
+        this.percentageNumber = parseInt(percentage);
         // 更新进度条
         params.onProgress({percent: percentage});
       });
     },
     handleError(err) {
+      this.uploadVisible = false;
       this.$message.warning(err.msg);
       return false;
     },
@@ -1234,8 +1243,13 @@ export default {
       const data = res.data || {};
       this.prescriptionForm.upJawModelPath = data.viewStlUrl;
       this.prescriptionForm.upJawModelName = data.originalName;
+      this.uploadVisible = false;
     },
     beforeImgUploadJawModel(file) {
+      if (file.name) {
+        this.percentageNumber = 0;
+        this.uploadVisible = true;
+      }
       const isSTL = file.name.toLocaleLowerCase().substring(file.name.lastIndexOf('.')) === ".stl";
       if (!isSTL) {
         this.$message.error('您只能上传 stl 类型的文件!');
@@ -1246,6 +1260,7 @@ export default {
       const data = res.data || {};
       this.prescriptionForm.downJawModelPath = data.viewStlUrl;
       this.prescriptionForm.downJawModelName = data.originalName;
+      this.uploadVisible = false;
     },
     removeUpJawModel() {
       this.prescriptionForm.upJawModelPath = "";
@@ -1255,7 +1270,6 @@ export default {
       this.prescriptionForm.downJawModelPath = "";
       this.prescriptionForm.downJawModelName = "";
     },
-    handleImgSuccessImgPool(res, file) {},
     clickToInfo(className) {
       this.active = 1;
       this.$nextTick(() => {
@@ -2141,40 +2155,6 @@ export default {
   font-size: 14px;
   color: #666;
   margin-top: 30px;
-}
-.img-pool-contain {
-  width: 325px;
-  height: 700px;
-  box-shadow: 0 2px 25px 0 rgb(170 178 195 / 22%);
-  border-radius: 10px;
-  padding: 30px;
-  overflow-y: auto;
-  margin-top: 30px;
-}
-.img-pool-uploader >>> .el-upload {
-  width: 160px;
-  height: 180px;
-  border: 1px dashed #c5c5c5;
-  background: #fafafa;
-  text-align: center;
-}
-.pool-icon {
-  width: 22px;
-  height: 22px;
-  padding-top: 30px;
-  padding-bottom: 10px;
-  font-size: 22px;
-  color: #8c939d;
-}
-.pool-title {
-  color: #333;
-  font-size: 14px;
-}
-.pool-desc {
-  color: #999;
-  font-size: 14px;
-  padding-top: 50px;
-  padding-bottom: 30px;
 }
 .error-submit {
   padding: 50px;
