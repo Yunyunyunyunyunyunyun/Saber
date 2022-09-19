@@ -482,6 +482,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
   .shoot-standard-main-document-main-img>img {
     max-width: 100%;
