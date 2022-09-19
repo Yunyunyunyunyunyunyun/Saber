@@ -10,7 +10,7 @@
         <img class="img"
              src="/img/logo.png"
              alt="">
-        <p class="title">{{ $t('login.info') }}</p>
+        <p class="title">{{ $t('systemTitle') }}</p>
       </div>
       <div class="login-border">
         <div class="login-main">

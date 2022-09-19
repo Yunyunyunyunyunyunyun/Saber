@@ -211,6 +211,91 @@
       </el-row>
     </el-col>
   </el-row>
+  <el-row class="shoot-standard-main" v-if="activeName === 'jaw'">
+    <el-col :span="5" class="shoot-standard-main-catalogue">
+      <div class="shoot-standard-main-catalogue-title">本页目录</div>
+      <div v-for="item in jawObjArr" :key="item.name">
+        <div
+          class="shoot-standard-main-catalogue-link"
+          :class="{'shoot-standard-main-catalogue-link-active': activeLink === item.name}"
+          @click.prevent="handleLinks(item.name)">
+          {{item.label}}
+        </div>
+      </div>
+    </el-col>
+    <el-col :span="19" class="shoot-standard-main-document">
+      <div class="shoot-standard-main-document-title">模型制取标准</div>
+      <el-row id="oneJaw" class="mt28">
+        <el-col :span="24">
+          <div class="shoot-standard-main-document-every-title">硅橡胶模型取模标准</div>
+          <div class="shoot-standard-main-document-every-secondary-title">要求</div>
+          <div class="shoot-standard-main-document-every-content">
+            <div>1.要求印模清晰、牙列完整、牙冠及牙龈缘无气泡、无缺损、无皱褶。若有第三磨牙，印模应至少包括该牙近中二分之一牙冠；</div>
+            <div>2.要求使用加聚型硅橡胶；</div>
+            <div>3.即使单颌治疗也需取全口印模；</div>
+            <div>4.使用塑料托盘，不得使用金属托盘或含金属材料的托盘。</div>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row id="twoJaw" class="mt28">
+        <el-col :span="24">
+          <div class="shoot-standard-main-document-every-title">如何取模</div>
+          <div class="shoot-standard-main-document-every-secondary-title">两步法</div>
+          <div class="shoot-standard-main-document-every-content">
+            <div>*剪取比托盘稍大一些的塑料隔离膜。</div>
+            <div>1.取等量重体印模材料，按生产厂家要求的时间定时。用指肚混合搅拌均匀，呈现均一颜色后，搓成条状填入托盘并覆盖至托盘的高度。确保在牙弓周围有足够的材料覆盖。托盘末端材料需要溢出一些，以取到最后磨牙的远中；</div>
+            <div>2.将隔离膜覆盖在托盘上，使其与印模材料贴附；</div>
+            <div>3.保持塑料薄膜位置，然后将托盘放置于患者口内，托盘的手柄对准患者鼻子，从后往前均匀施压，使托盘充分就位，应看到重体材料从溢出孔溢出。托盘就位后，前后、上下、左右轻微移动，为轻体预留出一定的间隙；</div>
+            <div>*节约时间的建议：初印可在研究模型上制取。</div>
+            <div>4.初印模结固后取出托盘，去除隔离膜。此时的印模还没有牙齿结构的细节，对于比较清晰的牙齿结构要用硅橡胶修整刀修除；</div>
+            <div>5.使用轻体充填器在初印中注入轻体。确保充填器头始终在轻体印模材料内，避免产生气泡。充填轻体时要一次充填足够的量，在最后一颗磨牙的远中多充填一些。轻体充填完成，放入口腔后均匀慢压，使托盘充分就位。按印模材料生产厂家要求的时间定时；</div>
+            <div>6.固化后取出托盘，确认是否符合硅橡胶印模标准。</div>
+          </div>
+          <div class="shoot-standard-main-document-every-secondary-title">一步法</div>
+          <div class="shoot-standard-main-document-every-content">
+            <div>1.取等量重体印模材料，按生产厂家要求的时间定时。用指肚混合搅拌均匀，呈现均一颜色后，搓成条状填入托盘并覆盖至托盘的高度。确保在牙弓周围有足够的材料覆盖。托盘末端材料需要溢出一些，以取到最后磨牙的远中；</div>
+            <div>2.用小指侧面在印模材中央压出一条槽沟，在上颌托盘的远中端形成远中壁；</div>
+            <div>3.使用轻体充填器在初印中注入轻体。确保充填器头始终在轻体印模材料内，避免产生气泡。充填轻体时要一次充填足够的量，在最后一颗磨牙的远中多充填一些，轻体材料要注满槽沟；</div>
+            <div>4.托盘放入口内时，请助手协助牵拉对侧口角，托盘手柄与患者鼻子对齐，平直进入口腔后均匀慢压，使托盘允分就位。根据印模材料生产厂家推荐的固化时间定时。印模固化后取出托盘。</div>
+          </div>
+          <div class="shoot-standard-main-document-every-secondary-title">取得精确硅橡胶印模的技巧</div>
+          <div class="shoot-standard-main-document-every-content">
+            <div>1.牙体必须清洁；</div>
+            <div>2.请勿将硅橡胶印模材料与其它印模材料混合使用；</div>
+            <div>3.材料的温度会影响工作时间及结固时间。可将印模材料适当冷冻，这样可以延长工作时间和结固时间；</div>
+            <div>4.在厂家规定时间内进行操作。</div>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row id="threeJaw" class="mt28">
+        <el-col :span="24">
+          <div class="shoot-standard-main-document-every-title">数字模型标准</div>
+          <div class="shoot-standard-main-document-every-secondary-title">要求</div>
+          <div class="shoot-standard-main-document-every-content">
+            <div>使用口扫设备时，请务必完整扫描上颌、下颌、咬合并确保数字模型清晰、准确。</div>
+            <div>导出STL须知：</div>
+            <div>只要口扫时扫过咬合，导出的上颌STL、下颌STL就会自动带上咬合数据。</div>
+            <div>注：不同品牌的口扫设备，可能存在区别。</div>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row id="fourJaw" class="mt28">
+        <el-col :span="24">
+          <div class="shoot-standard-main-document-every-title">超硬石膏模型标准</div>
+          <div class="shoot-standard-main-document-every-secondary-title">要求</div>
+          <div class="shoot-standard-main-document-every-content">
+            <div>1.牙列清晰，完整</div>
+            <div>2.模型无断裂，无拼接</div>
+            <div>3.牙齿形态无变形，无缺损</div>
+            <div>4.无不可修整的石膏瘤或孔洞</div>
+            <div>5.牙面无托槽，无附件</div>
+            <div>6.龈缘清晰，完整</div>
+            <div>7.龈缘下方组织保留3mm以上</div>
+          </div>
+        </el-col>
+      </el-row>
+    </el-col>
+  </el-row>
 </div>
 </template>
 <script>
@@ -234,6 +319,12 @@ export default {
       sliceObjArr: [
         { name: "oneSlice", label: "全颌曲面断层片" },
         { name: "twoSlice", label: "头颅侧位定位片" },
+      ],
+      jawObjArr: [
+        { name: "oneJaw", label: "硅橡胶模型取模标准" },
+        { name: "twoJaw", label: "如何取模" },
+        { name: "threeJaw", label: "数字模型标准" },
+        { name: "fourJaw", label: "超硬石膏模型标准" },
       ],
     }
   },
@@ -263,24 +354,38 @@ export default {
     },
     handleScroll(e) {
       const topNumber = e.target.scrollTop;
-      if (topNumber < 45) {
-        this.activeLink = "";
-      } else if (topNumber >= 45 && topNumber < 205) {
-        this.activeLink = "onePhoto";
-      } else if (topNumber >= 205 && topNumber < 560) {
-        this.activeLink = "twoPhoto";
-      } else if (topNumber >= 560 && topNumber < 916) {
-        this.activeLink = "threePhoto";
-      } else if (topNumber >= 916 && topNumber < 1271) {
-        this.activeLink = "fourPhoto";
-      } else if (topNumber >= 1271 && topNumber < 1527) {
-        this.activeLink = "fivePhoto";
-      } else if (topNumber >= 1527 && topNumber < 1879) {
-        this.activeLink = "sixPhoto";
-      } else if (topNumber >= 1879 && topNumber < 2030) {
-        this.activeLink = "sevenPhoto";
+      if (this.activeName === "photo") {
+        if (topNumber < 45) {
+          this.activeLink = "";
+        } else if (topNumber >= 45 && topNumber < 205) {
+          this.activeLink = "onePhoto";
+        } else if (topNumber >= 205 && topNumber < 560) {
+          this.activeLink = "twoPhoto";
+        } else if (topNumber >= 560 && topNumber < 916) {
+          this.activeLink = "threePhoto";
+        } else if (topNumber >= 916 && topNumber < 1271) {
+          this.activeLink = "fourPhoto";
+        } else if (topNumber >= 1271 && topNumber < 1527) {
+          this.activeLink = "fivePhoto";
+        } else if (topNumber >= 1527 && topNumber < 1879) {
+          this.activeLink = "sixPhoto";
+        } else if (topNumber >= 1879 && topNumber < 2030) {
+          this.activeLink = "sevenPhoto";
+        } else {
+          this.activeLink = "eightPhoto";
+        }
+      } else if (this.activeName === "jaw") {
+        if (topNumber < 73) {
+          this.activeLink = "";
+        } else if (topNumber >= 73 && topNumber < 289) {
+          this.activeLink = "oneJaw";
+        } else if (topNumber >= 289 && topNumber < 836) {
+          this.activeLink = "twoJaw";
+        } else {
+          this.activeLink = "threeJaw";
+        }
       } else {
-        this.activeLink = "eightPhoto";
+        // 不做操作
       }
     },
   }
@@ -316,7 +421,6 @@ export default {
   .shoot-standard-main-catalogue-title {
     color: #333;
     font-size: 16px;
-    white-space: nowrap;
     font-weight: 500;
     padding-left: 16px;
     padding-bottom: 4px;
@@ -324,7 +428,6 @@ export default {
   .shoot-standard-main-catalogue-link {
     font-size: 14px;
     color: rgba(0,0,0,.85);
-    white-space: nowrap;
     font-weight: 500;
     padding: 5px 0 5px 16px;
     cursor: pointer;
@@ -345,7 +448,6 @@ export default {
   }
   .shoot-standard-main-document-title {
     color: #333;
-    white-space: nowrap;
     font-size: 28px;
     font-weight: 500;
   }
@@ -355,7 +457,6 @@ export default {
     margin-top: 32px;
     color: #333;
     line-height: 24px;
-    white-space: nowrap;
   }
   .shoot-standard-main-document-main {
     padding: 16px 0;
@@ -364,7 +465,6 @@ export default {
     color: #333;
     font-size: 22px;
     line-height: 24px;
-    white-space: nowrap;
     font-weight: 400;
     margin-bottom: 8px;
   }
@@ -372,7 +472,6 @@ export default {
     color: #666;
     font-size: 14px;
     line-height: 24px;
-    white-space: nowrap;
     font-weight: 400;
     white-space: normal;
   }
@@ -384,5 +483,28 @@ export default {
   .shoot-standard-main-document-main-img>img {
     max-width: 100%;
     height: 100%;
+  }
+  .mt28 {
+    margin-top: 28px;
+  }
+  .shoot-standard-main-document-every-title {
+    color: #333;
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 500;
+  }
+  .shoot-standard-main-document-every-secondary-title {
+    color: #333;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+    margin-top: 16px;
+  }
+  .shoot-standard-main-document-every-content {
+    color: #666;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    margin-top: 4px;
   }
 </style>
