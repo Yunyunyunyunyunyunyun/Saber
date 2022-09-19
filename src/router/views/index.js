@@ -113,4 +113,17 @@ export default [{
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/prescriptionDetails')
   }]
+}, {
+  path: '/case',
+  component: Layout,
+  redirect: '/case/shootStandard',
+  children: [{
+  path: 'shootStandard',
+  name: '拍摄标准',
+  meta: {
+    i18n: 'shootStandard'
+  },
+  component: () =>
+    import( /* webpackChunkName: "views" */ '@/views/case/shootStandard')
+  }]
 }]

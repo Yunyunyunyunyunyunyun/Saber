@@ -612,7 +612,7 @@
           <span slot="label"><i class="el-icon-video-camera"></i> 影像资料及模型<i class="el-icon-arrow-right arrow-style"></i></span>
           <el-row class="form-main">
             <el-col :span="24">
-              <div class="diagnosis-title diagnosis-title-required photos">照片信息</div>
+              <div class="diagnosis-title diagnosis-title-required photos">照片信息<span class="photo-standard" @click="toStandard('photo')"><i class="el-icon-warning-outline icon-mr4"></i>照片拍摄标准</span></div>
               <div class="diagnosis-desc">面相照及口内照</div>
               <el-row class="mt20">
                 <el-col :span="8">
@@ -744,7 +744,7 @@
               </el-row>
               <el-row class="mt20">
                 <el-col :span="8">
-                  <div class="diagnosis-desc">X光照片</div>
+                  <div class="diagnosis-desc">X光照片<span class="photo-standard" @click="toStandard('slice')"><i class="el-icon-warning-outline icon-mr4"></i>X光片拍摄标准</span></div>
                 </el-col>
                 <el-col :span="8"></el-col>
                 <el-col :span="8">
@@ -798,7 +798,7 @@
                   <div class="img-desc">其他</div>
                 </el-col>
               </el-row>
-              <div class="diagnosis-title diagnosis-title-required mt20 dental">牙颌模型</div>
+              <div class="diagnosis-title diagnosis-title-required mt20 dental">牙颌模型<span class="photo-standard" @click="toStandard('jaw')"><i class="el-icon-warning-outline icon-mr4"></i>模型制取标准</span></div>
               <el-tabs v-model="activeName" class="model-tabs">
                 <el-tab-pane label="数字模型文件" name="first">
                   <div class="number-title">本地上传</div>
@@ -1273,31 +1273,37 @@ export default {
     clickToInfo(className) {
       this.active = 1;
       this.$nextTick(() => {
-        document.querySelector("."+className).scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-          inline: 'nearest'
-        })
+        if (document.querySelector("."+className)) {
+          document.querySelector("."+className).scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+          });
+        }
       });
     },
     clickToDesc(className) {
       this.active = 2;
       this.$nextTick(() => {
-        document.querySelector("."+className).scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-          inline: 'nearest'
-        })
+        if (document.querySelector("."+className)) {
+          document.querySelector("."+className).scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+          });
+        }
       });
     },
     clickToPhoto(className) {
       this.active = 3;
       this.$nextTick(() => {
-        document.querySelector("."+className).scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-          inline: 'nearest'
-        })
+        if (document.querySelector("."+className)) {
+          document.querySelector("."+className).scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+          });
+        }
       });
     },
     caseSave(state) {
@@ -1773,6 +1779,15 @@ export default {
         }
       });
     },
+    toStandard(kind) {
+      let routeData = this.$router.resolve({
+        path: "/case/shootStandard",
+        query: {
+          kind: kind,
+        }
+      });
+      window.open(routeData.href, '_blank');
+    },
   },
 }
 </script>
@@ -2228,5 +2243,15 @@ export default {
   font-size: 80px;
   margin-right: 20px;
   color: green;
+}
+.photo-standard {
+  color: #409EFF;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  margin-left: 16px;
+}
+.icon-mr4 {
+  margin-right: 4px;
 }
 </style>
