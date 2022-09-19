@@ -359,17 +359,17 @@ export default {
           this.activeLink = "";
         } else if (topNumber >= 45 && topNumber < 205) {
           this.activeLink = "onePhoto";
-        } else if (topNumber >= 205 && topNumber < 560) {
+        } else if (topNumber >= 205 && topNumber < 568) {
           this.activeLink = "twoPhoto";
-        } else if (topNumber >= 560 && topNumber < 916) {
+        } else if (topNumber >= 568 && topNumber < 932) {
           this.activeLink = "threePhoto";
-        } else if (topNumber >= 916 && topNumber < 1271) {
+        } else if (topNumber >= 932 && topNumber < 1296) {
           this.activeLink = "fourPhoto";
-        } else if (topNumber >= 1271 && topNumber < 1527) {
+        } else if (topNumber >= 1296 && topNumber < 1552) {
           this.activeLink = "fivePhoto";
-        } else if (topNumber >= 1527 && topNumber < 1879) {
+        } else if (topNumber >= 1552 && topNumber < 1880) {
           this.activeLink = "sixPhoto";
-        } else if (topNumber >= 1879 && topNumber < 2030) {
+        } else if (topNumber >= 1880 && topNumber < 2007) {
           this.activeLink = "sevenPhoto";
         } else {
           this.activeLink = "eightPhoto";
@@ -379,7 +379,7 @@ export default {
           this.activeLink = "";
         } else if (topNumber >= 73 && topNumber < 289) {
           this.activeLink = "oneJaw";
-        } else if (topNumber >= 289 && topNumber < 836) {
+        } else if (topNumber >= 289 && topNumber < 812) {
           this.activeLink = "twoJaw";
         } else {
           this.activeLink = "threeJaw";
@@ -400,6 +400,9 @@ export default {
   }
   .shoot-standard-contain >>> .el-col {
     margin-bottom: 0;
+  }
+  .shoot-standard-contain >>> ::-webkit-scrollbar {
+    display: none;
   }
   .shoot-standard-main {
     background-color: #fff;
