@@ -74,6 +74,7 @@
   import {getCaptcha} from "@/api/user";
   import {getTopUrl} from "@/util/util";
   import {info} from "@/api/system/tenant";
+  import md5 from 'js-md5';
 
   export default {
     name: "userlogin",
@@ -143,7 +144,18 @@
               text: '登录中,请稍后。。。',
               spinner: "el-icon-loading"
             });
-            this.$store.dispatch("LoginByUsername", this.loginForm).then(() => {
+            let data = {
+              code: this.loginForm.code,
+              image: this.loginForm.image,
+              key: this.loginForm.key,
+              tenantId: this.loginForm.tenantId,
+              type: this.loginForm.type,
+              username: this.loginForm.username,
+            };
+            if (this.loginForm.password) {
+              data.password = md5(this.loginForm.password);
+            }
+            this.$store.dispatch("LoginByUsername", data).then(() => {
               if (this.userInfo.authority == "administrator" || this.userInfo.authority == "backUser") {
                 this.$router.push({path: "/case/all"});
               } else if (this.userInfo.authority == "doctorUser") {
