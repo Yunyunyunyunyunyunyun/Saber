@@ -626,7 +626,11 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="prescriptionForm.frontSmilingPath" :src="prescriptionForm.frontSmilingPath" class="common-img">
-                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <img src="img/media/smile.png" alt="">
+                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                      <div class="common-img-uploader-text">点击上传正面微笑照</div>
+                    </div>
                   </el-upload>
                   <div class="img-desc img-desc-required">正面微笑照</div>
                 </el-col>
@@ -641,7 +645,11 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="prescriptionForm.frontPath" :src="prescriptionForm.frontPath" class="common-img">
-                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <img src="img/media/front.png" alt="">
+                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                      <div class="common-img-uploader-text">点击上传正面照</div>
+                    </div>
                   </el-upload>
                   <div class="img-desc img-desc-required">正面照</div>
                 </el-col>
@@ -656,7 +664,11 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="prescriptionForm.sidePath" :src="prescriptionForm.sidePath" class="common-img">
-                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <img src="img/media/side.png" alt="">
+                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                      <div class="common-img-uploader-text">点击上传侧面照</div>
+                    </div>
                   </el-upload>
                   <div class="img-desc img-desc-required">侧面照</div>
                 </el-col>
@@ -673,7 +685,11 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="prescriptionForm.upJawPath" :src="prescriptionForm.upJawPath" class="common-img">
-                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <img src="img/media/top.png" alt="">
+                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                      <div class="common-img-uploader-text">点击上传上颌口内照</div>
+                    </div>
                   </el-upload>
                   <div class="img-desc img-desc-required">上颌口内照</div>
                 </el-col>
@@ -690,7 +706,11 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="prescriptionForm.downJawPath" :src="prescriptionForm.downJawPath" class="common-img">
-                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <img src="img/media/bottom.png" alt="">
+                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                      <div class="common-img-uploader-text">点击上传下颌口内照</div>
+                    </div>
                   </el-upload>
                   <div class="img-desc img-desc-required">下颌口内照</div>
                 </el-col>
@@ -707,7 +727,11 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="prescriptionForm.rightJawPath" :src="prescriptionForm.rightJawPath" class="common-img">
-                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <img src="img/media/right.png" alt="">
+                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                      <div class="common-img-uploader-text">点击上传右侧口内照</div>
+                    </div>
                   </el-upload>
                   <div class="img-desc img-desc-required">右侧口内照</div>
                 </el-col>
@@ -722,7 +746,11 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="prescriptionForm.frontJawPath" :src="prescriptionForm.frontJawPath" class="common-img">
-                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <img src="img/media/main.png" alt="">
+                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                      <div class="common-img-uploader-text">点击上传正面口内照</div>
+                    </div>
                   </el-upload>
                   <div class="img-desc img-desc-required">正面口内照</div>
                 </el-col>
@@ -737,7 +765,11 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="prescriptionForm.leftJawPath" :src="prescriptionForm.leftJawPath" class="common-img">
-                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <img src="img/media/left.png" alt="">
+                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                      <div class="common-img-uploader-text">点击上传左侧口内照</div>
+                    </div>
                   </el-upload>
                   <div class="img-desc img-desc-required">左侧口内照</div>
                 </el-col>
@@ -2076,19 +2108,25 @@ export default {
   border: 1px solid #d9d9d9;
   width: 190px;
   height: 180px;
-  line-height: 180px;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.common-img-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
+.common-img-uploader-img {
   width: 190px;
   height: 180px;
-  line-height: 180px;
-  text-align: center;
+}
+.common-img-uploader-icon {
+  font-size: 22px;
+  color: #8c939d;
+  margin-top: 10px;
+}
+.common-img-uploader-text {
+  font-size: 14px;
+  font-weight: 300;
+  color: #8c939d;
+  margin-top: 5px;
 }
 .common-img {
   max-width: 190px;
