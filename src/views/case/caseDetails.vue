@@ -26,6 +26,10 @@
                 <div class="detail-out-information-main-patient-information-basic-sex_age" v-if="caseData.age+''">{{caseData.age}}岁</div>
               </div>
             </div>
+            <div class="detail-out-information-main-patient-action">
+              <!-- <el-button plain icon="el-icon-circle-check" size="small" @click="completeCase(caseData.record)">完成病例</el-button> -->
+              <!-- <el-button plain icon="el-icon-switch-button" size="small" @click="restartCase(caseData.record)">重启病例</el-button> -->
+            </div>
           </div>
           <div class="detail-out-information-main-pathogeny">
             <div class="detail-out-complaint">
@@ -566,6 +570,22 @@
         });
         window.open(routeData.href, '_blank');
       },
+      completeCase(item) {
+        this.$router.push({
+          path: "/case/completeCaseDetail",
+          query: {
+            id: item.id,
+          }
+        });
+      },
+      restartCase(item) {
+        this.$router.push({
+          path: "/case/restartCaseDetail",
+          query: {
+            id: item.id,
+          }
+        });
+      },
     },
   }
 </script>
@@ -598,13 +618,13 @@
     margin-bottom: 16px;
   }
   .detail-out-information-main {
-    padding: 24px 16px;
+    padding: 16px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
   }
   .detail-out-information-main-patient {
-    padding: 14px 16px 14px 0;
+    padding-right: 16px;
     border-right: 1px solid #edf0f5;
     margin-right: 21px;
     min-width: 302px;
@@ -867,5 +887,11 @@
   .detail-out-history-every-disableBtn-canClick {
     color: #409eff;
     cursor: pointer;
+  }
+  .detail-out-information-main-patient-action {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 30px;
   }
 </style>

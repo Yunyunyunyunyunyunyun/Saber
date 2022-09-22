@@ -126,4 +126,30 @@ export default [{
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/shootStandard')
   }]
+}, {
+  path: '/case',
+  component: Layout,
+  redirect: '/case/completeCaseDetail',
+  children: [{
+  path: 'completeCaseDetail',
+  name: '完成病例',
+  meta: {
+    i18n: 'completeCaseDetail'
+  },
+  component: () =>
+    import( /* webpackChunkName: "views" */ '@/views/case/completeCaseDetail')
+  }]
+}, {
+  path: '/case',
+  component: Layout,
+  redirect: '/case/restartCaseDetail',
+  children: [{
+  path: 'restartCaseDetail',
+  name: '重启病例',
+  meta: {
+    i18n: 'restartCaseDetail'
+  },
+  component: () =>
+    import( /* webpackChunkName: "views" */ '@/views/case/restartCaseDetail')
+  }]
 }]
