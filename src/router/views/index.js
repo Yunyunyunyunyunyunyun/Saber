@@ -132,7 +132,7 @@ export default [{
   redirect: '/case/completeCaseDetail',
   children: [{
   path: 'completeCaseDetail',
-  name: '完成病例',
+  name: 'completeCaseDetail',
   meta: {
     i18n: 'completeCaseDetail'
   },
@@ -145,7 +145,7 @@ export default [{
   redirect: '/case/restartCaseDetail',
   children: [{
   path: 'restartCaseDetail',
-  name: '重启病例',
+  name: 'restartCaseDetail',
   meta: {
     i18n: 'restartCaseDetail'
   },

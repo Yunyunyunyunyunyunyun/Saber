@@ -27,8 +27,8 @@
               </div>
             </div>
             <div class="detail-out-information-main-patient-action">
-              <!-- <el-button plain icon="el-icon-circle-check" size="small" @click="completeCase(caseData.record)">完成病例</el-button> -->
-              <!-- <el-button plain icon="el-icon-switch-button" size="small" @click="restartCase(caseData.record)">重启病例</el-button> -->
+              <!-- <el-button plain icon="el-icon-circle-check" size="small" @click="completeCase(caseData)">完成病例</el-button> -->
+              <!-- <el-button plain icon="el-icon-switch-button" size="small" @click="restartCase(caseData)">重启病例</el-button> -->
             </div>
           </div>
           <div class="detail-out-information-main-pathogeny">
@@ -572,17 +572,17 @@
       },
       completeCase(item) {
         this.$router.push({
-          path: "/case/completeCaseDetail",
-          query: {
-            id: item.id,
+          name: "completeCaseDetail",
+          params: {
+            item: item,
           }
         });
       },
       restartCase(item) {
         this.$router.push({
-          path: "/case/restartCaseDetail",
-          query: {
-            id: item.id,
+          name: "restartCaseDetail",
+          params: {
+            item: item,
           }
         });
       },
