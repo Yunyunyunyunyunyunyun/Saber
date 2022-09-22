@@ -25,7 +25,7 @@
             <div class="complete-case-main-one-middle">
               <div class="complete-case-main-one-middle-title">1. 矫治完成确认</div>
               <el-form ref="topForm" :model="topForm" :rules="topRules" label-position="top" class="complete-case-main-one-middle-form">
-                <el-form-item label="1.1 确认完成属于哪种情况" prop="situation">
+                <el-form-item label="1.1 确认完成属于哪种情况" prop="situation" class="situation">
                   <el-radio-group v-model="topForm.situation" class="common-radio">
                     <el-row class="mb20"><el-radio :label="1" border>实现矫治目标</el-radio></el-row>
                     <el-row class="mb20"><el-radio :label="2" border>隐形矫治达到阶段效果，改用其他矫治方法完成</el-radio></el-row>
@@ -41,7 +41,7 @@
                     v-model="topForm.reason">
                   </el-input>
                 </el-form-item>
-                <el-form-item label="1.2 矫治完成日期" prop="completionDate">
+                <el-form-item label="1.2 矫治完成日期" prop="completionDate" class="completionDate">
                   <el-date-picker
                     v-model="topForm.completionDate"
                     value-format="yyyy-MM-dd"
@@ -51,7 +51,7 @@
                   </el-date-picker>
                 </el-form-item>
               </el-form>
-              <div class="complete-case-main-one-middle-title">2. 定制保持器</div>
+              <div class="complete-case-main-one-middle-title isRetainer">2. 定制保持器</div>
               <el-radio-group v-model="isRetainer" class="common-radio retainer-radio">
                 <el-radio :label="1" border>不需要</el-radio>
                 <el-radio :label="2" border>需要</el-radio>
@@ -288,7 +288,7 @@
                   <div class="img-desc">其他</div>
                 </el-col>
               </el-row>
-              <div class="diagnosis-title diagnosis-title-required mt20 dental">牙颌模型<span class="photo-standard" @click="toStandard('jaw')"><i class="el-icon-warning-outline icon-mr4"></i>模型制取标准</span></div>
+              <div class="diagnosis-title diagnosis-title-required mt20">牙颌模型<span class="photo-standard" @click="toStandard('jaw')"><i class="el-icon-warning-outline icon-mr4"></i>模型制取标准</span></div>
               <el-radio-group v-model="isSubmit" class="common-radio submit-radio">
                 <el-radio :label="1" border>不提交</el-radio>
                 <el-radio :label="2" border>提交</el-radio>
@@ -348,6 +348,37 @@
         </el-tab-pane>
         <el-tab-pane :name="3">
           <span slot="label"><i class="el-icon-document-checked"></i> 提交</span>
+          <div class="error-submit">
+            <div v-show="showSure || showPhoto">
+              <div class="error-submit-tip">
+                <i class="el-icon-warning-outline error-submit-icon"></i>
+                <span>您还有以下项目待完善，请确认无误后再提交</span>
+              </div>
+              <div class="error-submit-noFilled">
+                <div class="mb20" v-show="showSure">
+                  <span class="error-submit-noFilled-type">完成确认表</span>
+                  <div class="error-submit-noFilled-content">
+                    <div v-show="!topForm.situation || (topForm.situation === 4 && !topForm.reason)" class="error-submit-noFilled-content-every" @click="clickToSure('situation')">确认完成属于哪种情况</div>
+                    <div v-show="!topForm.completionDate" class="error-submit-noFilled-content-every" @click="clickToSure('completionDate')">矫治完成日期</div>
+                    <div v-show="!isRetainer || (isRetainer === 2 && !needReason)" class="error-submit-noFilled-content-every" @click="clickToSure('isRetainer')">定制保持器</div>
+                  </div>
+                </div>
+                <div v-show="showPhoto">
+                  <span class="error-submit-noFilled-type">影像资料及模型</span>
+                  <div class="error-submit-noFilled-content">
+                    <div class="error-submit-noFilled-content-every" @click="clickToPhoto('photos')">照片</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-show="!(showSure || showPhoto)" class="error-submitTrue">
+              <i class="el-icon-circle-check error-submitTrue-img"></i>
+              <div class="error-submitTrue-tip">
+                <div>资料收集完毕，请点击提交！</div>
+                <div>提交后，我司将尽快为您处理！</div>
+              </div>
+            </div>
+          </div>
         </el-tab-pane>
       </el-tabs>
       <div class="complete-case-main-footer">
@@ -425,7 +456,7 @@
         allXrayPath: "",
         sideXrayPath: "",
         otherXrayPath: "",
-        isSubmit: "",
+        isSubmit: 1,
         activeName: "first",
         upJawModelPath: "",
         upJawModelName: "",
@@ -434,6 +465,25 @@
         uploadVisible: false,
         percentageNumber: 0,
       }
+    },
+    computed: {
+      showSure() {
+        return !this.topForm.situation
+            || (this.topForm.situation === 4 && !this.topForm.reason)
+            || !this.topForm.completionDate
+            || !this.isRetainer
+            || (this.isRetainer === 2 && !this.needReason);
+      },
+      showPhoto() {
+        return !this.frontSmilingPath
+            || !this.frontPath
+            || !this.sidePath
+            || !this.upJawPath
+            || !this.downJawPath
+            || !this.rightJawPath
+            || !this.frontJawPath
+            || !this.leftJawPath;
+      },
     },
     created() {
       var paramsData = sessionStorage.getItem("paramsData");
@@ -580,6 +630,30 @@
         window.open(routeData.href, '_blank');
       },
       caseSubmit() {},
+      clickToSure(className) {
+        this.active = 1;
+        this.$nextTick(() => {
+          if (document.querySelector("."+className)) {
+            document.querySelector("."+className).scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+              inline: 'nearest'
+            });
+          }
+        });
+      },
+      clickToPhoto(className) {
+        this.active = 2;
+        this.$nextTick(() => {
+          if (document.querySelector("."+className)) {
+            document.querySelector("."+className).scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+              inline: 'nearest'
+            });
+          }
+        });
+      },
     },
   }
 </script>
@@ -870,5 +944,78 @@
 .submit-radio {
   margin-top: 5px;
   margin-bottom: 15px;
+}
+.error-submit {
+  padding: 50px;
+  min-height: 500px;
+}
+.error-submit-icon {
+  color: #f44336;
+  margin-right: 10px;
+  font-size: 20px;
+}
+.error-submit-tip {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: #555;
+  font-size: 20px;
+  height: 20px;
+  line-height: 20px;
+  white-space: nowrap;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+.error-submit-noFilled {
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid #f44336;
+  padding-left: 27px;
+  margin-bottom: 20px;
+}
+.error-submit-noFilled-type {
+  color: #333;
+  font-size: 16px;
+  line-height: 16px;
+  white-space: nowrap;
+  font-weight: 400;
+}
+.error-submit-noFilled-content:last-child {
+  margin-bottom: 0;
+}
+.error-submit-noFilled-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+.error-submit-noFilled-content-every {
+  margin-top: 10px;
+  color: #f44336;
+  font-size: 14px;
+  line-height: 24px;
+  white-space: nowrap;
+  font-weight: 400;
+  margin-right: 20px;
+  cursor: pointer;
+  border-bottom: 1px solid red;
+}
+.error-submitTrue {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.error-submitTrue-tip {
+  font-size: 20px;
+  font-weight: 500;
+  color: #555;
+  height: 54px;
+  margin-top: 13px;
+}
+.error-submitTrue-img {
+  font-size: 80px;
+  margin-right: 20px;
+  color: green;
 }
 </style>
