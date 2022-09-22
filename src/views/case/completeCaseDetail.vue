@@ -22,6 +22,48 @@
                 <span v-if="caseItem.record && caseItem.record.medicalCode" class="complete-case-main-one-top-id-span">{{caseItem.record.medicalCode}}</span>
               </div>
             </div>
+            <div class="complete-case-main-one-middle">
+              <div class="complete-case-main-one-middle-title">1. 矫治完成确认</div>
+              <el-form ref="topForm" :model="topForm" :rules="topRules" label-position="top" class="complete-case-main-one-middle-form">
+                <el-form-item label="1.1 确认完成属于哪种情况" prop="situation">
+                  <el-radio-group v-model="topForm.situation" class="common-radio">
+                    <el-row class="mb20"><el-radio :label="1" border>实现矫治目标</el-radio></el-row>
+                    <el-row class="mb20"><el-radio :label="2" border>隐形矫治达到阶段效果，改用其他矫治方法完成</el-radio></el-row>
+                    <el-row class="mb20"><el-radio :label="3" border>未完成实现隐形矫治目标，但患者要求结束矫治</el-radio></el-row>
+                    <el-row><el-radio :label="4" border>其他(请在输入框填写其他原因)</el-radio></el-row>
+                  </el-radio-group>
+                </el-form-item>
+                <el-form-item v-if="topForm.situation === 4" prop="reason">
+                  <el-input
+                    type="textarea"
+                    :rows="6"
+                    placeholder="描述请限制在2000字以内（误删可使用“ctrl+z”撤销误操作）"
+                    v-model="topForm.reason">
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="1.2 矫治完成日期" prop="completionDate">
+                  <el-date-picker
+                    v-model="topForm.completionDate"
+                    value-format="yyyy-MM-dd"
+                    type="date"
+                    placeholder="请选择完成日期"
+                    :picker-options="pickerOptions">
+                  </el-date-picker>
+                </el-form-item>
+              </el-form>
+              <div class="complete-case-main-one-middle-title">2. 定制保持器</div>
+              <el-radio-group v-model="isRetainer" class="common-radio retainer-radio">
+                <el-radio :label="1" border>不需要</el-radio>
+                <el-radio :label="2" border>需要</el-radio>
+              </el-radio-group>
+              <span class="radio-desc">注：收到病例完成资料后，我公司将免费提供压膜保持器一副</span>
+              <div v-show="isRetainer === 2" class="need-reason-div">
+                <el-radio-group v-model="needReason" class="common-radio">
+                  <el-radio :label="1" border>最后一步订做保持器</el-radio>
+                  <el-radio :label="2" border>提交模型后订做保持器</el-radio>
+                </el-radio-group>
+              </div>
+            </div>
           </div>
         </el-tab-pane>
         <el-tab-pane :name="2">
@@ -46,6 +88,46 @@
       return {
         active: 1,
         caseItem: {},
+        topForm: {
+          situation: "",
+          completionDate: "",
+          reason: "",
+        },
+        topRules: {
+          situation: [
+            { required: true, message: '请确认完成属于哪种情况', trigger: 'blur' },
+          ],
+          completionDate: [
+            { required: true, message: '请选择矫治完成日期', trigger: 'blur' },
+          ],
+          reason: [
+            { required: true, message: '请输入原因', trigger: 'blur' },
+          ],
+        },
+        pickerOptions: {
+          shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            }
+          }, {
+            text: '昨天',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            }
+          }, {
+            text: '一周前',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
+            }
+          }]
+        },
+        isRetainer: "",
+        needReason: "",
       }
     },
     created() {
@@ -164,15 +246,57 @@
 }
 .complete-case-main-one-top-id {
   margin-left: 30px;
-  white-space: nowrap;
   font-weight: 300;
   font-size: 18px;
   color: #999;
 }
 .complete-case-main-one-top-id-span {
-  white-space: nowrap;
   font-weight: 400;
   font-size: 18px;
   color: #555;
+}
+.complete-case-main-one-middle {
+  margin-bottom: 15px;
+}
+.complete-case-main-one-middle-title {
+  position: relative;
+  font-size: 20px;
+  font-weight: 500;
+  color: #555;
+  width: 500px;
+}
+.complete-case-main-one-middle-form {
+  padding: 0 21px;
+}
+.common-radio >>> .el-radio__input {
+  display: none;
+}
+.common-radio >>> .el-radio.is-bordered {
+  text-align: center;
+}
+.common-radio >>> .el-radio.is-bordered.is-checked {
+  border-color: #409EFF;
+  background: #409EFF;
+}
+.common-radio >>> .el-radio__input.is-checked+.el-radio__label {
+  color: #fff;
+}
+.mb20 {
+  margin-bottom: 20px;
+}
+.retainer-radio {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.radio-desc {
+  color: #999;
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 30px;
+}
+.need-reason-div {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-left: 124px;
 }
 </style>
