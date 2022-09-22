@@ -1178,18 +1178,6 @@ export default {
     next() {
       this.active++;
     },
-    firstClick() {
-      this.active = 1;
-    },
-    secondClick() {
-      this.active = 2;
-    },
-    thirdClick() {
-      this.active = 3;
-    },
-    fourthClick() {
-      this.active = 4;
-    },
     handleImgSuccessSimle(res, file) {
       const data = res.data || {};
       this.prescriptionForm.frontSmilingPath = data.viewStlUrl;
