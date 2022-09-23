@@ -253,7 +253,10 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="allXrayPath" :src="allXrayPath" class="common-img">
-                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img photoMt">
+                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                      <div class="common-img-uploader-text">点击上传全景片</div>
+                    </div>
                   </el-upload>
                   <div class="img-desc">全景片</div>
                 </el-col>
@@ -268,7 +271,10 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="sideXrayPath" :src="sideXrayPath" class="common-img">
-                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img photoMt">
+                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                      <div class="common-img-uploader-text">点击上传侧位片</div>
+                    </div>
                   </el-upload>
                   <div class="img-desc">侧位片</div>
                 </el-col>
@@ -283,7 +289,10 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="otherXrayPath" :src="otherXrayPath" class="common-img">
-                    <i v-else class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img photoMt">
+                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                      <div class="common-img-uploader-text">点击上传照片</div>
+                    </div>
                   </el-upload>
                   <div class="img-desc">其他</div>
                 </el-col>
@@ -1017,5 +1026,8 @@
   font-size: 80px;
   margin-right: 20px;
   color: green;
+}
+.photoMt {
+  margin-top: 200px;
 }
 </style>
