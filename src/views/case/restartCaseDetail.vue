@@ -25,7 +25,7 @@
             <el-form :model="feedbackForm" :rules="feedbackRules" ref="feedbackForm" label-position="top">
               <div class="diagnosis-title diagnosis-title-required">1. 当前矫治器贴合情况<span class="diagnosis-tip">判断依据：牙齿移动及咬合关系与模拟矫治设计基本符合，矫治器与牙齿之间无明显空隙</span></div>
               <el-form-item prop="isFit">
-                <el-radio-group v-model="feedbackForm.isFit" class="common-select">
+                <el-radio-group v-model="feedbackForm.isFit" class="common-radio">
                   <el-radio :label="1" border>矫治器贴合</el-radio>
                   <el-radio :label="2" border>矫治器不贴合</el-radio>
                 </el-radio-group>
@@ -43,7 +43,7 @@
                   <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxDownSteps}} 步</span>
                 </el-form-item>
                 <div class="diagnosis-two-title">2.2 附件调整</div>
-                <el-radio-group v-model="feedbackForm.annex" class="common-select w180">
+                <el-radio-group v-model="feedbackForm.annex" class="common-radio w180">
                   <el-row class="mb20">
                     <el-radio :label="1" border>由设计方案决定(推荐)</el-radio>
                     <span class="diagnosis-tip">附件可能会调整</span>
@@ -238,36 +238,20 @@
     margin-left: 20px;
     color: #999;
   }
-  .common-select >>> .el-radio__input {
+  .common-radio >>> .el-radio__input {
     display: none;
   }
-  .common-select >>> .el-radio.is-bordered {
+  .common-radio >>> .el-radio.is-bordered {
     text-align: center;
   }
   .w180 >>> .el-radio.is-bordered {
     width: 180px;
   }
-  .common-select >>> .el-radio.is-bordered.is-checked {
+  .common-radio >>> .el-radio.is-bordered.is-checked {
     border-color: #409EFF;
     background: #409EFF;
   }
-  .common-select >>> .el-radio__input.is-checked+.el-radio__label {
-    color: #fff;
-  }
-  .common-select >>> .el-checkbox__input {
-    display: none;
-  }
-  .common-select >>> .el-checkbox.is-bordered {
-    width: 120px;
-    margin-left: 0;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  .common-select >>> .el-checkbox.is-bordered.is-checked {
-    border-color: #409EFF;
-    background: #409EFF;
-  }
-  .common-select >>> .el-checkbox__input.is-checked+.el-checkbox__label {
+  .common-radio >>> .el-radio__input.is-checked+.el-radio__label {
     color: #fff;
   }
   .not-fit-desc {
