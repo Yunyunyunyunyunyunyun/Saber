@@ -51,7 +51,7 @@
                   </el-date-picker>
                 </el-form-item>
               </el-form>
-              <div class="complete-case-main-one-middle-title isRetainer">2. 定制保持器</div>
+              <div class="complete-case-main-one-middle-title diagnosis-title-required isRetainer">2. 定制保持器</div>
               <el-radio-group v-model="isRetainer" class="common-radio retainer-radio">
                 <el-radio :label="1" border>不需要</el-radio>
                 <el-radio :label="2" border>需要</el-radio>
