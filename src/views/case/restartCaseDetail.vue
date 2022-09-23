@@ -43,7 +43,7 @@
                   <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxDownSteps}} 步</span>
                 </el-form-item>
                 <div class="diagnosis-two-title">2.2 附件调整</div>
-                <el-radio-group v-model="feedbackForm.annex" class="common-radio w180">
+                <el-radio-group v-model="feedbackForm.annex" class="common-radio w180" @change="annexChange">
                   <el-row class="mb20">
                     <el-radio :label="1" border>由设计方案决定(推荐)</el-radio>
                     <span class="diagnosis-tip">附件可能会调整</span>
@@ -51,6 +51,71 @@
                   <el-row class="mb20">
                     <el-radio :label="2" border>保留指定附件</el-radio>
                     <span class="diagnosis-tip">根据设计方案可能调整其他附件或添加新附件</span>
+                  </el-row>
+                  <el-row class="mb20" v-show="feedbackForm.annex===2">
+                    <div class="annex-two-title">请在下方牙列式内选择需要保留的附件</div>
+                    <div class="annex-two-content">
+                      <el-checkbox-group v-model="feedbackForm.annexInfoOne" class="annex-two-checkbox">
+                        <el-checkbox :label="55" border disabled></el-checkbox>
+                        <el-checkbox :label="54" border disabled></el-checkbox>
+                        <el-checkbox :label="53" border disabled></el-checkbox>
+                        <el-checkbox :label="52" border disabled></el-checkbox>
+                        <el-checkbox :label="51" border disabled></el-checkbox>
+                        <el-checkbox :label="61" border disabled></el-checkbox>
+                        <el-checkbox :label="62" border disabled></el-checkbox>
+                        <el-checkbox :label="63" border disabled></el-checkbox>
+                        <el-checkbox :label="64" border disabled></el-checkbox>
+                        <el-checkbox :label="65" border disabled></el-checkbox>
+                      </el-checkbox-group>
+                      <el-checkbox-group v-model="feedbackForm.annexInfoTwo" class="annex-two-checkbox checked-checkbox">
+                        <el-checkbox :label="18" border></el-checkbox>
+                        <el-checkbox :label="17" border></el-checkbox>
+                        <el-checkbox :label="16" border></el-checkbox>
+                        <el-checkbox :label="15" border></el-checkbox>
+                        <el-checkbox :label="14" border></el-checkbox>
+                        <el-checkbox :label="13" border></el-checkbox>
+                        <el-checkbox :label="12" border></el-checkbox>
+                        <el-checkbox :label="11" border></el-checkbox>
+                        <el-checkbox :label="21" border></el-checkbox>
+                        <el-checkbox :label="22" border></el-checkbox>
+                        <el-checkbox :label="23" border></el-checkbox>
+                        <el-checkbox :label="24" border></el-checkbox>
+                        <el-checkbox :label="25" border></el-checkbox>
+                        <el-checkbox :label="26" border></el-checkbox>
+                        <el-checkbox :label="27" border></el-checkbox>
+                        <el-checkbox :label="28" border></el-checkbox>
+                      </el-checkbox-group>
+                      <el-checkbox-group v-model="feedbackForm.annexInfoThree" class="annex-two-checkbox checked-checkbox">
+                        <el-checkbox :label="48" border></el-checkbox>
+                        <el-checkbox :label="47" border></el-checkbox>
+                        <el-checkbox :label="46" border></el-checkbox>
+                        <el-checkbox :label="45" border></el-checkbox>
+                        <el-checkbox :label="44" border></el-checkbox>
+                        <el-checkbox :label="43" border></el-checkbox>
+                        <el-checkbox :label="42" border></el-checkbox>
+                        <el-checkbox :label="41" border></el-checkbox>
+                        <el-checkbox :label="31" border></el-checkbox>
+                        <el-checkbox :label="32" border></el-checkbox>
+                        <el-checkbox :label="33" border></el-checkbox>
+                        <el-checkbox :label="34" border></el-checkbox>
+                        <el-checkbox :label="35" border></el-checkbox>
+                        <el-checkbox :label="36" border></el-checkbox>
+                        <el-checkbox :label="37" border></el-checkbox>
+                        <el-checkbox :label="38" border></el-checkbox>
+                      </el-checkbox-group>
+                      <el-checkbox-group v-model="feedbackForm.annexInfoFour" class="annex-two-checkbox">
+                        <el-checkbox :label="85" border disabled></el-checkbox>
+                        <el-checkbox :label="84" border disabled></el-checkbox>
+                        <el-checkbox :label="83" border disabled></el-checkbox>
+                        <el-checkbox :label="82" border disabled></el-checkbox>
+                        <el-checkbox :label="81" border disabled></el-checkbox>
+                        <el-checkbox :label="71" border disabled></el-checkbox>
+                        <el-checkbox :label="72" border disabled></el-checkbox>
+                        <el-checkbox :label="73" border disabled></el-checkbox>
+                        <el-checkbox :label="74" border disabled></el-checkbox>
+                        <el-checkbox :label="75" border disabled></el-checkbox>
+                      </el-checkbox-group>
+                    </div>
                   </el-row>
                   <el-row class="mb20">
                     <el-radio :label="3" border>保留全部附件</el-radio>
@@ -90,6 +155,10 @@
           upSteps: 0,
           downSteps: 0,
           annex: "",
+          annexInfoOne: [],
+          annexInfoTwo: [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28],
+          annexInfoThree: [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38],
+          annexInfoFour: [],
         },
         feedbackRules: {},
         maxUpSteps: 0,
@@ -120,6 +189,10 @@
         this.active++;
       },
       caseSubmit(state) {},
+      annexChange() {
+        this.feedbackForm.annexInfoTwo = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28];
+        this.feedbackForm.annexInfoThree = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+      },
     }
   }
 </script>
@@ -283,5 +356,58 @@
   }
   .mb20 {
     margin-bottom: 20px;
+  }
+  .annex-two-title {
+    color: rgba(0,0,0,.85);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .annex-two-content {
+    width: 1028px;
+    position: relative;
+  }
+  .annex-two-content::after {
+    height: 100%;
+    border-right: 1px dashed #c5c5c5;
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 503px;
+    z-index: 10;
+  }
+  .annex-two-content::before {
+    width: 1008px;
+    border-bottom: 1px dashed #c5c5c5;
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 102px;
+    left: 0;
+    z-index: 10;
+  }
+  .annex-two-checkbox {
+    text-align: center;
+  }
+  .annex-two-checkbox >>> .el-checkbox__input {
+    display: none;
+  }
+  .annex-two-checkbox >>> .el-checkbox.is-bordered {
+    width: 42px;
+    margin-left: 0;
+    margin-right: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .annex-two-checkbox >>> .el-checkbox__label {
+    padding-left: 0;
+    font-size: 20px;
+    font-weight: normal;
+  }
+  .checked-checkbox >>> .el-checkbox.is-bordered {
+    background-color: #409EFF;
+  }
+  .checked-checkbox >>> .el-checkbox.is-bordered.is-checked {
+    background-color: #fff;
   }
 </style>
