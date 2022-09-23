@@ -686,7 +686,7 @@
 .complete-case-main {
   background: #fff;
   box-shadow: 0 2px 2px 1px #daecef;
-  border-radius: 6px;
+  border-radius: 10px;
   padding: 20px;
   width: calc(100% - 40px);
   min-height: 80%;
