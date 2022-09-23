@@ -253,8 +253,8 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="allXrayPath" :src="allXrayPath" class="common-img">
-                    <div v-else class="common-img-uploader-img photoMt">
-                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                       <div class="common-img-uploader-text">点击上传全景片</div>
                     </div>
                   </el-upload>
@@ -271,8 +271,8 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="sideXrayPath" :src="sideXrayPath" class="common-img">
-                    <div v-else class="common-img-uploader-img photoMt">
-                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                       <div class="common-img-uploader-text">点击上传侧位片</div>
                     </div>
                   </el-upload>
@@ -289,8 +289,8 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="otherXrayPath" :src="otherXrayPath" class="common-img">
-                    <div v-else class="common-img-uploader-img photoMt">
-                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                       <div class="common-img-uploader-text">点击上传照片</div>
                     </div>
                   </el-upload>
@@ -1028,6 +1028,6 @@
   color: green;
 }
 .photoMt {
-  margin-top: 200px;
+  margin-top: 112px;
 }
 </style>

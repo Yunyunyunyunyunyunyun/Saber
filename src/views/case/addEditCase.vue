@@ -795,8 +795,8 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="prescriptionForm.allXrayPath" :src="prescriptionForm.allXrayPath" class="common-img">
-                    <div v-else class="common-img-uploader-img photoMt">
-                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                       <div class="common-img-uploader-text">点击上传全景片</div>
                     </div>
                   </el-upload>
@@ -813,8 +813,8 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="prescriptionForm.sideXrayPath" :src="prescriptionForm.sideXrayPath" class="common-img">
-                    <div v-else class="common-img-uploader-img photoMt">
-                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                       <div class="common-img-uploader-text">点击上传侧位片</div>
                     </div>
                   </el-upload>
@@ -831,8 +831,8 @@
                     :before-upload="beforeImgUpload"
                     :on-error="handleError">
                     <img v-if="prescriptionForm.otherXrayPath" :src="prescriptionForm.otherXrayPath" class="common-img">
-                    <div v-else class="common-img-uploader-img photoMt">
-                      <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div v-else class="common-img-uploader-img">
+                      <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                       <div class="common-img-uploader-text">点击上传照片</div>
                     </div>
                   </el-upload>
@@ -2290,6 +2290,6 @@ export default {
   margin-right: 4px;
 }
 .photoMt {
-  margin-top: 200px;
+  margin-top: 112px;
 }
 </style>
