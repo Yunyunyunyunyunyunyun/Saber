@@ -31,6 +31,33 @@
                 </el-radio-group>
                 <div class="not-fit-desc" :class="{'hide-desc': feedbackForm.isFit !== 2}">需提交全口硅橡胶印膜，或全口数字模型文件</div>
               </el-form-item>
+              <div class="diagnosis-title">2. 临床检查</div>
+              <div class="restart-case-main-one-check">
+                <div class="diagnosis-two-title diagnosis-title-required">2.1 本次反馈时佩戴矫治器步数为</div>
+                <el-form-item prop="upSteps">
+                  <span class="steps-title">上颌第<el-input v-model="feedbackForm.upSteps" class="steps-input" :disabled="maxUpSteps===0"></el-input>步</span>
+                  <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxUpSteps}} 步</span>
+                </el-form-item>
+                <el-form-item prop="downSteps">
+                  <span class="steps-title">下颌第<el-input v-model="feedbackForm.downSteps" class="steps-input" :disabled="maxDownSteps===0"></el-input>步</span>
+                  <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxDownSteps}} 步</span>
+                </el-form-item>
+                <div class="diagnosis-two-title">2.2 附件调整</div>
+                <el-radio-group v-model="feedbackForm.annex" class="common-select w180">
+                  <el-row class="mb20">
+                    <el-radio :label="1" border>由设计方案决定(推荐)</el-radio>
+                    <span class="diagnosis-tip">附件可能会调整</span>
+                  </el-row>
+                  <el-row class="mb20">
+                    <el-radio :label="2" border>保留指定附件</el-radio>
+                    <span class="diagnosis-tip">根据设计方案可能调整其他附件或添加新附件</span>
+                  </el-row>
+                  <el-row class="mb20">
+                    <el-radio :label="3" border>保留全部附件</el-radio>
+                    <span class="diagnosis-tip">根据设计方案可能添加附件</span>
+                  </el-row>
+                </el-radio-group>
+              </div>
             </el-form>
           </div>
         </el-tab-pane>
@@ -60,8 +87,13 @@
         caseItem: {},
         feedbackForm: {
           isFit: "",
+          upSteps: 0,
+          downSteps: 0,
+          annex: "",
         },
         feedbackRules: {},
+        maxUpSteps: 0,
+        maxDownSteps: 0,
       }
     },
     created() {
@@ -212,6 +244,9 @@
   .common-select >>> .el-radio.is-bordered {
     text-align: center;
   }
+  .w180 >>> .el-radio.is-bordered {
+    width: 180px;
+  }
   .common-select >>> .el-radio.is-bordered.is-checked {
     border-color: #409EFF;
     background: #409EFF;
@@ -243,5 +278,26 @@
   }
   .hide-desc {
     opacity: 0;
+  }
+  .restart-case-main-one-check {
+    padding: 0 21px;
+  }
+  .diagnosis-two-title {
+    font-size: 16px;
+    font-weight: 300;
+    color: #333;
+    margin-bottom: 25px;
+  }
+  .steps-input {
+    width: 85px;
+    margin: 0 8px;
+  }
+  .steps-title {
+    font-size: 16px;
+    font-weight: 300;
+    color: #333;
+  }
+  .mb20 {
+    margin-bottom: 20px;
   }
 </style>
