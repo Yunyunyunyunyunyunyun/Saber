@@ -856,7 +856,7 @@
                         :before-upload="beforeImgUploadJawModel"
                         :on-error="handleError">
                         <div v-if="prescriptionForm.upJawModelName">
-                          <el-button icon="el-icon-file" class="model-icon-btn">{{prescriptionForm.upJawModelName}}</el-button>
+                          <el-button icon="el-icon-file" class="model-icon-btn" :title="prescriptionForm.upJawModelName">{{prescriptionForm.upJawModelName}}</el-button>
                         </div>
                         <div v-else>
                           <el-button icon="el-icon-upload" class="model-icon-btn">点击上传带咬合STL文件</el-button>
@@ -874,7 +874,7 @@
                         :before-upload="beforeImgUploadJawModel"
                         :on-error="handleError">
                         <div v-if="prescriptionForm.downJawModelName">
-                          <el-button icon="el-icon-file" class="model-icon-btn">{{prescriptionForm.downJawModelName}}</el-button>
+                          <el-button icon="el-icon-file" class="model-icon-btn" :title="prescriptionForm.downJawModelName">{{prescriptionForm.downJawModelName}}</el-button>
                         </div>
                         <div v-else>
                           <el-button icon="el-icon-upload" class="model-icon-btn">点击上传带咬合STL文件</el-button>
@@ -2202,6 +2202,10 @@ export default {
 .model-icon-btn {
   width: 210px;
   height: 40px;
+  overflow: hidden;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .jaw-model-desc {
   font-size: 14px;
