@@ -466,7 +466,17 @@
           remoteTreatments: "",
           correctiveRequire: "",
         },
-        feedbackRules: {},
+        feedbackRules: {
+          upSteps: [
+            { required: true, message: '请输入上颌步数', trigger: 'blur' },
+          ],
+          downSteps: [
+            { required: true, message: '请输入下颌步数', trigger: 'blur' },
+          ],
+          correctiveRequire: [
+            { required: true, message: '请输入后续矫治要求', trigger: 'blur' },
+          ],
+        },
         maxUpSteps: 0,
         maxDownSteps: 0,
       }
