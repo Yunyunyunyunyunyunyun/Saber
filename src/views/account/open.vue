@@ -161,13 +161,13 @@ export default {
           { required: true, validator: checkPhoneReg, trigger: 'blur' },
         ],
         hospitalId: [
-          { required: true, message: '请选择医院', trigger: 'blur' },
+          { required: true, message: '请选择医院', trigger: 'change' },
         ],
         schoolId: [
-          { required: true, message: '请选择学校', trigger: 'blur' },
+          { required: true, message: '请选择学校', trigger: 'change' },
         ],
         orgAddress: [
-          { required: true, message: '请选择机构地址', trigger: 'blur' },
+          { required: true, message: '请选择机构地址', trigger: 'change' },
         ],
         address: [
           { required: true, message: '请输入详细地址', trigger: 'blur' },
@@ -193,7 +193,7 @@ export default {
           { required: true, validator: checkPhoneReg, trigger: 'blur' },
         ],
         orgAddress: [
-          { required: true, message: '请选择住址', trigger: 'blur' },
+          { required: true, message: '请选择住址', trigger: 'change' },
         ],
         address: [
           { required: true, message: '请输入详细地址', trigger: 'blur' },
