@@ -331,7 +331,7 @@ export default {
           { required: true, message: '请输入姓名', trigger: 'blur' },
         ],
         orgAddress: [
-          { required: true, message: '请选择住址', trigger: 'blur' },
+          { required: true, message: '请选择住址', trigger: 'change' },
         ],
       },
       hospitalOptions: [],
