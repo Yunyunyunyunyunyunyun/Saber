@@ -7,10 +7,7 @@
         <div class="login-time">
           {{time}}
         </div>
-        <img class="img"
-             src="/img/logo.png"
-             alt="">
-        <p class="title">{{ $t('systemTitle') }}</p>
+        <h1>{{ $t('systemTitle') }}</h1>
       </div>
       <div class="login-border">
         <div class="login-main">
@@ -21,13 +18,7 @@
           <userLogin v-if="activeName==='user'"></userLogin>
           <codeLogin v-else-if="activeName==='code'"></codeLogin>
           <thirdLogin v-else-if="activeName==='third'"></thirdLogin>
-          <div class="login-menu">
-            <!-- <a href="#" @click.stop="activeName='user'">{{ $t('login.userLogin') }}</a> -->
-            <!--<a href="#" @click.stop="activeName='code'">{{ $t('login.phoneLogin') }}</a>-->
-            <!-- <a href="#" @click.stop="activeName='third'">{{ $t('login.thirdLogin') }}</a> -->
-          </div>
         </div>
-
       </div>
     </div>
   </div>

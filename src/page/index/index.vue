@@ -27,9 +27,6 @@
       </div>
     </div>
     <!-- <el-footer class="avue-footer">
-      <img src="/svg/logo.svg"
-           alt=""
-           class="logo">
       <p class="copyright">© 2018 Avue designed by smallwei</p>
     </el-footer> -->
     <div class="avue-shade"
