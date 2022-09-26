@@ -821,8 +821,8 @@
       <div class="restart-case-main-footer">
         <el-button type="primary" v-show="active>1" @click="prev">上一页</el-button>
         <el-button type="primary" v-show="active<3" @click="next">下一页</el-button>
-        <el-button type="primary" v-show="active<3" plain @click="caseSubmit('preserve')">暂存</el-button>
-        <el-button type="primary" v-show="active === 3" plain @click="caseSubmit('submit')">提交</el-button>
+        <el-button type="primary" v-show="active<3 || showFeedback || showFiles" plain @click="caseSubmit('preserve')">暂存</el-button>
+        <el-button type="primary" v-show="active === 3 && !(showFeedback || showFiles)" plain @click="caseSubmit('submit')">提交</el-button>
       </div>
     </div>
     <el-dialog
