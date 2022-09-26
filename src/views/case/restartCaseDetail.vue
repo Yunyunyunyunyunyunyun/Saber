@@ -388,6 +388,399 @@
         </el-tab-pane>
         <el-tab-pane :name="2">
           <span slot="label"><i class="el-icon-video-camera"></i> 影像资料及模型<i class="el-icon-arrow-right arrow-style"></i></span>
+          <div class="restart-case-main-two">
+            <div class="diagnosis-title">佩戴矫治器不贴合部位照片</div>
+            <el-row class="mb20">
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleNotFitOne"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.notFitOne" :src="feedbackForm.notFitOne" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
+                    <div class="common-img-uploader-text">点击上传不贴合1</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc">不贴合照</div>
+              </el-col>
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleNotFitTwo"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.notFitTwo" :src="feedbackForm.notFitTwo" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
+                    <div class="common-img-uploader-text">点击上传不贴合2</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc">不贴合照</div>
+              </el-col>
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleNotFitThree"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.notFitThree" :src="feedbackForm.notFitThree" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
+                    <div class="common-img-uploader-text">点击上传不贴合3</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc">不贴合照</div>
+              </el-col>
+            </el-row>
+            <el-row class="mb20">
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleNotFitFour"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.notFitFour" :src="feedbackForm.notFitFour" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
+                    <div class="common-img-uploader-text">点击上传不贴合4</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc">不贴合照</div>
+              </el-col>
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleNotFitFive"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.notFitFive" :src="feedbackForm.notFitFive" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
+                    <div class="common-img-uploader-text">点击上传不贴合5</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc">不贴合照</div>
+              </el-col>
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleNotFitSix"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.notFitSix" :src="feedbackForm.notFitSix" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
+                    <div class="common-img-uploader-text">点击上传不贴合6</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc">不贴合照</div>
+              </el-col>
+            </el-row>
+            <div class="diagnosis-title diagnosis-title-required photos">照片信息<span class="photo-standard" @click="toStandard('photo')"><i class="el-icon-warning-outline icon-mr4"></i>照片拍摄标准</span></div>
+            <div class="diagnosis-desc mb20">面相照及口内照</div>
+            <el-row class="mb20">
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleImgSuccessSimle"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.frontSmilingPath" :src="feedbackForm.frontSmilingPath" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <img src="img/media/smile.png" alt="">
+                    <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div class="common-img-uploader-text">点击上传正面微笑照</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc img-desc-required">正面微笑照</div>
+              </el-col>
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleImgSuccessFront"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.frontPath" :src="feedbackForm.frontPath" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <img src="img/media/front.png" alt="">
+                    <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div class="common-img-uploader-text">点击上传正面照</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc img-desc-required">正面照</div>
+              </el-col>
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleImgSuccessSide"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.sidePath" :src="feedbackForm.sidePath" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <img src="img/media/side.png" alt="">
+                    <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div class="common-img-uploader-text">点击上传侧面照</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc img-desc-required">侧面照</div>
+              </el-col>
+            </el-row>
+            <el-row class="mb20">
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleImgSuccessSideUpJaw"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.upJawPath" :src="feedbackForm.upJawPath" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <img src="img/media/top.png" alt="">
+                    <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div class="common-img-uploader-text">点击上传上颌口内照</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc img-desc-required">上颌口内照</div>
+              </el-col>
+              <el-col :span="8">
+              </el-col>
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleImgSuccessDownJaw"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.downJawPath" :src="feedbackForm.downJawPath" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <img src="img/media/bottom.png" alt="">
+                    <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div class="common-img-uploader-text">点击上传下颌口内照</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc img-desc-required">下颌口内照</div>
+              </el-col>
+            </el-row>
+            <el-row class="mb20">
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleImgSuccessRightJaw"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.rightJawPath" :src="feedbackForm.rightJawPath" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <img src="img/media/right.png" alt="">
+                    <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div class="common-img-uploader-text">点击上传右侧口内照</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc img-desc-required">右侧口内照</div>
+              </el-col>
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleImgSuccessFrontJaw"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.frontJawPath" :src="feedbackForm.frontJawPath" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <img src="img/media/main.png" alt="">
+                    <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div class="common-img-uploader-text">点击上传正面口内照</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc img-desc-required">正面口内照</div>
+              </el-col>
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleImgSuccessLeftJaw"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.leftJawPath" :src="feedbackForm.leftJawPath" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <img src="img/media/left.png" alt="">
+                    <i class="el-icon-plus common-img-uploader-icon"></i>
+                    <div class="common-img-uploader-text">点击上传左侧口内照</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc img-desc-required">左侧口内照</div>
+              </el-col>
+            </el-row>
+            <el-row class="mb20">
+              <el-col :span="8">
+                <div class="diagnosis-desc">X光照片<span class="photo-standard" @click="toStandard('slice')"><i class="el-icon-warning-outline icon-mr4"></i>X光片拍摄标准</span></div>
+              </el-col>
+              <el-col :span="8"></el-col>
+              <el-col :span="8">
+                <div class="diagnosis-desc">其他影像</div>
+              </el-col>
+            </el-row>
+            <el-row class="mb20">
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleImgSuccessAllXray"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.allXrayPath" :src="feedbackForm.allXrayPath" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
+                    <div class="common-img-uploader-text">点击上传全景片</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc">全景片</div>
+              </el-col>
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleImgSuccessSideXray"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.sideXrayPath" :src="feedbackForm.sideXrayPath" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
+                    <div class="common-img-uploader-text">点击上传侧位片</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc">侧位片</div>
+              </el-col>
+              <el-col :span="8">
+                <el-upload
+                  class="common-img-uploader"
+                  action=""
+                  accept=".jpeg,.jpg,.png"
+                  :show-file-list="false"
+                  :http-request="showProcess"
+                  :on-success="handleImgSuccessOtherXray"
+                  :before-upload="beforeImgUpload"
+                  :on-error="handleError">
+                  <img v-if="feedbackForm.otherXrayPath" :src="feedbackForm.otherXrayPath" class="common-img">
+                  <div v-else class="common-img-uploader-img">
+                    <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
+                    <div class="common-img-uploader-text">点击上传照片</div>
+                  </div>
+                </el-upload>
+                <div class="img-desc">其他</div>
+              </el-col>
+            </el-row>
+            <div class="diagnosis-title diagnosis-title-required">牙颌模型<span class="photo-standard" @click="toStandard('jaw')"><i class="el-icon-warning-outline icon-mr4"></i>模型制取标准</span></div>
+            <el-tabs v-model="activeName" class="model-tabs">
+              <el-tab-pane label="数字模型文件" name="first">
+                <div class="number-title">本地上传</div>
+                <el-row>
+                  <el-col span="10">
+                    <div class="up-title">上颌</div>
+                    <el-upload
+                      class="mb20 ml56"
+                      action=""
+                      accept=".stl"
+                      :show-file-list="false"
+                      :http-request="showProcess"
+                      :on-success="handleImgSuccessUpJawModel"
+                      :before-upload="beforeImgUploadJawModel"
+                      :on-error="handleError">
+                      <div v-if="feedbackForm.upJawModelName">
+                        <el-button icon="el-icon-file" class="model-icon-btn">{{feedbackForm.upJawModelName}}</el-button>
+                      </div>
+                      <div v-else>
+                        <el-button icon="el-icon-upload" class="model-icon-btn">点击上传带咬合STL文件</el-button>
+                      </div>
+                    </el-upload>
+                    <el-button class="remove-up-btn" v-if="feedbackForm.upJawModelName" type="text" @click="removeUpJawModel">删除</el-button>
+                    <div class="down-title">下颌</div>
+                    <el-upload
+                      class="mb20 ml56"
+                      action=""
+                      accept=".stl"
+                      :show-file-list="false"
+                      :http-request="showProcess"
+                      :on-success="handleImgSuccessDownJawModel"
+                      :before-upload="beforeImgUploadJawModel"
+                      :on-error="handleError">
+                      <div v-if="feedbackForm.downJawModelName">
+                        <el-button icon="el-icon-file" class="model-icon-btn">{{feedbackForm.downJawModelName}}</el-button>
+                      </div>
+                      <div v-else>
+                        <el-button icon="el-icon-upload" class="model-icon-btn">点击上传带咬合STL文件</el-button>
+                      </div>
+                    </el-upload>
+                    <el-button class="remove-down-btn" v-if="feedbackForm.downJawModelName" type="text" @click="removeDownJawModel">删除</el-button>
+                  </el-col>
+                  <el-col span="14">
+                    <div class="jaw-model-desc">
+                      <div>1.口扫时扫过咬合，导出的上颌STL、下颌STL就会自动带上咬合数据。</div>
+                    </div>
+                  </el-col>
+                </el-row>
+              </el-tab-pane>
+            </el-tabs>
+          </div>
         </el-tab-pane>
         <el-tab-pane :name="3">
           <span slot="label"><i class="el-icon-document-checked"></i> 提交</span>
@@ -400,6 +793,14 @@
         <el-button type="primary" v-show="active === 3" plain @click="caseSubmit('submit')">提交</el-button>
       </div>
     </div>
+    <el-dialog
+      title="上传进度"
+      :visible.sync="uploadVisible"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      :show-close="false">
+      <el-progress :text-inside="true" :stroke-width="20" :percentage="percentageNumber"></el-progress>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -465,6 +866,27 @@
           flatBear: "",
           remoteTreatments: "",
           correctiveRequire: "",
+          notFitOne: "",
+          notFitTwo: "",
+          notFitThree: "",
+          notFitFour: "",
+          notFitFive: "",
+          notFitSix: "",
+          frontSmilingPath: "",
+          frontPath: "",
+          sidePath: "",
+          upJawPath: "",
+          downJawPath: "",
+          rightJawPath: "",
+          frontJawPath: "",
+          leftJawPath: "",
+          allXrayPath: "",
+          sideXrayPath: "",
+          otherXrayPath: "",
+          upJawModelPath: "",
+          upJawModelName: "",
+          downJawModelPath: "",
+          downJawModelName: "",
         },
         feedbackRules: {
           upSteps: [
@@ -479,6 +901,9 @@
         },
         maxUpSteps: 0,
         maxDownSteps: 0,
+        uploadVisible: false,
+        percentageNumber: 0,
+        activeName: "first",
       }
     },
     created() {
@@ -508,6 +933,157 @@
       annexChange() {
         this.feedbackForm.annexInfoTwo = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28];
         this.feedbackForm.annexInfoThree = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+      },
+      toStandard(kind) {
+        let routeData = this.$router.resolve({
+          path: "/case/shootStandard",
+          query: {
+            kind: kind,
+          }
+        });
+        window.open(routeData.href, '_blank');
+      },
+      beforeImgUpload(file) {
+        if (file.type) {
+          this.percentageNumber = 0;
+          this.uploadVisible = true;
+        }
+        const isJPG = file.type === 'image/jpeg';
+        const isPNG = file.type === 'image/png';
+
+        if (!isJPG && !isPNG) {
+          this.$message.error('您只能上传 jpg/png 类型的图片!');
+        }
+        return isJPG || isPNG;
+      },
+      async showProcess(params) {
+        //调用分段上传OBS方法
+        return await uploadOBS(params.file, 'order/photo', (percentage) => {
+          this.percentageNumber = parseInt(percentage);
+          // 更新进度条
+          params.onProgress({percent: percentage});
+        });
+      },
+      handleError(err) {
+        this.uploadVisible = false;
+        this.$message.warning(err.msg);
+        return false;
+      },
+      handleNotFitOne(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.notFitOne = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleNotFitTwo(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.notFitTwo = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleNotFitThree(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.notFitThree = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleNotFitFour(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.notFitFour = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleNotFitFive(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.notFitFive = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleNotFitSix(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.notFitSix = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleImgSuccessSimle(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.frontSmilingPath = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleImgSuccessFront(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.frontPath = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleImgSuccessSide(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.sidePath = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleImgSuccessSideUpJaw(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.upJawPath = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleImgSuccessDownJaw(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.downJawPath = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleImgSuccessRightJaw(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.rightJawPath = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleImgSuccessFrontJaw(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.frontJawPath = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleImgSuccessLeftJaw(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.leftJawPath = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleImgSuccessAllXray(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.allXrayPath = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleImgSuccessSideXray(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.sideXrayPath = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleImgSuccessOtherXray(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.otherXrayPath = data.viewStlUrl;
+        this.uploadVisible = false;
+      },
+      handleImgSuccessUpJawModel(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.upJawModelPath = data.viewStlUrl;
+        this.feedbackForm.upJawModelName = data.originalName;
+        this.uploadVisible = false;
+      },
+      beforeImgUploadJawModel(file) {
+        if (file.name) {
+          this.percentageNumber = 0;
+          this.uploadVisible = true;
+        }
+        const isSTL = file.name.toLocaleLowerCase().substring(file.name.lastIndexOf('.')) === ".stl";
+        if (!isSTL) {
+          this.$message.error('您只能上传 stl 类型的文件!');
+        }
+        return isSTL;
+      },
+      handleImgSuccessDownJawModel(res, file) {
+        const data = res.data || {};
+        this.feedbackForm.downJawModelPath = data.viewStlUrl;
+        this.feedbackForm.downJawModelName = data.originalName;
+        this.uploadVisible = false;
+      },
+      removeUpJawModel() {
+        this.feedbackForm.upJawModelPath = "";
+        this.feedbackForm.upJawModelName = "";
+      },
+      removeDownJawModel() {
+        this.feedbackForm.downJawModelPath = "";
+        this.feedbackForm.downJawModelName = "";
       },
     }
   }
@@ -792,5 +1368,132 @@
   }
   .select-long {
     width: 180px !important;
+  }
+  .restart-case-main-two {
+    padding: 30px 40px 0;
+  }
+  .common-img-uploader >>> .el-upload {
+    border: 1px solid #d9d9d9;
+    width: 190px;
+    height: 180px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .common-img-uploader-img {
+    width: 190px;
+    height: 180px;
+  }
+  .common-img-uploader-icon {
+    font-size: 22px;
+    color: #8c939d;
+    margin-top: 10px;
+  }
+  .common-img-uploader-text {
+    font-size: 14px;
+    font-weight: 300;
+    color: #8c939d;
+    margin-top: 5px;
+  }
+  .common-img {
+    max-width: 190px;
+    max-height: 180px;
+    display: block;
+  }
+  .img-desc {
+    width: 190px;
+    height: 40px;
+    line-height: 40px;
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    font-size: 14px;
+    font-weight: 300;
+    color: #555;
+    text-align: center;
+  }
+  .img-desc-required::before {
+    content: '*';
+    color: #F56C6C;
+    margin-right: 4px;
+  }
+  .photoMt {
+    margin-top: 112px;
+  }
+  .photo-standard {
+    color: #409EFF;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    margin-left: 16px;
+  }
+  .icon-mr4 {
+    margin-right: 4px;
+  }
+  .diagnosis-desc {
+    font-size: 18px;
+    color: #555;
+    font-weight: 300;
+  }
+  .number-title {
+    font-size: 14px;
+    color: #303133;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .up-title {
+    font-size: 18px;
+    color: #555;
+    font-weight: 300;
+    width: 36px;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .down-title {
+    font-size: 18px;
+    color: #555;
+    font-weight: 300;
+    width: 36px;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    left: 0;
+    top: 60px;
+  }
+  .ml56 {
+    margin-left: 56px;
+  }
+  .remove-up-btn {
+    position: absolute;
+    left: 286px;
+    top: 0px;
+  }
+  .remove-down-btn {
+    position: absolute;
+    left: 286px;
+    top: 60px;
+  }
+  .model-icon-btn {
+    width: 210px;
+    height: 40px;
+  }
+  .jaw-model-desc {
+    font-size: 14px;
+    color: #666;
+    margin-top: 30px;
+  }
+  .model-tabs >>> .el-tabs__nav-wrap::after {
+    height: 2px;
+  }
+  .model-tabs >>> .el-tabs__item {
+    width: auto;
+    text-align: left;
+  }
+  .model-tabs >>> .el-tabs__nav-wrap {
+    background: #fff;
   }
 </style>
