@@ -29,6 +29,7 @@
             <div class="detail-out-information-main-patient-action">
               <!-- <el-button plain icon="el-icon-circle-check" size="small" @click="completeCase(caseData)">完成病例</el-button> -->
               <!-- <el-button plain icon="el-icon-switch-button" size="small" @click="restartCase(caseData)">重启病例</el-button> -->
+              <!-- <el-button plain icon="el-icon-sort" class="tf-icon" size="small" @click="alleyOop(caseData)">继续生产</el-button> -->
             </div>
           </div>
           <div class="detail-out-information-main-pathogeny">
@@ -586,6 +587,7 @@
           }
         });
       },
+      alleyOop(item) {},
     },
   }
 </script>
@@ -893,5 +895,8 @@
     align-items: center;
     justify-content: flex-start;
     margin-top: 30px;
+  }
+  .tf-icon >>> i {
+    transform: rotate(90deg);
   }
 </style>
