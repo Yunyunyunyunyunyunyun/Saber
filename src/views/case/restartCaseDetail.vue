@@ -32,7 +32,7 @@
                 <div class="not-fit-desc" :class="{'hide-desc': feedbackForm.isFit !== 2}">需提交全口硅橡胶印膜，或全口数字模型文件</div>
               </el-form-item>
               <div class="diagnosis-title">2. 临床检查</div>
-              <div class="restart-case-main-one-check">
+              <div class="restart-case-main-check">
                 <div class="diagnosis-two-title diagnosis-title-required">2.1 本次反馈时佩戴矫治器步数为</div>
                 <el-form-item prop="upSteps">
                   <span class="steps-title">上颌第<el-input v-model="feedbackForm.upSteps" class="steps-input" :disabled="maxUpSteps===0"></el-input>步</span>
@@ -123,7 +123,266 @@
                   </el-row>
                 </el-radio-group>
                 <div class="diagnosis-two-title diagnosis-title-required">2.3 牙列间隙</div>
+                <el-form-item prop="teethClearance">
+                  <el-radio-group v-model="feedbackForm.teethClearance" class="common-radio w100">
+                    <el-radio :label="0" border>无</el-radio>
+                    <el-radio :label="1" border>有</el-radio>
+                  </el-radio-group>
+                  <div v-show="feedbackForm.teethClearance == 1">
+                    <div class="diagnosis-titleNo-tipNo">请记录反馈1.0mm以下的间隙量</div>
+                    <div class="clearance-main">
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance1"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance2"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance3"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance4"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance5"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance6"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance7"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance8"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance9"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance10"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance11"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance12"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance13"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance14"></el-input>
+                      <el-input class="clearance-input clearance-input-top" v-model="feedbackForm.teethClearance15"></el-input>
+                      <div class="clearance-number clearance-number-bootom">
+                        <span>18</span>
+                        <span>17</span>
+                        <span>16</span>
+                        <span>15</span>
+                        <span>14</span>
+                        <span>13</span>
+                        <span>12</span>
+                        <span>11</span>
+                        <span>21</span>
+                        <span>22</span>
+                        <span>23</span>
+                        <span>24</span>
+                        <span>25</span>
+                        <span>26</span>
+                        <span>27</span>
+                        <span>28</span>
+                      </div>
+                      <div class="clearance-number">
+                        <span>48</span>
+                        <span>47</span>
+                        <span>46</span>
+                        <span>45</span>
+                        <span>44</span>
+                        <span>43</span>
+                        <span>42</span>
+                        <span>41</span>
+                        <span>31</span>
+                        <span>32</span>
+                        <span>33</span>
+                        <span>34</span>
+                        <span>35</span>
+                        <span>36</span>
+                        <span>37</span>
+                        <span>38</span>
+                      </div>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance16"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance17"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance18"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance19"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance20"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance21"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance22"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance23"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance24"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance25"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance26"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance27"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance28"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance29"></el-input>
+                      <el-input class="clearance-input clearance-input-bottom" v-model="feedbackForm.teethClearance30"></el-input>
+                    </div>
+                  </div>
+                </el-form-item>
+                <div class="diagnosis-two-title">2.4 颞下颌关节是否存在异常</div>
+                <el-form-item prop="isAbnormal">
+                  <el-input
+                    type="textarea"
+                    :rows="6"
+                    placeholder="请添加对颞下颌关节异常的症状描述和设计要求，描述请限制在2000字以内（误删除可使用“ctrl+z”撤销误操作）"
+                    v-model="feedbackForm.isAbnormal">
+                  </el-input>
+                </el-form-item>
+                <div class="diagnosis-two-title">2.5 其他检查（包括牙齿错位、松动度、早接触度等）</div>
+                <el-form-item prop="otherChecks">
+                  <el-input
+                    type="textarea"
+                    :rows="6"
+                    placeholder="描述请限制在2000字以内（误删除可使用“ctrl+z”撤销误操作）"
+                    v-model="feedbackForm.otherChecks">
+                  </el-input>
+                </el-form-item>
               </div>
+              <div class="diagnosis-title">3. 前一阶段的设计要求<span class="diagnosis-tip">如有变更请医生及时调整，如不修改公司将延续前一阶段的设计要求</span></div>
+              <div class="restart-case-main-check">
+                <div class="diagnosis-two-title">3.1 不可移动牙齿<span class="diagnosis-tip">烤瓷牙，修复桥体，种植牙等无法移动牙齿</span></div>
+                <el-form-item prop="teethMobile">
+                  <el-radio-group v-model="feedbackForm.teethMobile" class="common-radio w100 mb20">
+                    <el-radio :label="0" border>无</el-radio>
+                    <el-radio :label="1" border class="select-long">以下牙齿不可移动</el-radio>
+                  </el-radio-group>
+                  <div v-show="feedbackForm.teethMobile == 1" :class="{'annex-two-content': feedbackForm.teethMobile == 1}">
+                    <el-checkbox-group v-model="feedbackForm.teethMobileOne" class="annex-two-checkbox">
+                      <el-checkbox :label="55" border disabled></el-checkbox>
+                      <el-checkbox :label="54" border disabled></el-checkbox>
+                      <el-checkbox :label="53" border disabled></el-checkbox>
+                      <el-checkbox :label="52" border disabled></el-checkbox>
+                      <el-checkbox :label="51" border disabled></el-checkbox>
+                      <el-checkbox :label="61" border disabled></el-checkbox>
+                      <el-checkbox :label="62" border disabled></el-checkbox>
+                      <el-checkbox :label="63" border disabled></el-checkbox>
+                      <el-checkbox :label="64" border disabled></el-checkbox>
+                      <el-checkbox :label="65" border disabled></el-checkbox>
+                    </el-checkbox-group>
+                    <el-checkbox-group v-model="feedbackForm.teethMobileTwo" class="annex-two-checkbox">
+                      <el-checkbox :label="18" border></el-checkbox>
+                      <el-checkbox :label="17" border></el-checkbox>
+                      <el-checkbox :label="16" border></el-checkbox>
+                      <el-checkbox :label="15" border></el-checkbox>
+                      <el-checkbox :label="14" border></el-checkbox>
+                      <el-checkbox :label="13" border></el-checkbox>
+                      <el-checkbox :label="12" border></el-checkbox>
+                      <el-checkbox :label="11" border></el-checkbox>
+                      <el-checkbox :label="21" border></el-checkbox>
+                      <el-checkbox :label="22" border></el-checkbox>
+                      <el-checkbox :label="23" border></el-checkbox>
+                      <el-checkbox :label="24" border></el-checkbox>
+                      <el-checkbox :label="25" border></el-checkbox>
+                      <el-checkbox :label="26" border></el-checkbox>
+                      <el-checkbox :label="27" border></el-checkbox>
+                      <el-checkbox :label="28" border></el-checkbox>
+                    </el-checkbox-group>
+                    <el-checkbox-group v-model="feedbackForm.teethMobileThree" class="annex-two-checkbox">
+                      <el-checkbox :label="48" border></el-checkbox>
+                      <el-checkbox :label="47" border></el-checkbox>
+                      <el-checkbox :label="46" border></el-checkbox>
+                      <el-checkbox :label="45" border></el-checkbox>
+                      <el-checkbox :label="44" border></el-checkbox>
+                      <el-checkbox :label="43" border></el-checkbox>
+                      <el-checkbox :label="42" border></el-checkbox>
+                      <el-checkbox :label="41" border></el-checkbox>
+                      <el-checkbox :label="31" border></el-checkbox>
+                      <el-checkbox :label="32" border></el-checkbox>
+                      <el-checkbox :label="33" border></el-checkbox>
+                      <el-checkbox :label="34" border></el-checkbox>
+                      <el-checkbox :label="35" border></el-checkbox>
+                      <el-checkbox :label="36" border></el-checkbox>
+                      <el-checkbox :label="37" border></el-checkbox>
+                      <el-checkbox :label="38" border></el-checkbox>
+                    </el-checkbox-group>
+                    <el-checkbox-group v-model="feedbackForm.teethMobileFour" class="annex-two-checkbox">
+                      <el-checkbox :label="85" border disabled></el-checkbox>
+                      <el-checkbox :label="84" border disabled></el-checkbox>
+                      <el-checkbox :label="83" border disabled></el-checkbox>
+                      <el-checkbox :label="82" border disabled></el-checkbox>
+                      <el-checkbox :label="81" border disabled></el-checkbox>
+                      <el-checkbox :label="71" border disabled></el-checkbox>
+                      <el-checkbox :label="72" border disabled></el-checkbox>
+                      <el-checkbox :label="73" border disabled></el-checkbox>
+                      <el-checkbox :label="74" border disabled></el-checkbox>
+                      <el-checkbox :label="75" border disabled></el-checkbox>
+                    </el-checkbox-group>
+                  </div>
+                </el-form-item>
+                <div class="diagnosis-two-title">3.2 不可设计附件牙齿<span class="diagnosis-tip">烤瓷牙，修复桥体等无法粘结附件</span></div>
+                <el-form-item prop="teethAttachment">
+                  <el-radio-group v-model="feedbackForm.teethAttachment" class="common-radio w100 mb20">
+                    <el-radio :label="0" border>无</el-radio>
+                    <el-radio :label="1" border class="select-long">以下牙齿不可设计附件</el-radio>
+                  </el-radio-group>
+                  <div v-show="feedbackForm.teethAttachment == 1" :class="{'annex-two-content': feedbackForm.teethAttachment == 1}">
+                    <el-checkbox-group v-model="feedbackForm.teethAttachmentOne" class="annex-two-checkbox">
+                      <el-checkbox :label="55" border disabled></el-checkbox>
+                      <el-checkbox :label="54" border disabled></el-checkbox>
+                      <el-checkbox :label="53" border disabled></el-checkbox>
+                      <el-checkbox :label="52" border disabled></el-checkbox>
+                      <el-checkbox :label="51" border disabled></el-checkbox>
+                      <el-checkbox :label="61" border disabled></el-checkbox>
+                      <el-checkbox :label="62" border disabled></el-checkbox>
+                      <el-checkbox :label="63" border disabled></el-checkbox>
+                      <el-checkbox :label="64" border disabled></el-checkbox>
+                      <el-checkbox :label="65" border disabled></el-checkbox>
+                    </el-checkbox-group>
+                    <el-checkbox-group v-model="feedbackForm.teethAttachmentTwo" class="annex-two-checkbox">
+                      <el-checkbox :label="18" border></el-checkbox>
+                      <el-checkbox :label="17" border></el-checkbox>
+                      <el-checkbox :label="16" border></el-checkbox>
+                      <el-checkbox :label="15" border></el-checkbox>
+                      <el-checkbox :label="14" border></el-checkbox>
+                      <el-checkbox :label="13" border></el-checkbox>
+                      <el-checkbox :label="12" border></el-checkbox>
+                      <el-checkbox :label="11" border></el-checkbox>
+                      <el-checkbox :label="21" border></el-checkbox>
+                      <el-checkbox :label="22" border></el-checkbox>
+                      <el-checkbox :label="23" border></el-checkbox>
+                      <el-checkbox :label="24" border></el-checkbox>
+                      <el-checkbox :label="25" border></el-checkbox>
+                      <el-checkbox :label="26" border></el-checkbox>
+                      <el-checkbox :label="27" border></el-checkbox>
+                      <el-checkbox :label="28" border></el-checkbox>
+                    </el-checkbox-group>
+                    <el-checkbox-group v-model="feedbackForm.teethAttachmentThree" class="annex-two-checkbox">
+                      <el-checkbox :label="48" border></el-checkbox>
+                      <el-checkbox :label="47" border></el-checkbox>
+                      <el-checkbox :label="46" border></el-checkbox>
+                      <el-checkbox :label="45" border></el-checkbox>
+                      <el-checkbox :label="44" border></el-checkbox>
+                      <el-checkbox :label="43" border></el-checkbox>
+                      <el-checkbox :label="42" border></el-checkbox>
+                      <el-checkbox :label="41" border></el-checkbox>
+                      <el-checkbox :label="31" border></el-checkbox>
+                      <el-checkbox :label="32" border></el-checkbox>
+                      <el-checkbox :label="33" border></el-checkbox>
+                      <el-checkbox :label="34" border></el-checkbox>
+                      <el-checkbox :label="35" border></el-checkbox>
+                      <el-checkbox :label="36" border></el-checkbox>
+                      <el-checkbox :label="37" border></el-checkbox>
+                      <el-checkbox :label="38" border></el-checkbox>
+                    </el-checkbox-group>
+                    <el-checkbox-group v-model="feedbackForm.teethAttachmentFour" class="annex-two-checkbox">
+                      <el-checkbox :label="85" border disabled></el-checkbox>
+                      <el-checkbox :label="84" border disabled></el-checkbox>
+                      <el-checkbox :label="83" border disabled></el-checkbox>
+                      <el-checkbox :label="82" border disabled></el-checkbox>
+                      <el-checkbox :label="81" border disabled></el-checkbox>
+                      <el-checkbox :label="71" border disabled></el-checkbox>
+                      <el-checkbox :label="72" border disabled></el-checkbox>
+                      <el-checkbox :label="73" border disabled></el-checkbox>
+                      <el-checkbox :label="74" border disabled></el-checkbox>
+                      <el-checkbox :label="75" border disabled></el-checkbox>
+                    </el-checkbox-group>
+                  </div>
+                </el-form-item>
+                <div class="diagnosis-two-title">3.3 前牙平导板（适用于深覆合浅覆盖病例）</div>
+                <el-form-item prop="flatBear">
+                  <el-radio-group v-model="feedbackForm.flatBear" class="common-radio w100">
+                    <el-radio :label="1" border>需要</el-radio>
+                    <el-radio :label="2" border>不需要</el-radio>
+                  </el-radio-group>
+                </el-form-item>
+                <div class="diagnosis-two-title">3.4 是否远程矫治</div>
+                <el-form-item prop="remoteTreatments">
+                  <el-radio-group v-model="feedbackForm.remoteTreatments" class="common-radio w100">
+                    <el-radio :label="1" border>是</el-radio>
+                    <el-radio :label="2" border>否</el-radio>
+                  </el-radio-group>
+                </el-form-item>
+              </div>
+              <div class="diagnosis-title diagnosis-title-required">4. 后续矫治要求<span class="diagnosis-tip">不应改变初始矫治目标</span></div>
+              <el-form-item prop="correctiveRequire">
+                <el-input
+                  type="textarea"
+                  :rows="6"
+                  placeholder="描述请限制在2000字以内（误删除可使用“ctrl+z”撤销误操作）"
+                  v-model="feedbackForm.correctiveRequire">
+                </el-input>
+              </el-form-item>
             </el-form>
           </div>
         </el-tab-pane>
@@ -160,6 +419,52 @@
           annexInfoTwo: [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28],
           annexInfoThree: [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38],
           annexInfoFour: [],
+          teethClearance: 0,
+          teethClearance1: "",
+          teethClearance2: "",
+          teethClearance3: "",
+          teethClearance4: "",
+          teethClearance5: "",
+          teethClearance6: "",
+          teethClearance7: "",
+          teethClearance8: "",
+          teethClearance9: "",
+          teethClearance10: "",
+          teethClearance11: "",
+          teethClearance12: "",
+          teethClearance13: "",
+          teethClearance14: "",
+          teethClearance15: "",
+          teethClearance16: "",
+          teethClearance17: "",
+          teethClearance18: "",
+          teethClearance19: "",
+          teethClearance20: "",
+          teethClearance21: "",
+          teethClearance22: "",
+          teethClearance23: "",
+          teethClearance24: "",
+          teethClearance25: "",
+          teethClearance26: "",
+          teethClearance27: "",
+          teethClearance28: "",
+          teethClearance29: "",
+          teethClearance30: "",
+          isAbnormal: "",
+          otherChecks: "",
+          teethMobile: 1,
+          teethMobileOne: [],
+          teethMobileTwo: [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28],
+          teethMobileThree: [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38],
+          teethMobileFour: [],
+          teethAttachment: 1,
+          teethAttachmentOne: [],
+          teethAttachmentTwo: [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28],
+          teethAttachmentThree: [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38],
+          teethAttachmentFour: [],
+          flatBear: "",
+          remoteTreatments: "",
+          correctiveRequire: "",
         },
         feedbackRules: {},
         maxUpSteps: 0,
@@ -337,7 +642,7 @@
   .hide-desc {
     opacity: 0;
   }
-  .restart-case-main-one-check {
+  .restart-case-main-check {
     padding: 0 21px;
   }
   .diagnosis-two-title {
@@ -410,5 +715,72 @@
   }
   .checked-checkbox >>> .el-checkbox.is-bordered.is-checked {
     background-color: #fff;
+  }
+  .diagnosis-titleNo-tipNo {
+    font-size: 16px;
+    color: #333;
+    margin-top: 15px;
+    font-weight: 300;
+  }
+  .clearance-main {
+    width: 1100px;
+  }
+  .clearance-input {
+    width: 38px;
+    margin-left: 33px;
+  }
+  .clearance-input >>> .el-input__inner {
+    height: 24px;
+    line-height: 24px;
+    padding: 0;
+    text-align: center;
+  }
+  .clearance-number {
+    color: #bbb;
+    font-size: 16px;
+    padding-left: 6px;
+    width: 1100px;
+  }
+  .clearance-number-bootom {
+    border-bottom: 1px dashed #c5c5c5;
+  }
+  .clearance-number span {
+    padding-right: 54px;
+  }
+  .clearance-main::after {
+    height: 98px;
+    border-right: 1px dashed #c5c5c5;
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 128px;
+    left: 548px;
+    z-index: 10;
+  }
+  .clearance-input-top::after {
+    height: 14px;
+    border-right: 1px solid #DCDFE6;
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 32px;
+    left: 18px;
+    z-index: 10;
+  }
+  .clearance-input-bottom::after {
+    height: 14px;
+    border-right: 1px solid #DCDFE6;
+    display: inline-block;
+    content: "";
+    position: absolute;
+    bottom: 32px;
+    left: 18px;
+    z-index: 10;
+  }
+  .w100 >>> .el-radio.is-bordered {
+    width: 100px;
+  }
+  .select-long {
+    width: 180px !important;
   }
 </style>
