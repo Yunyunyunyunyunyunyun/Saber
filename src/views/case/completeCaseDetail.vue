@@ -573,15 +573,16 @@
         this.uploadVisible = false;
       },
       beforeImgUpload(file) {
-        if (file.type) {
-          this.percentageNumber = 0;
-          this.uploadVisible = true;
-        }
         const isJPG = file.type === 'image/jpeg';
         const isPNG = file.type === 'image/png';
 
         if (!isJPG && !isPNG) {
           this.$message.error('您只能上传 jpg/png 类型的图片!');
+        } else {
+          if (file.type) {
+            this.percentageNumber = 0;
+            this.uploadVisible = true;
+          }
         }
         return isJPG || isPNG;
       },
@@ -605,13 +606,14 @@
         this.uploadVisible = false;
       },
       beforeImgUploadJawModel(file) {
-        if (file.name) {
-          this.percentageNumber = 0;
-          this.uploadVisible = true;
-        }
         const isSTL = file.name.toLocaleLowerCase().substring(file.name.lastIndexOf('.')) === ".stl";
         if (!isSTL) {
           this.$message.error('您只能上传 stl 类型的文件!');
+        } else {
+          if (file.name) {
+            this.percentageNumber = 0;
+            this.uploadVisible = true;
+          }
         }
         return isSTL;
       },

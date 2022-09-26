@@ -23,7 +23,7 @@
               </div>
             </div>
             <el-form :model="feedbackForm" :rules="feedbackRules" ref="feedbackForm" label-position="top">
-              <div class="diagnosis-title diagnosis-title-required">1. 当前矫治器贴合情况<span class="diagnosis-tip">判断依据：牙齿移动及咬合关系与模拟矫治设计基本符合，矫治器与牙齿之间无明显空隙</span></div>
+              <div class="diagnosis-title diagnosis-title-required isFit">1. 当前矫治器贴合情况<span class="diagnosis-tip">判断依据：牙齿移动及咬合关系与模拟矫治设计基本符合，矫治器与牙齿之间无明显空隙</span></div>
               <el-form-item prop="isFit">
                 <el-radio-group v-model="feedbackForm.isFit" class="common-radio">
                   <el-radio :label="1" border>矫治器贴合</el-radio>
@@ -33,7 +33,7 @@
               </el-form-item>
               <div class="diagnosis-title">2. 临床检查</div>
               <div class="restart-case-main-check">
-                <div class="diagnosis-two-title diagnosis-title-required">2.1 本次反馈时佩戴矫治器步数为</div>
+                <div class="diagnosis-two-title diagnosis-title-required steps">2.1 本次反馈时佩戴矫治器步数为</div>
                 <el-form-item prop="upSteps">
                   <span class="steps-title">上颌第<el-input v-model="feedbackForm.upSteps" class="steps-input" :disabled="maxUpSteps===0"></el-input>步</span>
                   <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxUpSteps}} 步</span>
@@ -374,7 +374,7 @@
                   </el-radio-group>
                 </el-form-item>
               </div>
-              <div class="diagnosis-title diagnosis-title-required">4. 后续矫治要求<span class="diagnosis-tip">不应改变初始矫治目标</span></div>
+              <div class="diagnosis-title diagnosis-title-required correctiveRequire">4. 后续矫治要求<span class="diagnosis-tip">不应改变初始矫治目标</span></div>
               <el-form-item prop="correctiveRequire">
                 <el-input
                   type="textarea"
@@ -401,7 +401,7 @@
                   :on-success="handleNotFitOne"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.notFitOne" :src="feedbackForm.notFitOne" class="common-img">
+                  <img v-if="photoForm.notFitOne" :src="photoForm.notFitOne" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                     <div class="common-img-uploader-text">点击上传不贴合1</div>
@@ -419,7 +419,7 @@
                   :on-success="handleNotFitTwo"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.notFitTwo" :src="feedbackForm.notFitTwo" class="common-img">
+                  <img v-if="photoForm.notFitTwo" :src="photoForm.notFitTwo" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                     <div class="common-img-uploader-text">点击上传不贴合2</div>
@@ -437,7 +437,7 @@
                   :on-success="handleNotFitThree"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.notFitThree" :src="feedbackForm.notFitThree" class="common-img">
+                  <img v-if="photoForm.notFitThree" :src="photoForm.notFitThree" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                     <div class="common-img-uploader-text">点击上传不贴合3</div>
@@ -457,7 +457,7 @@
                   :on-success="handleNotFitFour"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.notFitFour" :src="feedbackForm.notFitFour" class="common-img">
+                  <img v-if="photoForm.notFitFour" :src="photoForm.notFitFour" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                     <div class="common-img-uploader-text">点击上传不贴合4</div>
@@ -475,7 +475,7 @@
                   :on-success="handleNotFitFive"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.notFitFive" :src="feedbackForm.notFitFive" class="common-img">
+                  <img v-if="photoForm.notFitFive" :src="photoForm.notFitFive" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                     <div class="common-img-uploader-text">点击上传不贴合5</div>
@@ -493,7 +493,7 @@
                   :on-success="handleNotFitSix"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.notFitSix" :src="feedbackForm.notFitSix" class="common-img">
+                  <img v-if="photoForm.notFitSix" :src="photoForm.notFitSix" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                     <div class="common-img-uploader-text">点击上传不贴合6</div>
@@ -515,7 +515,7 @@
                   :on-success="handleImgSuccessSimle"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.frontSmilingPath" :src="feedbackForm.frontSmilingPath" class="common-img">
+                  <img v-if="photoForm.frontSmilingPath" :src="photoForm.frontSmilingPath" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <img src="img/media/smile.png" alt="">
                     <i class="el-icon-plus common-img-uploader-icon"></i>
@@ -534,7 +534,7 @@
                   :on-success="handleImgSuccessFront"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.frontPath" :src="feedbackForm.frontPath" class="common-img">
+                  <img v-if="photoForm.frontPath" :src="photoForm.frontPath" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <img src="img/media/front.png" alt="">
                     <i class="el-icon-plus common-img-uploader-icon"></i>
@@ -553,7 +553,7 @@
                   :on-success="handleImgSuccessSide"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.sidePath" :src="feedbackForm.sidePath" class="common-img">
+                  <img v-if="photoForm.sidePath" :src="photoForm.sidePath" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <img src="img/media/side.png" alt="">
                     <i class="el-icon-plus common-img-uploader-icon"></i>
@@ -574,7 +574,7 @@
                   :on-success="handleImgSuccessSideUpJaw"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.upJawPath" :src="feedbackForm.upJawPath" class="common-img">
+                  <img v-if="photoForm.upJawPath" :src="photoForm.upJawPath" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <img src="img/media/top.png" alt="">
                     <i class="el-icon-plus common-img-uploader-icon"></i>
@@ -595,7 +595,7 @@
                   :on-success="handleImgSuccessDownJaw"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.downJawPath" :src="feedbackForm.downJawPath" class="common-img">
+                  <img v-if="photoForm.downJawPath" :src="photoForm.downJawPath" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <img src="img/media/bottom.png" alt="">
                     <i class="el-icon-plus common-img-uploader-icon"></i>
@@ -616,7 +616,7 @@
                   :on-success="handleImgSuccessRightJaw"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.rightJawPath" :src="feedbackForm.rightJawPath" class="common-img">
+                  <img v-if="photoForm.rightJawPath" :src="photoForm.rightJawPath" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <img src="img/media/right.png" alt="">
                     <i class="el-icon-plus common-img-uploader-icon"></i>
@@ -635,7 +635,7 @@
                   :on-success="handleImgSuccessFrontJaw"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.frontJawPath" :src="feedbackForm.frontJawPath" class="common-img">
+                  <img v-if="photoForm.frontJawPath" :src="photoForm.frontJawPath" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <img src="img/media/main.png" alt="">
                     <i class="el-icon-plus common-img-uploader-icon"></i>
@@ -654,7 +654,7 @@
                   :on-success="handleImgSuccessLeftJaw"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.leftJawPath" :src="feedbackForm.leftJawPath" class="common-img">
+                  <img v-if="photoForm.leftJawPath" :src="photoForm.leftJawPath" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <img src="img/media/left.png" alt="">
                     <i class="el-icon-plus common-img-uploader-icon"></i>
@@ -684,7 +684,7 @@
                   :on-success="handleImgSuccessAllXray"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.allXrayPath" :src="feedbackForm.allXrayPath" class="common-img">
+                  <img v-if="photoForm.allXrayPath" :src="photoForm.allXrayPath" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                     <div class="common-img-uploader-text">点击上传全景片</div>
@@ -702,7 +702,7 @@
                   :on-success="handleImgSuccessSideXray"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.sideXrayPath" :src="feedbackForm.sideXrayPath" class="common-img">
+                  <img v-if="photoForm.sideXrayPath" :src="photoForm.sideXrayPath" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                     <div class="common-img-uploader-text">点击上传侧位片</div>
@@ -720,7 +720,7 @@
                   :on-success="handleImgSuccessOtherXray"
                   :before-upload="beforeImgUpload"
                   :on-error="handleError">
-                  <img v-if="feedbackForm.otherXrayPath" :src="feedbackForm.otherXrayPath" class="common-img">
+                  <img v-if="photoForm.otherXrayPath" :src="photoForm.otherXrayPath" class="common-img">
                   <div v-else class="common-img-uploader-img">
                     <i class="el-icon-plus common-img-uploader-icon photoMt"></i>
                     <div class="common-img-uploader-text">点击上传照片</div>
@@ -729,7 +729,7 @@
                 <div class="img-desc">其他</div>
               </el-col>
             </el-row>
-            <div class="diagnosis-title diagnosis-title-required">牙颌模型<span class="photo-standard" @click="toStandard('jaw')"><i class="el-icon-warning-outline icon-mr4"></i>模型制取标准</span></div>
+            <div class="diagnosis-title diagnosis-title-required dental">牙颌模型<span class="photo-standard" @click="toStandard('jaw')"><i class="el-icon-warning-outline icon-mr4"></i>模型制取标准</span></div>
             <el-tabs v-model="activeName" class="model-tabs">
               <el-tab-pane label="数字模型文件" name="first">
                 <div class="number-title">本地上传</div>
@@ -745,14 +745,14 @@
                       :on-success="handleImgSuccessUpJawModel"
                       :before-upload="beforeImgUploadJawModel"
                       :on-error="handleError">
-                      <div v-if="feedbackForm.upJawModelName">
-                        <el-button icon="el-icon-file" class="model-icon-btn">{{feedbackForm.upJawModelName}}</el-button>
+                      <div v-if="photoForm.upJawModelName">
+                        <el-button icon="el-icon-file" class="model-icon-btn">{{photoForm.upJawModelName}}</el-button>
                       </div>
                       <div v-else>
                         <el-button icon="el-icon-upload" class="model-icon-btn">点击上传带咬合STL文件</el-button>
                       </div>
                     </el-upload>
-                    <el-button class="remove-up-btn" v-if="feedbackForm.upJawModelName" type="text" @click="removeUpJawModel">删除</el-button>
+                    <el-button class="remove-up-btn" v-if="photoForm.upJawModelName" type="text" @click="removeUpJawModel">删除</el-button>
                     <div class="down-title">下颌</div>
                     <el-upload
                       class="mb20 ml56"
@@ -763,14 +763,14 @@
                       :on-success="handleImgSuccessDownJawModel"
                       :before-upload="beforeImgUploadJawModel"
                       :on-error="handleError">
-                      <div v-if="feedbackForm.downJawModelName">
-                        <el-button icon="el-icon-file" class="model-icon-btn">{{feedbackForm.downJawModelName}}</el-button>
+                      <div v-if="photoForm.downJawModelName">
+                        <el-button icon="el-icon-file" class="model-icon-btn">{{photoForm.downJawModelName}}</el-button>
                       </div>
                       <div v-else>
                         <el-button icon="el-icon-upload" class="model-icon-btn">点击上传带咬合STL文件</el-button>
                       </div>
                     </el-upload>
-                    <el-button class="remove-down-btn" v-if="feedbackForm.downJawModelName" type="text" @click="removeDownJawModel">删除</el-button>
+                    <el-button class="remove-down-btn" v-if="photoForm.downJawModelName" type="text" @click="removeDownJawModel">删除</el-button>
                   </el-col>
                   <el-col span="14">
                     <div class="jaw-model-desc">
@@ -784,6 +784,38 @@
         </el-tab-pane>
         <el-tab-pane :name="3">
           <span slot="label"><i class="el-icon-document-checked"></i> 提交</span>
+          <div class="error-submit">
+            <div v-show="showFeedback || showFiles">
+              <div class="error-submit-tip">
+                <i class="el-icon-warning-outline error-submit-icon"></i>
+                <span>您还有以下项目待完善，请确认无误后再提交</span>
+              </div>
+              <div class="error-submit-noFilled">
+                <div class="mb20" v-show="showFeedback">
+                  <span class="error-submit-noFilled-type">阶段反馈</span>
+                  <div class="error-submit-noFilled-content">
+                    <div v-show="!feedbackForm.isFit" class="error-submit-noFilled-content-every" @click="clickToFeedback('isFit')">当前矫治器贴合情况</div>
+                    <div v-show="!feedbackForm.upSteps && !feedbackForm.downSteps" class="error-submit-noFilled-content-every" @click="clickToFeedback('steps')">本次反馈时佩戴矫治器步数</div>
+                    <div v-show="!feedbackForm.correctiveRequire" class="error-submit-noFilled-content-every" @click="clickToFeedback('correctiveRequire')">后续矫治要求</div>
+                  </div>
+                </div>
+                <div v-show="showFiles">
+                  <span class="error-submit-noFilled-type">影像资料及模型</span>
+                  <div class="error-submit-noFilled-content">
+                    <div v-show="showPhoto" class="error-submit-noFilled-content-every" @click="clickToPhoto('photos')">照片</div>
+                    <div v-show="!(photoForm.upJawModelPath && photoForm.downJawModelPath)" class="error-submit-noFilled-content-every" @click="clickToPhoto('dental')">牙颌模型</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-show="!(showFeedback || showFiles)" class="error-submitTrue">
+              <i class="el-icon-circle-check error-submitTrue-img"></i>
+              <div class="error-submitTrue-tip">
+                <div>资料收集完毕，请点击提交！</div>
+                <div>提交后，我司将尽快为您处理！</div>
+              </div>
+            </div>
+          </div>
         </el-tab-pane>
       </el-tabs>
       <div class="restart-case-main-footer">
@@ -813,8 +845,8 @@
         caseItem: {},
         feedbackForm: {
           isFit: "",
-          upSteps: 0,
-          downSteps: 0,
+          upSteps: "",
+          downSteps: "",
           annex: "",
           annexInfoOne: [],
           annexInfoTwo: [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28],
@@ -872,6 +904,8 @@
           notFitFour: "",
           notFitFive: "",
           notFitSix: "",
+        },
+        photoForm: {
           frontSmilingPath: "",
           frontPath: "",
           sidePath: "",
@@ -905,6 +939,24 @@
         percentageNumber: 0,
         activeName: "first",
       }
+    },
+    computed: {
+      showFeedback() {
+        return !this.feedbackForm.isFit || (!this.feedbackForm.upSteps && !this.feedbackForm.downSteps) || !this.feedbackForm.correctiveRequire;
+      },
+      showPhoto() {
+        return !this.photoForm.frontSmilingPath
+            || !this.photoForm.frontPath
+            || !this.photoForm.sidePath
+            || !this.photoForm.upJawPath
+            || !this.photoForm.downJawPath
+            || !this.photoForm.rightJawPath
+            || !this.photoForm.frontJawPath
+            || !this.photoForm.leftJawPath;
+      },
+      showFiles() {
+        return this.showPhoto || !(this.photoForm.upJawModelPath && this.photoForm.downJawModelPath);
+      },
     },
     created() {
       var rParamsData = sessionStorage.getItem("rParamsData");
@@ -944,15 +996,16 @@
         window.open(routeData.href, '_blank');
       },
       beforeImgUpload(file) {
-        if (file.type) {
-          this.percentageNumber = 0;
-          this.uploadVisible = true;
-        }
         const isJPG = file.type === 'image/jpeg';
         const isPNG = file.type === 'image/png';
 
         if (!isJPG && !isPNG) {
           this.$message.error('您只能上传 jpg/png 类型的图片!');
+        } else {
+          if (file.type) {
+            this.percentageNumber = 0;
+            this.uploadVisible = true;
+          }
         }
         return isJPG || isPNG;
       },
@@ -971,119 +1024,144 @@
       },
       handleNotFitOne(res, file) {
         const data = res.data || {};
-        this.feedbackForm.notFitOne = data.viewStlUrl;
+        this.photoForm.notFitOne = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleNotFitTwo(res, file) {
         const data = res.data || {};
-        this.feedbackForm.notFitTwo = data.viewStlUrl;
+        this.photoForm.notFitTwo = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleNotFitThree(res, file) {
         const data = res.data || {};
-        this.feedbackForm.notFitThree = data.viewStlUrl;
+        this.photoForm.notFitThree = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleNotFitFour(res, file) {
         const data = res.data || {};
-        this.feedbackForm.notFitFour = data.viewStlUrl;
+        this.photoForm.notFitFour = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleNotFitFive(res, file) {
         const data = res.data || {};
-        this.feedbackForm.notFitFive = data.viewStlUrl;
+        this.photoForm.notFitFive = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleNotFitSix(res, file) {
         const data = res.data || {};
-        this.feedbackForm.notFitSix = data.viewStlUrl;
+        this.photoForm.notFitSix = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleImgSuccessSimle(res, file) {
         const data = res.data || {};
-        this.feedbackForm.frontSmilingPath = data.viewStlUrl;
+        this.photoForm.frontSmilingPath = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleImgSuccessFront(res, file) {
         const data = res.data || {};
-        this.feedbackForm.frontPath = data.viewStlUrl;
+        this.photoForm.frontPath = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleImgSuccessSide(res, file) {
         const data = res.data || {};
-        this.feedbackForm.sidePath = data.viewStlUrl;
+        this.photoForm.sidePath = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleImgSuccessSideUpJaw(res, file) {
         const data = res.data || {};
-        this.feedbackForm.upJawPath = data.viewStlUrl;
+        this.photoForm.upJawPath = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleImgSuccessDownJaw(res, file) {
         const data = res.data || {};
-        this.feedbackForm.downJawPath = data.viewStlUrl;
+        this.photoForm.downJawPath = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleImgSuccessRightJaw(res, file) {
         const data = res.data || {};
-        this.feedbackForm.rightJawPath = data.viewStlUrl;
+        this.photoForm.rightJawPath = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleImgSuccessFrontJaw(res, file) {
         const data = res.data || {};
-        this.feedbackForm.frontJawPath = data.viewStlUrl;
+        this.photoForm.frontJawPath = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleImgSuccessLeftJaw(res, file) {
         const data = res.data || {};
-        this.feedbackForm.leftJawPath = data.viewStlUrl;
+        this.photoForm.leftJawPath = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleImgSuccessAllXray(res, file) {
         const data = res.data || {};
-        this.feedbackForm.allXrayPath = data.viewStlUrl;
+        this.photoForm.allXrayPath = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleImgSuccessSideXray(res, file) {
         const data = res.data || {};
-        this.feedbackForm.sideXrayPath = data.viewStlUrl;
+        this.photoForm.sideXrayPath = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleImgSuccessOtherXray(res, file) {
         const data = res.data || {};
-        this.feedbackForm.otherXrayPath = data.viewStlUrl;
+        this.photoForm.otherXrayPath = data.viewStlUrl;
         this.uploadVisible = false;
       },
       handleImgSuccessUpJawModel(res, file) {
         const data = res.data || {};
-        this.feedbackForm.upJawModelPath = data.viewStlUrl;
-        this.feedbackForm.upJawModelName = data.originalName;
+        this.photoForm.upJawModelPath = data.viewStlUrl;
+        this.photoForm.upJawModelName = data.originalName;
         this.uploadVisible = false;
       },
       beforeImgUploadJawModel(file) {
-        if (file.name) {
-          this.percentageNumber = 0;
-          this.uploadVisible = true;
-        }
         const isSTL = file.name.toLocaleLowerCase().substring(file.name.lastIndexOf('.')) === ".stl";
         if (!isSTL) {
           this.$message.error('您只能上传 stl 类型的文件!');
+        } else {
+          if (file.name) {
+            this.percentageNumber = 0;
+            this.uploadVisible = true;
+          }
         }
         return isSTL;
       },
       handleImgSuccessDownJawModel(res, file) {
         const data = res.data || {};
-        this.feedbackForm.downJawModelPath = data.viewStlUrl;
-        this.feedbackForm.downJawModelName = data.originalName;
+        this.photoForm.downJawModelPath = data.viewStlUrl;
+        this.photoForm.downJawModelName = data.originalName;
         this.uploadVisible = false;
       },
       removeUpJawModel() {
-        this.feedbackForm.upJawModelPath = "";
-        this.feedbackForm.upJawModelName = "";
+        this.photoForm.upJawModelPath = "";
+        this.photoForm.upJawModelName = "";
       },
       removeDownJawModel() {
-        this.feedbackForm.downJawModelPath = "";
-        this.feedbackForm.downJawModelName = "";
+        this.photoForm.downJawModelPath = "";
+        this.photoForm.downJawModelName = "";
+      },
+      clickToFeedback(className) {
+        this.active = 1;
+        this.$nextTick(() => {
+          if (document.querySelector("."+className)) {
+            document.querySelector("."+className).scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+              inline: 'nearest'
+            });
+          }
+        });
+      },
+      clickToPhoto(className) {
+        this.active = 2;
+        this.$nextTick(() => {
+          if (document.querySelector("."+className)) {
+            document.querySelector("."+className).scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+              inline: 'nearest'
+            });
+          }
+        });
       },
     }
   }
@@ -1495,5 +1573,78 @@
   }
   .model-tabs >>> .el-tabs__nav-wrap {
     background: #fff;
+  }
+  .error-submit {
+    padding: 50px;
+    min-height: 500px;
+  }
+  .error-submit-icon {
+    color: #f44336;
+    margin-right: 10px;
+    font-size: 20px;
+  }
+  .error-submit-tip {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: #555;
+    font-size: 20px;
+    height: 20px;
+    line-height: 20px;
+    white-space: nowrap;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+  .error-submit-noFilled {
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid #f44336;
+    padding-left: 27px;
+    margin-bottom: 20px;
+  }
+  .error-submit-noFilled-type {
+    color: #333;
+    font-size: 16px;
+    line-height: 16px;
+    white-space: nowrap;
+    font-weight: 400;
+  }
+  .error-submit-noFilled-content:last-child {
+    margin-bottom: 0;
+  }
+  .error-submit-noFilled-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  .error-submit-noFilled-content-every {
+    margin-top: 10px;
+    color: #f44336;
+    font-size: 14px;
+    line-height: 24px;
+    white-space: nowrap;
+    font-weight: 400;
+    margin-right: 20px;
+    cursor: pointer;
+    border-bottom: 1px solid red;
+  }
+  .error-submitTrue {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .error-submitTrue-tip {
+    font-size: 20px;
+    font-weight: 500;
+    color: #555;
+    height: 54px;
+    margin-top: 13px;
+  }
+  .error-submitTrue-img {
+    font-size: 80px;
+    margin-right: 20px;
+    color: green;
   }
 </style>
