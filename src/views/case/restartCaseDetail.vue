@@ -122,6 +122,7 @@
                     <span class="diagnosis-tip">根据设计方案可能添加附件</span>
                   </el-row>
                 </el-radio-group>
+                <div class="diagnosis-two-title diagnosis-title-required">2.3 牙列间隙</div>
               </div>
             </el-form>
           </div>

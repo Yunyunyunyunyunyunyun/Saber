@@ -463,6 +463,9 @@ export default {
   }
   .shoot-standard-main-document-main {
     padding: 16px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .shoot-standard-main-document-main-title {
     color: #333;
