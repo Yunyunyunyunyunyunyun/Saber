@@ -1002,19 +1002,19 @@ export default {
           { required: true, validator: checkNameReg, trigger: 'blur' },
         ],
         doctorId: [
-          { required: true, message: '请选择所属医生', trigger: 'change' },
+          { required: true, message: '请选择所属医生', trigger: 'blur' },
         ],
         sex: [
-          { required: true, message: '请选择性别', trigger: 'change' },
+          { required: true, message: '请选择性别', trigger: 'blur' },
         ],
         birthday: [
           { required: true, message: '请选择出生日期', trigger: 'change' },
         ],
         annType: [
-          { required: true, message: '请选择安氏分类', trigger: 'change' },
+          { required: true, message: '请选择安氏分类', trigger: 'blur' },
         ],
         malocclusionType: [
-          { required: true, message: '请选择错合类型', trigger: 'change' },
+          { required: true, message: '请选择错合类型', trigger: 'blur' },
         ],
       },
       doctorOptions: [],

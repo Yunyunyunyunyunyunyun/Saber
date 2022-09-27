@@ -421,7 +421,7 @@
         },
         topRules: {
           situation: [
-            { required: true, message: '请确认完成属于哪种情况', trigger: 'change' },
+            { required: true, message: '请确认完成属于哪种情况', trigger: 'blur' },
           ],
           completionDate: [
             { required: true, message: '请选择矫治完成日期', trigger: 'change' },

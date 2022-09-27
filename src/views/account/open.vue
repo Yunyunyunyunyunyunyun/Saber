@@ -161,10 +161,10 @@ export default {
           { required: true, validator: checkPhoneReg, trigger: 'blur' },
         ],
         hospitalId: [
-          { required: true, message: '请选择医院', trigger: 'change' },
+          { required: true, message: '请选择医院', trigger: 'blur' },
         ],
         schoolId: [
-          { required: true, message: '请选择学校', trigger: 'change' },
+          { required: true, message: '请选择学校', trigger: 'blur' },
         ],
         orgAddress: [
           { required: true, message: '请选择机构地址', trigger: 'change' },
