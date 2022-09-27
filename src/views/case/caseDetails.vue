@@ -212,6 +212,34 @@
         <el-button type="primary" @click="failHistoryReasonVisible = false">确 定</el-button>
       </span>
     </el-dialog>
+    <el-dialog width="40%" title="加工后续" :visible.sync="followUpVisible">
+      <el-dialog
+        width="30%"
+        :visible.sync="keepOnVisible"
+        append-to-body>
+        <div class="produce-content"><i class="el-icon-warning-outline produce-icon"></i>确认继续生产么</div>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="keepOnVisible = false">取 消</el-button>
+          <el-button type="primary" @click="sureProduce">确 定</el-button>
+        </div>
+      </el-dialog>
+      <div class="follow-up-main">
+        <div class="follow-up-main-top">
+          <div class="follow-up-main-top-one">是否提交加工后续申请</div>
+          <div class="follow-up-main-top-two">如需更改地址请联系客服，提交后无法更改</div>
+        </div>
+        <div class="follow-up-main-bottom">
+          <div class="follow-up-main-bottom-one">矫治器收货地址</div>
+          <div class="follow-up-main-bottom-two">阿富汗1111</div>
+          <div class="follow-up-main-bottom-one">保持器收货地址</div>
+          <div class="follow-up-main-bottom-two">阿富汗1111</div>
+        </div>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="followUpVisible = false">取 消</el-button>
+        <el-button type="primary" @click="keepOnVisible = true">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -238,6 +266,8 @@
         sideXrayPath: "",
         otherXrayPath: "",
         images: [],
+        followUpVisible: false,
+        keepOnVisible: false,
       }
     },
     created() {
@@ -587,7 +617,12 @@
           }
         });
       },
-      alleyOop(item) {},
+      alleyOop(item) {
+        this.followUpVisible = true;
+      },
+      sureProduce() {
+        this.keepOnVisible = false;
+      },
     },
   }
 </script>
@@ -898,5 +933,47 @@
   }
   .tf-icon >>> i {
     transform: rotate(90deg);
+  }
+  .produce-content {
+    color: rgba(0,0,0,.85);
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .produce-icon {
+    color: #faad14;
+    font-size: 22px;
+    margin-right: 16px;
+    vertical-align: top;
+  }
+  .follow-up-main {
+    margin: 0 0 20px;
+  }
+  .follow-up-main-top {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0,0,0,.06);
+  }
+  .follow-up-main-top-one {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .follow-up-main-top-two {
+    color: #333;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .follow-up-main-bottom {
+    margin-top: 20px;
+  }
+  .follow-up-main-bottom-one {
+    color: #333;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .follow-up-main-bottom-two {
+    color: #999;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 20px;
   }
 </style>
