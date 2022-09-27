@@ -453,6 +453,8 @@ export default {
     },
     cancelDialog() {
       this.editVisible = false;
+      this.$refs["baseInfoForm"].resetFields();
+      this.$refs["passwordForm"].resetFields();
     },
     submitBaseInfoForm(formName) {
       this.$refs[formName].validate((valid) => {

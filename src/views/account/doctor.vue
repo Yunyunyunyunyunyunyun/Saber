@@ -155,7 +155,7 @@
             <el-input v-model="baseInfoForm.clinicName" placeholder="请输入诊所名称"></el-input>
           </el-form-item>
           <el-form-item class="footer-main">
-            <el-button @click="cancelDialog('baseInfoForm')">取消</el-button>
+            <el-button @click="cancelDialog">取消</el-button>
             <el-button type="primary" @click="submitBaseInfoForm('baseInfoForm')">完成</el-button>
           </el-form-item>
         </el-form>
@@ -169,7 +169,7 @@
               <el-input type="password" v-model="passwordForm.checkPass"></el-input>
             </el-form-item>
             <el-form-item class="footer-main">
-              <el-button @click="cancelDialog('passwordForm')">取消</el-button>
+              <el-button @click="cancelDialog">取消</el-button>
               <el-button type="primary" @click="submitPasswordForm('passwordForm')">完成</el-button>
             </el-form-item>
           </el-form>
@@ -532,9 +532,10 @@ export default {
         }
       });
     },
-    cancelDialog(formName) {
+    cancelDialog() {
       this.editVisible = false;
-      this.$refs[formName].resetFields();
+      this.$refs["baseInfoForm"].resetFields();
+      this.$refs["passwordForm"].resetFields();
     },
     submitBaseInfoForm(formName) {
       this.$refs[formName].validate((valid) => {
