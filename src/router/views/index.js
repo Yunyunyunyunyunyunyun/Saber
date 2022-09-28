@@ -53,89 +53,104 @@ export default [{
   component: Layout,
   redirect: '/case/all',
   children: [{
-  path: 'all',
-  name: '全部',
-  component: () =>
-    import( /* webpackChunkName: "views" */ '@/views/case/all')
+    path: 'all',
+    name: '全部',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/all')
+  }, {
+    path: 'pending',
+    name: '待处理',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/pending')
+  }, {
+    path: 'treatment',
+    name: '治疗中',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/treatment')
+  }, {
+    path: 'submission',
+    name: '待提交',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/submission')
   }]
 }, {
   path: '/doctor',
   component: Layout,
   redirect: '/doctor/list',
   children: [{
-  path: 'list',
-  name: '医生病例列表',
-  component: () =>
-    import( /* webpackChunkName: "views" */ '@/views/doctor/list')
+    path: 'list',
+    name: '医生病例列表',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/doctor/list')
   }]
 }, {
   path: '/case',
   component: Layout,
   redirect: '/case/addEditCase',
   children: [{
-  path: 'addEditCase',
-  name: '新增病例',
-  component: () =>
-    import( /* webpackChunkName: "views" */ '@/views/case/addEditCase')
+    path: 'addEditCase',
+    name: '新增病例',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/addEditCase')
   }]
 }, {
   path: '/case',
   component: Layout,
   redirect: '/case/caseDetails',
   children: [{
-  path: 'caseDetails',
-  name: '病例详情',
-  component: () =>
-    import( /* webpackChunkName: "views" */ '@/views/case/caseDetails')
+    path: 'caseDetails',
+    name: '病例详情',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/caseDetails')
   }]
 }, {
   path: '/case',
   component: Layout,
   redirect: '/case/prescriptionDetails',
   children: [{
-  path: 'prescriptionDetails',
-  name: '处方表详情',
-  component: () =>
-    import( /* webpackChunkName: "views" */ '@/views/case/prescriptionDetails')
+    path: 'prescriptionDetails',
+    name: '处方表详情',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/prescriptionDetails')
   }]
 }, {
   path: '/case',
   component: Layout,
   redirect: '/case/shootStandard',
   children: [{
-  path: 'shootStandard',
-  name: '拍摄标准',
-  component: () =>
-    import( /* webpackChunkName: "views" */ '@/views/case/shootStandard')
+    path: 'shootStandard',
+    name: '拍摄标准',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/shootStandard')
   }]
 }, {
   path: '/case',
   component: Layout,
   redirect: '/case/completeCaseDetail',
   children: [{
-  path: 'completeCaseDetail',
-  name: 'completeCaseDetail',
-  component: () =>
-    import( /* webpackChunkName: "views" */ '@/views/case/completeCaseDetail')
+    path: 'completeCaseDetail',
+    name: 'completeCaseDetail',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/completeCaseDetail')
   }]
 }, {
   path: '/case',
   component: Layout,
   redirect: '/case/restartCaseDetail',
   children: [{
-  path: 'restartCaseDetail',
-  name: 'restartCaseDetail',
-  component: () =>
-    import( /* webpackChunkName: "views" */ '@/views/case/restartCaseDetail')
+    path: 'restartCaseDetail',
+    name: 'restartCaseDetail',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/restartCaseDetail')
   }]
 }, {
   path: '/workOrderCenter',
   component: Layout,
   redirect: '/workOrderCenter/index',
   children: [{
-  path: 'index',
-  name: '工单中心',
-  component: () =>
-    import( /* webpackChunkName: "views" */ '@/views/workOrderCenter/index')
+    path: 'index',
+    name: '工单中心',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/workOrderCenter/index')
   }]
 }]
