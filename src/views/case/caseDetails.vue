@@ -70,6 +70,7 @@
           <div class="detail-out-show-see-basic">
             <div class="detail-out-show-see-basic-item" @click="toPhoto"><i class="el-icon-picture-outline item-icon"></i>照片</div>
             <div class="detail-out-show-see-basic-item" @click="toPrescription(caseData.record)"><i class="el-icon-tickets item-icon"></i>处方表</div>
+            <!-- <div v-if="currentIsDoctor" class="detail-out-show-see-basic-item" @click="toShipInfo(caseData)"><i class="el-icon-truck item-icon"></i>发货信息</div> -->
           </div>
         </div>
       </div>
@@ -623,6 +624,7 @@
       sureProduce() {
         this.keepOnVisible = false;
       },
+      toShipInfo(item) {},
     },
   }
 </script>
