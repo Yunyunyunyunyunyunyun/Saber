@@ -55,9 +55,6 @@ export default [{
   children: [{
   path: 'all',
   name: '全部',
-  meta: {
-    i18n: 'all'
-  },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/all')
   }]
@@ -68,9 +65,6 @@ export default [{
   children: [{
   path: 'list',
   name: '医生病例列表',
-  meta: {
-    i18n: 'list'
-  },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/doctor/list')
   }]
@@ -81,9 +75,6 @@ export default [{
   children: [{
   path: 'addEditCase',
   name: '新增病例',
-  meta: {
-    i18n: 'addEditCase'
-  },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/addEditCase')
   }]
@@ -94,9 +85,6 @@ export default [{
   children: [{
   path: 'caseDetails',
   name: '病例详情',
-  meta: {
-    i18n: 'caseDetails'
-  },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/caseDetails')
   }]
@@ -107,9 +95,6 @@ export default [{
   children: [{
   path: 'prescriptionDetails',
   name: '处方表详情',
-  meta: {
-    i18n: 'prescriptionDetails'
-  },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/prescriptionDetails')
   }]
@@ -120,9 +105,6 @@ export default [{
   children: [{
   path: 'shootStandard',
   name: '拍摄标准',
-  meta: {
-    i18n: 'shootStandard'
-  },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/shootStandard')
   }]
@@ -133,9 +115,6 @@ export default [{
   children: [{
   path: 'completeCaseDetail',
   name: 'completeCaseDetail',
-  meta: {
-    i18n: 'completeCaseDetail'
-  },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/completeCaseDetail')
   }]
@@ -146,10 +125,17 @@ export default [{
   children: [{
   path: 'restartCaseDetail',
   name: 'restartCaseDetail',
-  meta: {
-    i18n: 'restartCaseDetail'
-  },
   component: () =>
     import( /* webpackChunkName: "views" */ '@/views/case/restartCaseDetail')
+  }]
+}, {
+  path: '/workOrderCenter',
+  component: Layout,
+  redirect: '/workOrderCenter/index',
+  children: [{
+  path: 'index',
+  name: '工单中心',
+  component: () =>
+    import( /* webpackChunkName: "views" */ '@/views/workOrderCenter/index')
   }]
 }]
