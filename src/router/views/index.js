@@ -55,21 +55,33 @@ export default [{
   children: [{
     path: 'all',
     name: '全部',
+    meta: {
+      keepAlive: true,
+    },
     component: () =>
       import( /* webpackChunkName: "views" */ '@/views/case/all')
   }, {
     path: 'pending',
     name: '待处理',
+    meta: {
+      keepAlive: true,
+    },
     component: () =>
       import( /* webpackChunkName: "views" */ '@/views/case/pending')
   }, {
     path: 'treatment',
     name: '治疗中',
+    meta: {
+      keepAlive: true,
+    },
     component: () =>
       import( /* webpackChunkName: "views" */ '@/views/case/treatment')
   }, {
     path: 'submission',
     name: '待提交',
+    meta: {
+      keepAlive: true,
+    },
     component: () =>
       import( /* webpackChunkName: "views" */ '@/views/case/submission')
   }]

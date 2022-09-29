@@ -195,6 +195,11 @@ export default {
       default: 1,
     },
   },
+  activated() {
+    this.$nextTick(() => {
+      this.$refs["caseTable"].doLayout();
+    });
+  },
   created() {
     let params = {
       current: this.currentPage,

@@ -1,5 +1,5 @@
 <template>
-  <common-list :status="status"></common-list>
+  <common-list :status="status" ref="commonList"></common-list>
 </template>
 
 <script>
@@ -13,6 +13,13 @@ export default {
     return {
       status: 3, // 待提交
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (from.path !== "/case/addEditCase" && from.path !== "/case/caseDetails" && vm.$refs["commonList"]) {
+        vm.$refs["commonList"].resetSearch();
+      }
+    });
   },
 };
 </script>
