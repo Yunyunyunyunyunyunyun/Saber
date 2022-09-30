@@ -35,12 +35,12 @@
               <div class="restart-case-main-check">
                 <div class="diagnosis-two-title diagnosis-title-required steps">2.1 本次反馈时佩戴矫治器步数为</div>
                 <el-form-item prop="upSteps">
-                  <span class="steps-title">上颌第<el-input v-model="feedbackForm.upSteps" class="steps-input" :disabled="maxUpSteps===0"></el-input>步</span>
-                  <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxUpSteps}} 步</span>
+                  <span class="steps-title">上颌第<el-input-number :controls="false" v-model="feedbackForm.upSteps" class="steps-input" :disabled="maxUpSteps===0"></el-input-number>步</span>
+                  <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxUpSteps}} 步<span>， 发货  步</span></span>
                 </el-form-item>
                 <el-form-item prop="downSteps">
-                  <span class="steps-title">下颌第<el-input v-model="feedbackForm.downSteps" class="steps-input" :disabled="maxDownSteps===0"></el-input>步</span>
-                  <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxDownSteps}} 步</span>
+                  <span class="steps-title">下颌第<el-input-number :controls="false" v-model="feedbackForm.downSteps" class="steps-input" :disabled="maxDownSteps===0"></el-input-number>步</span>
+                  <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxDownSteps}} 步<span>， 发货  步</span></span>
                 </el-form-item>
                 <div class="diagnosis-two-title">2.2 附件调整</div>
                 <el-radio-group v-model="feedbackForm.annex" class="common-radio w180" @change="annexChange">
@@ -845,8 +845,8 @@
         caseItem: {},
         feedbackForm: {
           isFit: "",
-          upSteps: "",
-          downSteps: "",
+          upSteps: undefined,
+          downSteps: undefined,
           annex: "",
           annexInfoOne: [],
           annexInfoTwo: [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28],
