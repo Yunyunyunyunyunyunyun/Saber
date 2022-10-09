@@ -40,6 +40,10 @@
           label="姓名">
         </el-table-column>
         <el-table-column
+          prop="roleName"
+          label="角色">
+        </el-table-column>
+        <el-table-column
           prop="phone"
           label="联系方式">
         </el-table-column>
