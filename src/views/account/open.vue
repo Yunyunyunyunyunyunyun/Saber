@@ -6,6 +6,16 @@
           <el-form-item label="医生姓名" prop="name">
             <el-input v-model="doctorForm.name" placeholder="请输入医生姓名" class="common-width"></el-input>
           </el-form-item>
+          <el-form-item label="负责人" prop="lead">
+            <el-select v-model="doctorForm.lead" placeholder="请选择负责人" class="common-width">
+              <el-option
+                v-for="item in leadOptions"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="性别" prop="sex">
             <el-radio-group v-model="doctorForm.sex">
               <el-radio :label="1">男</el-radio>
@@ -71,6 +81,26 @@
       </el-tab-pane>
       <el-tab-pane :label="$t('account.openStaff')" name="openStaffPage">
         <el-form :model="staffForm" :rules="staffRules" ref="staffForm" label-width="100px" class="form-contain">
+          <el-form-item label="组织" prop="organize">
+            <el-select v-model="staffForm.organize" placeholder="请选择组织" class="common-width" @change="changeOrganize">
+              <el-option
+                v-for="item in organizeOptions"
+                :key="item.tenantId"
+                :label="item.tenantName"
+                :value="item.tenantId">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="角色" prop="role" v-show="staffForm.organize">
+            <el-radio-group v-model="staffForm.role">
+              <el-radio
+                v-for="item in roleOptions"
+                :key="item.id"
+                :label="item.id">
+                {{item.roleName}}
+              </el-radio>
+            </el-radio-group>
+          </el-form-item>
           <el-form-item label="姓名" prop="name">
             <el-input v-model="staffForm.name" placeholder="请输入姓名" class="common-width"></el-input>
           </el-form-item>
@@ -118,6 +148,8 @@ import {
   selectCity,
   openDoctor,
   openStaff,
+  getOrganize,
+  getLead,
 } from "@/api/account/openAccount";
 export default {
   name: "Open",
@@ -142,6 +174,7 @@ export default {
       activeName: 'openDoctorPage',
       doctorForm: {
         name: '',
+        lead: '',
         sex: 1,
         phone: '',
         medicalType: 0,
@@ -156,6 +189,9 @@ export default {
       doctorRules: {
         name: [
           { required: true, message: '请输入医生姓名', trigger: 'blur' },
+        ],
+        lead: [
+          { required: true, message: '请选择负责人', trigger: 'change' },
         ],
         phone: [
           { required: true, validator: checkPhoneReg, trigger: 'blur' },
@@ -184,6 +220,8 @@ export default {
         loginPassword: '123456',
         orgAddress: null,
         address: '',
+        organize: '',
+        role: '',
       },
       staffRules: {
         name: [
@@ -198,7 +236,17 @@ export default {
         address: [
           { required: true, message: '请输入详细地址', trigger: 'blur' },
         ],
+        organize: [
+          { required: true, message: '请选择组织', trigger: 'change' },
+        ],
+        role: [
+          { required: true, message: '请选择角色', trigger: 'change' },
+        ],
       },
+      organizeOptions: [],
+      allRoleOptions: [],
+      roleOptions: [],
+      leadOptions: [],
       hospitalOptions: [],
       schoolOptions: [],
       addressProps: {
@@ -247,6 +295,13 @@ export default {
     getSchoolList().then(res => {
       this.schoolOptions = res.data.data;
     });
+    getOrganize().then(res => {
+      this.organizeOptions = res.data.data.tenantList || [];
+      this.allRoleOptions = res.data.data.roleMap || [];
+    });
+    getLead().then(res => {
+      this.leadOptions = res.data.data;
+    });
   },
   methods: {
     submitDoctorForm(formName) {
@@ -268,6 +323,7 @@ export default {
             "regionCode": this.doctorForm.orgAddress[2],
             "schoolId": this.doctorForm.schoolId,
             "sex": this.doctorForm.sex,
+            "head": this.doctorForm.lead,
           }
           openDoctor(data).then(res => {
             if (res.data.code == 200) {
@@ -302,6 +358,8 @@ export default {
             "provinceCode": this.staffForm.orgAddress[0],
             "cityCode": this.staffForm.orgAddress[1],
             "regionCode": this.staffForm.orgAddress[2],
+            "tenantId": this.staffForm.organize,
+            "roleId": this.staffForm.role,
           }
           openStaff(data).then(res => {
             if (res.data.code == 200) {
@@ -320,6 +378,10 @@ export default {
     },
     resetStaffForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    changeOrganize(val) {
+      this.staffForm.role = '';
+      this.roleOptions = this.allRoleOptions[val];
     },
   }
 }

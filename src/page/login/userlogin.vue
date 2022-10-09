@@ -156,7 +156,12 @@
               data.password = md5(this.loginForm.password);
             }
             this.$store.dispatch("LoginByUsername", data).then(() => {
-              if (this.userInfo.authority == "administrator" || this.userInfo.authority == "backUser") {
+              if (this.userInfo.authority == "administrator"
+                || this.userInfo.authority == "backUser"
+                || this.userInfo.authority == "sales"
+                || this.userInfo.authority == "doctor"
+                || this.userInfo.authority == "production"
+                || this.userInfo.authority == "market") {
                 this.$router.push({path: "/case/all"});
               } else if (this.userInfo.authority == "doctorUser") {
                 this.$router.push({path: "/doctor/list"});

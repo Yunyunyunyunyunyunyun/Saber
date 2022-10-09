@@ -30,7 +30,7 @@
         stripe
         border
         height="680"
-        style="width: 100%">
+        class="w100">
         <el-table-column
           prop="id"
           label="医生ID"
@@ -96,6 +96,16 @@
           <el-form-item label="医生姓名" prop="name">
             <el-input v-model="baseInfoForm.name" placeholder="请输入医生姓名"></el-input>
           </el-form-item>
+          <el-form-item label="负责人" prop="lead">
+            <el-select v-model="baseInfoForm.lead" placeholder="请选择负责人" class="w100">
+              <el-option
+                v-for="item in leadOptions"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="联系方式" prop="phone">
             <el-input v-model="baseInfoForm.phone" disabled></el-input>
           </el-form-item>
@@ -118,7 +128,7 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="医院" prop="hospitalId">
-            <el-select v-model="baseInfoForm.hospitalId" placeholder="请选择医院" style="width: 100%">
+            <el-select v-model="baseInfoForm.hospitalId" placeholder="请选择医院" class="w100">
               <el-option
                 v-for="item in hospitalOptions"
                 :key="item.id"
@@ -128,7 +138,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="学校" prop="schoolId">
-            <el-select v-model="baseInfoForm.schoolId" placeholder="请选择学校" style="width: 100%">
+            <el-select v-model="baseInfoForm.schoolId" placeholder="请选择学校" class="w100">
               <el-option
                 v-for="item in schoolOptions"
                 :key="item.id"
@@ -139,7 +149,7 @@
           </el-form-item>
           <el-form-item label="地区" prop="orgAddress">
             <el-cascader
-              style="width: 100%"
+              class="w100"
               ref="doctorInfoAddress"
               :props="doctorProps"
               clearable
@@ -191,6 +201,7 @@ import {
   getHospitalList,
   getSchoolList,
   selectCity,
+  getLead,
 } from "@/api/account/openAccount";
 export default {
   name: "Doctor",
@@ -325,6 +336,7 @@ export default {
         hospitalId: null,
         schoolId: null,
         clinicName: '',
+        lead: '',
       },
       baseInfoRules: {
         name: [
@@ -333,11 +345,15 @@ export default {
         orgAddress: [
           { required: true, message: '请选择住址', trigger: 'change' },
         ],
+        lead: [
+          { required: true, message: '请选择负责人', trigger: 'change' },
+        ],
       },
       hospitalOptions: [],
       schoolOptions: [],
       modalKey: 0,
       doctorExportData: [],
+      leadOptions: [],
     };
   },
   created() {
@@ -346,6 +362,9 @@ export default {
     });
     getSchoolList().then(res => {
       this.schoolOptions = res.data.data;
+    });
+    getLead().then(res => {
+      this.leadOptions = res.data.data;
     });
     let params = {
       current: this.currentPage,
@@ -501,6 +520,7 @@ export default {
           this.baseInfoForm.name = data.name;
           this.baseInfoForm.status = data.status;
           this.baseInfoForm.sex = data.sex;
+          this.baseInfoForm.lead = data.head;
           this.baseInfoForm.phone = data.phone;
           this.baseInfoForm.address = data.address;
           this.baseInfoForm.clinicName = data.clinicName;
@@ -558,6 +578,7 @@ export default {
             "schoolId": this.baseInfoForm.schoolId,
             "sex": this.baseInfoForm.sex,
             "status": this.baseInfoForm.status,
+            "head": this.baseInfoForm.lead,
           }
           updateDoctor(data).then(res => {
             if (res.data.code == 200) {
@@ -636,5 +657,9 @@ export default {
 
   .footer-main {
     text-align: right;
+  }
+
+  .w100 {
+    width: 100%;
   }
 </style>

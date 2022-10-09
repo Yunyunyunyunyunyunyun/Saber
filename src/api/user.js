@@ -83,6 +83,6 @@ export const sendLogs = (list) => request({
 })
 
 export const logout = () => request({
-  url: baseUrl + '/user/logout',
+  url: '/api/blade-auth/logout',
   method: 'get'
 })

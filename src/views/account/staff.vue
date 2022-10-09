@@ -29,7 +29,7 @@
         stripe
         border
         height="680"
-        style="width: 100%">
+        class="w100">
         <el-table-column
           prop="id"
           label="员工ID"
@@ -95,6 +95,26 @@
           <el-form-item label="ID" prop="id">
             <span v-text="baseInfoForm.id"></span>
           </el-form-item>
+          <el-form-item label="组织" prop="organize">
+            <el-select v-model="baseInfoForm.organize" placeholder="请选择组织" class="w100" @change="changeOrganize">
+              <el-option
+                v-for="item in organizeOptions"
+                :key="item.tenantId"
+                :label="item.tenantName"
+                :value="item.tenantId">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="角色" prop="role" v-show="baseInfoForm.organize">
+            <el-radio-group v-model="baseInfoForm.role">
+              <el-radio
+                v-for="item in roleOptions"
+                :key="item.id"
+                :label="item.id">
+                {{item.roleName}}
+              </el-radio>
+            </el-radio-group>
+          </el-form-item>
           <el-form-item label="姓名" prop="name">
             <el-input v-model="baseInfoForm.name" placeholder="请输入姓名"></el-input>
           </el-form-item>
@@ -115,7 +135,7 @@
           </el-form-item>
           <el-form-item label="住址" prop="orgAddress">
             <el-cascader
-              style="width: 100%"
+              class="w100"
               ref="staffInfoAddress"
               :props="staffProps"
               :key="modalKey"
@@ -159,7 +179,7 @@ import {
   updateStaff,
 } from "@/api/account/staff";
 import { selectCityAll } from "@/api/account/doctor";
-import { selectCity } from "@/api/account/openAccount";
+import { selectCity, getOrganize } from "@/api/account/openAccount";
 export default {
   name: "Staff",
   data() {
@@ -289,6 +309,8 @@ export default {
         phone: '',
         orgAddress: null,
         address: '',
+        organize: '',
+        role: '',
       },
       baseInfoRules: {
         name: [
@@ -297,8 +319,17 @@ export default {
         orgAddress: [
           { required: true, message: '请选择住址', trigger: 'change' },
         ],
+        organize: [
+          { required: true, message: '请选择组织', trigger: 'change' },
+        ],
+        role: [
+          { required: true, message: '请选择角色', trigger: 'change' },
+        ],
       },
       modalKey: 0,
+      organizeOptions: [],
+      allRoleOptions: [],
+      roleOptions: [],
     };
   },
   created() {
@@ -307,6 +338,10 @@ export default {
       size: this.pageSize,
     };
     this.getAllStaffList(params);
+    getOrganize().then(res => {
+      this.organizeOptions = res.data.data.tenantList || [];
+      this.allRoleOptions = res.data.data.roleMap || [];
+    });
   },
   methods: {
     handleSizeChange(val) {
@@ -420,6 +455,9 @@ export default {
         if (res.data && res.data.data) {
           let data = res.data.data;
           this.baseInfoForm.id = data.id;
+          this.baseInfoForm.organize = data.tenantId;
+          this.roleOptions = this.allRoleOptions[data.tenantId];
+          this.baseInfoForm.role = data.roleId;
           this.baseInfoForm.name = data.name;
           this.baseInfoForm.sex = data.sex;
           this.baseInfoForm.status = data.status;
@@ -473,6 +511,8 @@ export default {
             "regionCode": this.baseInfoForm.orgAddress[2],
             "sex": this.baseInfoForm.sex,
             "status": this.baseInfoForm.status,
+            "tenantId": this.baseInfoForm.organize,
+            "roleId": this.baseInfoForm.role,
           }
           updateStaff(data).then(res => {
             if (res.data.code == 200) {
@@ -511,6 +551,10 @@ export default {
         }
       });
     },
+    changeOrganize(val) {
+      this.baseInfoForm.role = '';
+      this.roleOptions = this.allRoleOptions[val];
+    },
   }
 }
 </script>
@@ -530,5 +574,9 @@ export default {
 
   .footer-main {
     text-align: right;
+  }
+
+  .w100 {
+    width: 100%;
   }
 </style>

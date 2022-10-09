@@ -39,3 +39,17 @@ export const openStaff = (row) => {
     data: row
   })
 }
+
+export const getOrganize = () => {
+  return request({
+    url: '/api/blade-user/select-org',
+    method: 'get',
+  })
+}
+
+export const getLead = () => {
+  return request({
+    url: '/api/blade-user/query-user',
+    method: 'get',
+  })
+}
