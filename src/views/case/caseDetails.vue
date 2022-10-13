@@ -27,8 +27,22 @@
               </div>
             </div>
             <div class="detail-out-information-main-patient-action">
-              <!-- <el-button plain icon="el-icon-circle-check" size="small" @click="completeCase(caseData)">完成病例</el-button> -->
-              <!-- <el-button plain icon="el-icon-switch-button" size="small" @click="restartCase(caseData)">重启病例</el-button> -->
+              <el-button
+                v-if="(caseData.record&&caseData.record.state>30&&(caseData.record.caseType===1||caseData.record.caseType===2))||(caseData.record.caseType===2&&caseData.record.state===10)"
+                plain
+                icon="el-icon-circle-check"
+                size="small"
+                @click="completeCase(caseData)">
+                完成病例
+              </el-button>
+              <el-button
+                v-if="caseData.record&&caseData.record.state>30&&(caseData.record.caseType===1||caseData.record.caseType===2)"
+                plain
+                icon="el-icon-switch-button"
+                size="small"
+                @click="restartCase(caseData)">
+                重启病例
+              </el-button>
               <!-- <el-button plain icon="el-icon-sort" class="tf-icon" size="small" @click="alleyOop(caseData)">继续生产</el-button> -->
             </div>
           </div>
@@ -89,12 +103,13 @@
                 <span v-else-if="item.state === 50">方案：<span class="detail-out-history-every-disableBtn-canClick" @click="toThreeD(item.dId)">{{item.fileName}}</span></span>
                 <span v-else-if="item.state === 60">方案：<span class="detail-out-history-every-disableBtn-canClick" @click="toThreeD(item.dId)">{{item.fileName}}</span>,未批准</span>
                 <span v-else-if="item.state === 70">方案：<span class="detail-out-history-every-disableBtn-canClick" @click="toThreeD(item.dId)">{{item.fileName}}</span>,已批准</span>
-                <span v-else-if="item.state === 80">完成发货</span>
+                <span v-else-if="item.state === 80">生产发货</span>
+                <span v-else-if="item.state === 90">完成病例，治疗结束</span>
                 <span v-else>未知</span>
               </div>
               <span v-if="item && item.state">
                 <el-button v-if="item.state === 10 || item.state === 20" type="primary" size="small" @click="toPhotoDetails(item.photoId)">照片</el-button>
-                <el-button v-if="item.state === 10 || item.state === 20" type="primary" size="small" @click="toPrescription(item)">处方表</el-button>
+                <el-button v-if="(item.state === 10 || item.state === 20) && item.caseType === 1" type="primary" size="small" @click="toPrescription(item)">处方表</el-button>
                 <el-button v-if="item.state === 30 || item.state === 60" type="primary" size="small" @click="viewFailReason(item.id)">查看原因</el-button>
               </span>
             </div>

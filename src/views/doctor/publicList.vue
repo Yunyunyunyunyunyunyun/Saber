@@ -47,7 +47,8 @@
           <span v-else-if="scope.row.state == 50">3D方案已上传</span>
           <span v-else-if="scope.row.state == 60">3D方案已提交反馈</span>
           <span v-else-if="scope.row.state == 70">3D方案已批准</span>
-          <span v-else-if="scope.row.state == 80">完成</span>
+          <span v-else-if="scope.row.state == 80">生产发货</span>
+          <span v-else-if="scope.row.state == 90">完成病例，治疗结束</span>
           <span v-else>无</span>
         </template>
       </el-table-column>
