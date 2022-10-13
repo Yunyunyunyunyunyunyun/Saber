@@ -42,7 +42,7 @@
     </el-table-column>
     <el-table-column>
       <template slot="header" slot-scope="scope">
-        <span class="mr4">机构名称</span>
+        <span class="mr6">机构名称</span>
         <el-tooltip effect="light" content="鼠标移至对应诊所可查看地区信息" placement="top">
           <i class="el-icon-warning-outline"></i>
         </el-tooltip>
@@ -81,5 +81,8 @@
 <style scoped>
   .w100 {
     width: 100%;
+  }
+  .mr6 {
+    margin-right: 6px;
   }
 </style>
