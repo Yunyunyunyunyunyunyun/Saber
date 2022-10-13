@@ -48,43 +48,63 @@
       </li>
     </ul>
     <div class="search-nav">
-        <el-select class="mr4 mb4" v-show="activeItem === 1 || activeItem === 2 || activeItem === 3" v-model="stateValue" multiple collapse-tags :placeholder="activeItem === 1?'请选择主流程':'请选择任务动态'">
-          <el-option-group
-            v-for="group in stateOptions"
-            :key="group.label"
-            :label="group.label">
-            <el-option
-              v-for="item in group.options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-option-group>
-        </el-select>
-        <el-select class="mr4 mb4" v-show="activeItem === 4 || activeItem === 5" v-model="stateValue" multiple collapse-tags placeholder="请选择状态">
+      <el-select class="mr4 mb4" v-show="activeItem === 1 || activeItem === 2 || activeItem === 3" v-model="stateValue" multiple collapse-tags :placeholder="activeItem === 1?'请选择主流程':'请选择任务动态'">
+        <el-option-group
+          v-for="group in stateOptions"
+          :key="group.label"
+          :label="group.label">
           <el-option
-            v-for="item in stateOptions"
+            v-for="item in group.options"
             :key="item.value"
             :label="item.label"
             :value="item.value">
           </el-option>
-        </el-select>
-        <el-input class="mr4 mb4" v-model="caseNo" placeholder="搜索病例号"></el-input>
-        <el-input v-show="showMore" class="mr4 mb4" v-model="num" placeholder="搜索编号"></el-input>
-        <el-input v-show="showMore" class="mr4 mb4" v-model="patientName" placeholder="搜索患者姓名"></el-input>
-        <el-input v-show="showMore && activeItem === 1" class="mr4 mb4" v-model="mechanism" placeholder="搜索机构"></el-input>
-        <el-input v-show="showMore && activeItem === 1" class="mr4 mb4" v-model="doctorName" placeholder="搜索医生姓名"></el-input>
-        <el-input v-show="showMore && activeItem !== 1" class="mr4 mb4" v-model="executor" placeholder="搜索执行人"></el-input>
+        </el-option-group>
+      </el-select>
+      <el-select class="mr4 mb4" v-show="activeItem === 4 || activeItem === 5" v-model="stateValue" multiple collapse-tags placeholder="请选择状态">
+        <el-option
+          v-for="item in stateOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+      <el-input class="mr4 mb4" v-model="caseNo" placeholder="搜索病例号"></el-input>
+      <el-input v-show="showMore" class="mr4 mb4" v-model="num" placeholder="搜索编号"></el-input>
+      <el-input v-show="showMore" class="mr4 mb4" v-model="patientName" placeholder="搜索患者姓名"></el-input>
+      <el-input v-show="showMore && activeItem === 1" class="mr4 mb4" v-model="mechanism" placeholder="搜索机构"></el-input>
+      <el-input v-show="showMore && activeItem === 1" class="mr4 mb4" v-model="doctorName" placeholder="搜索医生姓名"></el-input>
+      <el-input v-show="showMore && activeItem !== 1" class="mr4 mb4" v-model="executor" placeholder="搜索执行人"></el-input>
       <el-button class="mr4 mb4" type="primary" @click="sureSearch">确 定</el-button>
       <el-button class="ml0 mr4 mb4" v-show="!showMore" type="text" @click="moreSearch">更多搜索<i class="el-icon-arrow-right icon-search"></i></el-button>
       <el-button class="ml0 mr4 mb4" v-show="showMore" type="text" @click="stowSearch">收起搜索<i class="el-icon-arrow-left icon-search"></i></el-button>
       <el-button class="ml0 mb4" icon="el-icon-refresh" @click="resetData">重置</el-button>
     </div>
+    <div class="work-order-table">
+      <work-order-list v-show="activeItem === 1" :loading="loading" :orderTableData="orderTableData"></work-order-list>
+      <data-review v-show="activeItem === 2" :loading="loading" :orderTableData="orderTableData"></data-review>
+      <el-pagination
+        class="common-pagination"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="pageSizes"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
+  import workOrderList from "./workOrderList";
+  import dataReview from "./dataReview"
   export default {
     name: "WorkOrderCenter",
+    components: {
+      workOrderList,
+      dataReview,
+    },
     data() {
       return {
         activeItem: 1,
@@ -130,6 +150,12 @@
         mechanism: '',
         doctorName: '',
         executor: '',
+        loading: false,
+        orderTableData: [],
+        currentPage: 1,
+        pageSizes: [ 10, 20, 50, 100 ],
+        pageSize: 10,
+        total: 0,
       };
     },
     methods: {
@@ -311,10 +337,19 @@
         this.doctorName = '';
         this.executor = '';
       },
+      handleSizeChange(val) {
+        this.pageSize = val;
+      },
+      handleCurrentChange(val) {
+        this.currentPage = val;
+      },
     }
   };
 </script>
 <style scoped>
+  .work-order-center {
+    padding: 10px;
+  }
   .switch-state {
     list-style: none;
     margin: 0;
@@ -406,5 +441,9 @@
   .icon-search {
     font-size: 12px;
     margin-left: 2px;
+  }
+  .work-order-table {
+    padding: 0 18px;
+    background: white;
   }
 </style>
