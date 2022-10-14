@@ -28,7 +28,7 @@
             </div>
             <div class="detail-out-information-main-patient-action">
               <el-button
-                v-if="(caseData.record&&caseData.record.state>30&&(caseData.record.caseType===1||caseData.record.caseType===2))||(caseData.record.caseType===2&&caseData.record.state===10)"
+                v-if="caseData.record&&caseData.record.state&&caseData.record.caseType&&((caseData.record.state>30&&(caseData.record.caseType===1||caseData.record.caseType===2))||(caseData.record.caseType===2&&caseData.record.state===10))"
                 plain
                 icon="el-icon-circle-check"
                 size="small"
@@ -36,7 +36,7 @@
                 完成病例
               </el-button>
               <el-button
-                v-if="caseData.record&&caseData.record.state>30&&(caseData.record.caseType===1||caseData.record.caseType===2)"
+                v-if="caseData.record&&caseData.record.state&&caseData.record.caseType&&caseData.record.state>30&&(caseData.record.caseType===1||caseData.record.caseType===2)"
                 plain
                 icon="el-icon-switch-button"
                 size="small"
@@ -109,7 +109,7 @@
               </div>
               <span v-if="item && item.state">
                 <el-button v-if="item.state === 10 || item.state === 20" type="primary" size="small" @click="toPhotoDetails(item.photoId)">照片</el-button>
-                <el-button v-if="(item.state === 10 || item.state === 20) && item.caseType === 1" type="primary" size="small" @click="toPrescription(item)">处方表</el-button>
+                <el-button v-if="item.state === 10 || item.state === 20" type="primary" size="small" @click="toPrescription(item)">处方表</el-button>
                 <el-button v-if="item.state === 30 || item.state === 60" type="primary" size="small" @click="viewFailReason(item.id)">查看原因</el-button>
               </span>
             </div>
