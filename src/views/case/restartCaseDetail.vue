@@ -36,11 +36,11 @@
                 <div class="diagnosis-two-title diagnosis-title-required steps">2.1 本次反馈时佩戴矫治器步数为</div>
                 <el-form-item prop="upSteps">
                   <span class="steps-title">上颌第<el-input-number :controls="false" v-model="feedbackForm.upSteps" class="steps-input" :disabled="maxUpSteps===0"></el-input-number>步</span>
-                  <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxUpSteps}} 步<span>， 发货  步</span></span>
+                  <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxUpSteps}} 步<span v-show="false">， 发货  步</span></span>
                 </el-form-item>
                 <el-form-item prop="downSteps">
                   <span class="steps-title">下颌第<el-input-number :controls="false" v-model="feedbackForm.downSteps" class="steps-input" :disabled="maxDownSteps===0"></el-input-number>步</span>
-                  <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxDownSteps}} 步<span>， 发货  步</span></span>
+                  <span class="diagnosis-tip">上阶段设计的矫治器总步数为 {{maxDownSteps}} 步<span v-show="false">， 发货  步</span></span>
                 </el-form-item>
                 <div class="diagnosis-two-title">2.2 附件调整</div>
                 <el-radio-group v-model="feedbackForm.annex" class="common-radio w180" @change="annexChange">
@@ -795,7 +795,7 @@
                   <span class="error-submit-noFilled-type">阶段反馈</span>
                   <div class="error-submit-noFilled-content">
                     <div v-show="!feedbackForm.isFit" class="error-submit-noFilled-content-every" @click="clickToFeedback('isFit')">当前矫治器贴合情况</div>
-                    <div v-show="!feedbackForm.upSteps && !feedbackForm.downSteps" class="error-submit-noFilled-content-every" @click="clickToFeedback('steps')">本次反馈时佩戴矫治器步数</div>
+                    <div v-show="!(feedbackForm.upSteps+'') && !(feedbackForm.downSteps+'')" class="error-submit-noFilled-content-every" @click="clickToFeedback('steps')">本次反馈时佩戴矫治器步数</div>
                     <div v-show="!feedbackForm.correctiveRequire" class="error-submit-noFilled-content-every" @click="clickToFeedback('correctiveRequire')">后续矫治要求</div>
                   </div>
                 </div>
@@ -837,16 +837,31 @@
 </template>
 <script>
   import { uploadOBS } from "@/util/obs";
+  import { preserveRestartCase, saveRestartCase } from "@/api/case/commonCase";
   export default {
     name: "RestartCaseDetail",
     data() {
+      let validateUpSteps = (rule, value, callback) => {
+        if (!(value+'')) {
+          callback(new Error('请输入上颌步数'));
+        } else {
+          callback();
+        }
+      };
+      let validateDownSteps = (rule, value, callback) => {
+        if (!(value+'')) {
+          callback(new Error('请输入下颌步数'));
+        } else {
+          callback();
+        }
+      };
       return {
         active: 1,
         caseItem: {},
         feedbackForm: {
           isFit: "",
-          upSteps: undefined,
-          downSteps: undefined,
+          upSteps: '',
+          downSteps: '',
           annex: "",
           annexInfoOne: [],
           annexInfoTwo: [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28],
@@ -924,10 +939,10 @@
         },
         feedbackRules: {
           upSteps: [
-            { required: true, message: '请输入上颌步数', trigger: 'blur' },
+            { required: true, validator: validateUpSteps, trigger: 'blur' },
           ],
           downSteps: [
-            { required: true, message: '请输入下颌步数', trigger: 'blur' },
+            { required: true, validator: validateDownSteps, trigger: 'blur' },
           ],
           correctiveRequire: [
             { required: true, message: '请输入后续矫治要求', trigger: 'blur' },
@@ -938,11 +953,12 @@
         uploadVisible: false,
         percentageNumber: 0,
         activeName: "first",
+        currentIsDoctor: false,
       }
     },
     computed: {
       showFeedback() {
-        return !this.feedbackForm.isFit || (!this.feedbackForm.upSteps && !this.feedbackForm.downSteps) || !this.feedbackForm.correctiveRequire;
+        return !this.feedbackForm.isFit || (!(this.feedbackForm.upSteps+'') && !(this.feedbackForm.downSteps+'')) || !this.feedbackForm.correctiveRequire;
       },
       showPhoto() {
         return !this.photoForm.frontSmilingPath
@@ -967,6 +983,13 @@
         sessionStorage.setItem("rParamsData", JSON.stringify(rParams));
       }
       this.caseItem = rParams.item;
+      this.currentIsDoctor = rParams.isDoctor;
+      if (this.maxUpSteps === 0) {
+        this.feedbackForm.upSteps = 0;
+      }
+      if (this.maxDownSteps === 0) {
+        this.feedbackForm.downSteps = 0;
+      }
     },
     beforeDestroy() {
       sessionStorage.removeItem("rParamsData");
@@ -981,7 +1004,238 @@
       next() {
         this.active++;
       },
-      caseSubmit(state) {},
+      caseSubmit(state) {
+        let data = {};
+        if (this.caseItem && this.caseItem.record && this.caseItem.record.id) {
+          data.recordId = this.caseItem.record.id;
+        }
+        if (this.feedbackForm.isFit) {
+          data.fitSituation = this.feedbackForm.isFit;
+        }
+        if (this.feedbackForm.upSteps+'') {
+          data.maxillaryStep = Number(this.feedbackForm.upSteps);
+        }
+        if (this.feedbackForm.downSteps+'') {
+          data.mandibleStep = Number(this.feedbackForm.downSteps);
+        }
+        if (this.feedbackForm.annex) {
+          data.enclosureAdjust = this.feedbackForm.annex;
+        }
+        if (this.feedbackForm.annex === 2) {
+          let annexInfoString = "";
+          if (this.feedbackForm.annexInfoOne.length) {
+            annexInfoString = this.feedbackForm.annexInfoOne.join(",");
+          }
+          if (this.feedbackForm.annexInfoTwo.length) {
+            if (annexInfoString) {
+              annexInfoString = annexInfoString + ',' + this.feedbackForm.annexInfoTwo.join(",");
+            } else {
+              annexInfoString = this.feedbackForm.annexInfoTwo.join(",");
+            }
+          }
+          if (this.feedbackForm.annexInfoThree.length) {
+            if (annexInfoString) {
+              annexInfoString = annexInfoString + ',' + this.feedbackForm.annexInfoThree.join(",");
+            } else {
+              annexInfoString = this.feedbackForm.annexInfoThree.join(",");
+            }
+          }
+          if (this.feedbackForm.annexInfoFour.length) {
+            if (annexInfoString) {
+              annexInfoString = annexInfoString + ',' + this.feedbackForm.annexInfoFour.join(",");
+            } else {
+              annexInfoString = this.feedbackForm.annexInfoFour.join(",");
+            }
+          }
+          if (annexInfoString) {
+            data.enclosureAppoint = annexInfoString;
+          }
+        }
+        if (this.feedbackForm.teethClearance === 0) {
+          data.teethClearance = this.feedbackForm.teethClearance;
+        } else {
+          data.teethClearance = (this.feedbackForm.teethClearance1||'none')+','+(this.feedbackForm.teethClearance2||'none')
+                          +','+(this.feedbackForm.teethClearance3||'none')+','+(this.feedbackForm.teethClearance4||'none')+','+(this.feedbackForm.teethClearance5||'none')
+                          +','+(this.feedbackForm.teethClearance6||'none')+','+(this.feedbackForm.teethClearance7||'none')
+                          +','+(this.feedbackForm.teethClearance8||'none')+','+(this.feedbackForm.teethClearance9||'none')+','+(this.feedbackForm.teethClearance10||'none')
+                          +','+(this.feedbackForm.teethClearance11||'none')+','+(this.feedbackForm.teethClearance12||'none')
+                          +','+(this.feedbackForm.teethClearance13||'none')+','+(this.feedbackForm.teethClearance14||'none')+','+(this.feedbackForm.teethClearance15||'none')
+                          +','+(this.feedbackForm.teethClearance16||'none')+','+(this.feedbackForm.teethClearance17||'none')
+                          +','+(this.feedbackForm.teethClearance18||'none')+','+(this.feedbackForm.teethClearance19||'none')+','+(this.feedbackForm.teethClearance20||'none')
+                          +','+(this.feedbackForm.teethClearance21||'none')+','+(this.feedbackForm.teethClearance22||'none')
+                          +','+(this.feedbackForm.teethClearance23||'none')+','+(this.feedbackForm.teethClearance24||'none')+','+(this.feedbackForm.teethClearance25||'none')
+                          +','+(this.feedbackForm.teethClearance26||'none')+','+(this.feedbackForm.teethClearance27||'none')
+                          +','+(this.feedbackForm.teethClearance28||'none')+','+(this.feedbackForm.teethClearance29||'none')+','+(this.feedbackForm.teethClearance30||'none')
+        }
+        if (this.feedbackForm.isAbnormal) {
+          data.mandibularJointAbnor = this.feedbackForm.isAbnormal;
+        }
+        if (this.feedbackForm.otherChecks) {
+          data.otherInspect = this.feedbackForm.otherChecks;
+        }
+        if (this.feedbackForm.teethMobile === 0) {
+          data.teethMobile = this.feedbackForm.teethMobile;
+        } else {
+          let teethMobileString = "";
+          if (this.feedbackForm.teethMobileOne.length) {
+            teethMobileString = this.feedbackForm.teethMobileOne.join(",");
+          }
+          if (this.feedbackForm.teethMobileTwo.length) {
+            if (teethMobileString) {
+              teethMobileString = teethMobileString + ',' + this.feedbackForm.teethMobileTwo.join(",");
+            } else {
+              teethMobileString = this.feedbackForm.teethMobileTwo.join(",");
+            }
+          }
+          if (this.feedbackForm.teethMobileThree.length) {
+            if (teethMobileString) {
+              teethMobileString = teethMobileString + ',' + this.feedbackForm.teethMobileThree.join(",");
+            } else {
+              teethMobileString = this.feedbackForm.teethMobileThree.join(",");
+            }
+          }
+          if (this.feedbackForm.teethMobileFour.length) {
+            if (teethMobileString) {
+              teethMobileString = teethMobileString + ',' + this.feedbackForm.teethMobileFour.join(",");
+            } else {
+              teethMobileString = this.feedbackForm.teethMobileFour.join(",");
+            }
+          }
+          if (teethMobileString) {
+            data.teethMobile = teethMobileString;
+          }
+        }
+        if (this.feedbackForm.teethAttachment === 0) {
+          data.teethAttachment = this.feedbackForm.teethAttachment;
+        } else {
+          let teethAttachmentString = "";
+          if (this.feedbackForm.teethAttachmentOne.length) {
+            teethAttachmentString = this.feedbackForm.teethAttachmentOne.join(",");
+          }
+          if (this.feedbackForm.teethAttachmentTwo.length) {
+            if (teethAttachmentString) {
+              teethAttachmentString = teethAttachmentString + ',' + this.feedbackForm.teethAttachmentTwo.join(",");
+            } else {
+              teethAttachmentString = this.feedbackForm.teethAttachmentTwo.join(",");
+            }
+          }
+          if (this.feedbackForm.teethAttachmentThree.length) {
+            if (teethAttachmentString) {
+              teethAttachmentString = teethAttachmentString + ',' + this.feedbackForm.teethAttachmentThree.join(",");
+            } else {
+              teethAttachmentString = this.feedbackForm.teethAttachmentThree.join(",");
+            }
+          }
+          if (this.feedbackForm.teethAttachmentFour.length) {
+            if (teethAttachmentString) {
+              teethAttachmentString = teethAttachmentString + ',' + this.feedbackForm.teethAttachmentFour.join(",");
+            } else {
+              teethAttachmentString = this.feedbackForm.teethAttachmentFour.join(",");
+            }
+          }
+          if (teethAttachmentString) {
+            data.teethAttachment = teethAttachmentString;
+          }
+        }
+        if (this.feedbackForm.flatBear) {
+          data.frontToothFlatGuidePlate = this.feedbackForm.flatBear;
+        }
+        if (this.feedbackForm.remoteTreatments) {
+          data.remoteTreatments = this.feedbackForm.remoteTreatments;
+        }
+        if (this.feedbackForm.correctiveRequire) {
+          data.correctRequirement = this.feedbackForm.correctiveRequire;
+        }
+        if (this.photoForm.notFitOne) {
+          data.noiftPhotoOne = this.photoForm.notFitOne;
+        }
+        if (this.photoForm.notFitTwo) {
+          data.noiftPhotoTwo = this.photoForm.notFitTwo;
+        }
+        if (this.photoForm.notFitThree) {
+          data.noiftPhotoThree = this.photoForm.notFitThree;
+        }
+        if (this.photoForm.notFitFour) {
+          data.noiftPhotoFour = this.photoForm.notFitFour;
+        }
+        if (this.photoForm.notFitFive) {
+          data.noiftPhotoFive = this.photoForm.notFitFive;
+        }
+        if (this.photoForm.notFitSix) {
+          data.noiftPhotoSix = this.photoForm.notFitSix;
+        }
+        if (this.photoForm.frontSmilingPath) {
+          data.frontSmilingPath = this.photoForm.frontSmilingPath;
+        }
+        if (this.photoForm.frontPath) {
+          data.frontPath = this.photoForm.frontPath;
+        }
+        if (this.photoForm.sidePath) {
+          data.sidePath = this.photoForm.sidePath;
+        }
+        if (this.photoForm.upJawPath) {
+          data.upJawPath = this.photoForm.upJawPath;
+        }
+        if (this.photoForm.downJawPath) {
+          data.downJawPath = this.photoForm.downJawPath;
+        }
+        if (this.photoForm.rightJawPath) {
+          data.rightJawPath = this.photoForm.rightJawPath;
+        }
+        if (this.photoForm.frontJawPath) {
+          data.frontJawPath = this.photoForm.frontJawPath;
+        }
+        if (this.photoForm.leftJawPath) {
+          data.leftJawPath = this.photoForm.leftJawPath;
+        }
+        if (this.photoForm.allXrayPath) {
+          data.allXrayPath = this.photoForm.allXrayPath;
+        }
+        if (this.photoForm.sideXrayPath) {
+          data.sideXrayPath = this.photoForm.sideXrayPath;
+        }
+        if (this.photoForm.otherXrayPath) {
+          data.otherXrayPath = this.photoForm.otherXrayPath;
+        }
+        if (this.photoForm.upJawModelPath) {
+          data.upJawModelPath = this.photoForm.upJawModelPath;
+        }
+        if (this.photoForm.upJawModelName) {
+          data.upJawModelName = this.photoForm.upJawModelName;
+        }
+        if (this.photoForm.downJawModelPath) {
+          data.downJawModelPath = this.photoForm.downJawModelPath;
+        }
+        if (this.photoForm.downJawModelName) {
+          data.downJawModelName = this.photoForm.downJawModelName;
+        }
+        if (state === "preserve") {
+          preserveRestartCase(data).then(res => {
+            if (res.data.code == 200) {
+              this.$message({
+                type: "success",
+                message: "暂存成功!"
+              });
+            }
+          });
+        } else if(state === "submit") {
+          saveRestartCase(data).then(res => {
+            if (res.data.code == 200) {
+              this.$message({
+                type: "success",
+                message: "重启病例成功!"
+              });
+              if (this.currentIsDoctor) {
+                this.$router.push({path: "/doctor/list"});
+              } else {
+                this.$router.push({path: "/case/all"});
+              }
+            }
+          });
+        } else {
+          // 不存在这种情况，不做操作
+        }
+      },
       annexChange() {
         this.feedbackForm.annexInfoTwo = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28];
         this.feedbackForm.annexInfoThree = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];

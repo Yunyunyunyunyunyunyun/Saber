@@ -118,3 +118,19 @@ export const completeCase = (row) => {
     data: row,
   })
 }
+
+export const preserveRestartCase = (row) => {
+  return request({
+    url: '/api/orth/treatmentprescriptionrestart/restart_wait',
+    method: 'post',
+    data: row,
+  })
+}
+
+export const saveRestartCase = (row) => {
+  return request({
+    url: '/api/orth/treatmentprescriptionrestart/restart',
+    method: 'post',
+    data: row,
+  })
+}
