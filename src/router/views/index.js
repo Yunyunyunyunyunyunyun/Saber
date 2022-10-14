@@ -54,7 +54,7 @@ export default [{
   redirect: '/case/all',
   children: [{
     path: 'all',
-    name: '全部',
+    name: 'All',
     meta: {
       keepAlive: true,
     },
@@ -62,7 +62,7 @@ export default [{
       import( /* webpackChunkName: "views" */ '@/views/case/all')
   }, {
     path: 'pending',
-    name: '待处理',
+    name: 'Pending',
     meta: {
       keepAlive: true,
     },
@@ -70,7 +70,7 @@ export default [{
       import( /* webpackChunkName: "views" */ '@/views/case/pending')
   }, {
     path: 'treatment',
-    name: '治疗中',
+    name: 'Submission',
     meta: {
       keepAlive: true,
     },
@@ -78,7 +78,7 @@ export default [{
       import( /* webpackChunkName: "views" */ '@/views/case/treatment')
   }, {
     path: 'submission',
-    name: '待提交',
+    name: 'Treatment',
     meta: {
       keepAlive: true,
     },
