@@ -3,7 +3,18 @@
     <div class="complete-form-title">
       <span title="完成确认表">完成确认表</span>
     </div>
-    <div class="complete-form-main"></div>
+    <div class="complete-form-main">
+      <div class="complete-form-info-title">
+        <i class="el-icon-user icon-color"></i>基本信息
+      </div>
+      <div class="complete-form-info-content">
+        <div v-if="completeData.frontPath">
+          <img :src="completeData.frontPath" alt="" class="complete-form-info-img">
+        </div>
+        <div class="complete-form-info-name"></div>
+        <div class="complete-form-info-caseNo"></div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -13,6 +24,7 @@
     data() {
       return {
         currentCompleteId: "",
+        completeData: {},
       }
     },
     created() {
@@ -26,7 +38,11 @@
         let params = {
           completeId: cCompleteId,
         }
-        getCompleteForm(params).then(res => {});
+        getCompleteForm(params).then(res => {
+          if (res.data.code == 200) {
+            this.completeData = res.data.data;
+          }
+        });
       }
     }
   }
@@ -55,5 +71,38 @@
     box-shadow: 0 2px 14px 0 rgb(221 225 233 / 54%);
     border-radius: 10px;
     padding: 60px;
+  }
+  .complete-form-info-title {
+    color: #555;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }
+  .icon-color {
+    color: #409EFF;
+    margin-right: 10px;
+  }
+  .complete-form-info-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 60px;
+  }
+  .complete-form-info-img {
+    width: 82px;
+    height: 82px;
+    margin-right: 30px;
+    border-radius: 50%;
+  }
+  .complete-form-info-name {
+    color: #333;
+    font-size: 26px;
+    font-weight: 700;
+    margin-right: 30px;
+  }
+  .complete-form-info-case {
+    color: #999;
+    font-size: 16px;
+    font-weight: 400;
   }
 </style>
