@@ -134,3 +134,11 @@ export const saveRestartCase = (row) => {
     data: row,
   })
 }
+
+export const getCompleteForm = (params) => {
+  return request({
+    url: '/api/orth/treatmentprescriptioncomplete/complete_detail',
+    method: 'get',
+    params: params,
+  })
+}

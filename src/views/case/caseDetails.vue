@@ -620,7 +620,15 @@
         window.open(routeData.href, '_blank');
       },
       toFeedbackForm(item) {},
-      toCompleteForm(item) {},
+      toCompleteForm(item) {
+        let routeData = this.$router.resolve({
+          path: "/case/completeForm",
+          query: {
+            completeId: item.completeId || "",
+          }
+        });
+        window.open(routeData.href, '_blank');
+      },
       completeCase(item) {
         this.$router.push({
           name: "completeCaseDetail",

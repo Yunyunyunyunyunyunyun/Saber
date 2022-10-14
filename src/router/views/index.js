@@ -165,4 +165,14 @@ export default [{
     component: () =>
       import( /* webpackChunkName: "views" */ '@/views/workOrderCenter/index')
   }]
+}, {
+  path: '/case',
+  component: Layout,
+  redirect: '/case/completeForm',
+  children: [{
+    path: 'completeForm',
+    name: 'CompleteForm',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/completeForm')
+  }]
 }]
