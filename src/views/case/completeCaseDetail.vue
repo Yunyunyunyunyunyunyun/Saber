@@ -645,6 +645,9 @@
       },
       caseSubmit() {
         let params = {};
+        if (this.caseItem && this.caseItem.record && this.caseItem.record.id) {
+          params.recordId = this.caseItem.record.id;
+        }
         if (this.topForm.situation) {
           params.correctComplete = this.topForm.situation;
         }
