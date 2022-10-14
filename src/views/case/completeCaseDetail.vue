@@ -54,13 +54,13 @@
               <div class="complete-case-main-one-middle-title diagnosis-title-required isRetainer">2. 定制保持器</div>
               <el-radio-group v-model="isRetainer" class="common-radio retainer-radio">
                 <el-radio :label="1" border>不需要</el-radio>
-                <el-radio :label="2" border>需要</el-radio>
+                <el-radio :label="4" border>需要</el-radio>
               </el-radio-group>
               <span class="radio-desc">注：收到病例完成资料后，我公司将免费提供压膜保持器一副</span>
-              <div v-show="isRetainer === 2" class="need-reason-div">
+              <div v-show="isRetainer === 4" class="need-reason-div">
                 <el-radio-group v-model="needReason" class="common-radio">
-                  <el-radio :label="1" border>最后一步订做保持器</el-radio>
-                  <el-radio :label="2" border>提交模型后订做保持器</el-radio>
+                  <el-radio :label="2" border>最后一步订做保持器</el-radio>
+                  <el-radio :label="3" border>提交模型后订做保持器</el-radio>
                 </el-radio-group>
               </div>
             </div>
@@ -369,7 +369,7 @@
                   <div class="error-submit-noFilled-content">
                     <div v-show="!topForm.situation || (topForm.situation === 4 && !topForm.reason)" class="error-submit-noFilled-content-every" @click="clickToSure('situation')">确认完成属于哪种情况</div>
                     <div v-show="!topForm.completionDate" class="error-submit-noFilled-content-every" @click="clickToSure('completionDate')">矫治完成日期</div>
-                    <div v-show="!isRetainer || (isRetainer === 2 && !needReason)" class="error-submit-noFilled-content-every" @click="clickToSure('isRetainer')">定制保持器</div>
+                    <div v-show="!isRetainer || (isRetainer === 4 && !needReason)" class="error-submit-noFilled-content-every" @click="clickToSure('isRetainer')">定制保持器</div>
                   </div>
                 </div>
                 <div v-show="showPhoto">
@@ -408,6 +408,7 @@
 </template>
 <script>
   import { uploadOBS } from "@/util/obs";
+  import { completeCase } from "@/api/case/commonCase";
   export default {
     name: "CompleteCaseDetail",
     data() {
@@ -473,6 +474,7 @@
         downJawModelName: "",
         uploadVisible: false,
         percentageNumber: 0,
+        currentIsDoctor: false,
       }
     },
     computed: {
@@ -481,7 +483,7 @@
             || (this.topForm.situation === 4 && !this.topForm.reason)
             || !this.topForm.completionDate
             || !this.isRetainer
-            || (this.isRetainer === 2 && !this.needReason);
+            || (this.isRetainer === 4 && !this.needReason);
       },
       showPhoto() {
         return !this.frontSmilingPath
@@ -503,6 +505,7 @@
         sessionStorage.setItem("paramsData", JSON.stringify(params));
       }
       this.caseItem = params.item;
+      this.currentIsDoctor = params.isDoctor;
     },
     beforeDestroy() {
       sessionStorage.removeItem("paramsData");
@@ -640,7 +643,87 @@
         });
         window.open(routeData.href, '_blank');
       },
-      caseSubmit() {},
+      caseSubmit() {
+        let params = {};
+        if (this.topForm.situation) {
+          params.correctComplete = this.topForm.situation;
+        }
+        if (this.topForm.situation === 4) {
+          params.correctCompleteOther = this.topForm.reason;
+        }
+        if (this.topForm.completionDate) {
+          params.correctCompleteTime = this.topForm.completionDate;
+        }
+        if (this.isRetainer === 1) {
+          params.customRetainer = this.isRetainer;
+        }
+        if (this.isRetainer === 4) {
+          params.customRetainer = this.needReason;
+        }
+        if (this.frontSmilingPath) {
+          params.frontSmilingPath = this.frontSmilingPath;
+        }
+        if (this.frontPath) {
+          params.frontPath = this.frontPath;
+        }
+        if (this.sidePath) {
+          params.sidePath = this.sidePath;
+        }
+        if (this.upJawPath) {
+          params.upJawPath = this.upJawPath;
+        }
+        if (this.downJawPath) {
+          params.downJawPath = this.downJawPath;
+        }
+        if (this.rightJawPath) {
+          params.rightJawPath = this.rightJawPath;
+        }
+        if (this.frontJawPath) {
+          params.frontJawPath = this.frontJawPath;
+        }
+        if (this.leftJawPath) {
+          params.leftJawPath = this.leftJawPath;
+        }
+        if (this.allXrayPath) {
+          params.allXrayPath = this.allXrayPath;
+        }
+        if (this.sideXrayPath) {
+          params.sideXrayPath = this.sideXrayPath;
+        }
+        if (this.otherXrayPath) {
+          params.otherXrayPath = this.otherXrayPath;
+        }
+        if (this.isSubmit) {
+          params.modelSubmit = this.isSubmit;
+        }
+        if (this.isSubmit === 2) {
+          if (this.upJawModelPath) {
+            params.upJawModelPath = this.upJawModelPath;
+          }
+          if (this.upJawModelName) {
+            params.upJawModelName = this.upJawModelName;
+          }
+          if (this.downJawModelPath) {
+            params.downJawModelPath = this.downJawModelPath;
+          }
+          if (this.downJawModelName) {
+            params.downJawModelName = this.downJawModelName;
+          }
+        }
+        completeCase(params).then(res => {
+          if (res.data.code == 200) {
+            this.$message({
+              type: "success",
+              message: "完成病例成功!"
+            });
+            if (this.currentIsDoctor) {
+              this.$router.push({path: "/doctor/list"});
+            } else {
+              this.$router.push({path: "/case/all"});
+            }
+          }
+        });
+      },
       clickToSure(className) {
         this.active = 1;
         this.$nextTick(() => {

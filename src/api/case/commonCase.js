@@ -110,3 +110,11 @@ export const getPrescriptionDetail = (params) => {
     params: params,
   })
 }
+
+export const completeCase = (row) => {
+  return request({
+    url: '/api/orth/treatmentprescriptioncomplete/complete',
+    method: 'post',
+    data: row,
+  })
+}

@@ -622,6 +622,7 @@
           name: "completeCaseDetail",
           params: {
             item: item,
+            isDoctor: this.currentIsDoctor,
           }
         });
       },
