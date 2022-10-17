@@ -111,7 +111,7 @@
                 <el-button v-if="item.state === 10 || item.state === 20" type="primary" size="small" @click="toPhotoDetails(item.photoId)">照片</el-button>
                 <el-button v-if="(item.state === 10 || item.state === 20) && (item.caseType !== 2 && item.caseType !== 3)" type="primary" size="small" @click="toPrescription(item)">处方表</el-button>
                 <el-button v-if="(item.state === 10 || item.state === 20) && item.caseType === 2" type="primary" size="small" @click="toFeedbackForm(item)">重启反馈表</el-button>
-                <el-button v-if="item.caseType === 3" type="primary" size="small" @click="toCompleteForm(item)">完成确认表</el-button>
+                <el-button v-if="item.caseType === 3" type="primary" size="small" @click="toCompleteForm(item, caseData)">完成确认表</el-button>
                 <el-button v-if="item.state === 30 || item.state === 60" type="primary" size="small" @click="viewFailReason(item.id)">查看原因</el-button>
               </span>
             </div>
@@ -620,18 +620,23 @@
         window.open(routeData.href, '_blank');
       },
       toFeedbackForm(item) {},
-      toCompleteForm(item) {
+      toCompleteForm(item, caseData) {
+        let completeNeed = {
+          completeId: item.completeId || "",
+          name: caseData.prescription ? caseData.prescription.name : "",
+          medicalCode: caseData.record ? caseData.record.medicalCode : "",
+        }
         let routeData = this.$router.resolve({
           path: "/case/completeForm",
           query: {
-            completeId: item.completeId || "",
+            completeNeed: JSON.stringify(completeNeed),
           }
         });
         window.open(routeData.href, '_blank');
       },
       completeCase(item) {
         this.$router.push({
-          name: "completeCaseDetail",
+          name: "CompleteCaseDetail",
           params: {
             item: item,
             isDoctor: this.currentIsDoctor,
@@ -640,7 +645,7 @@
       },
       restartCase(item) {
         this.$router.push({
-          name: "restartCaseDetail",
+          name: "RestartCaseDetail",
           params: {
             item: item,
             isDoctor: this.currentIsDoctor,

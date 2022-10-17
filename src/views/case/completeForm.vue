@@ -11,8 +11,11 @@
         <div v-if="completeData.frontPath">
           <img :src="completeData.frontPath" alt="" class="complete-form-info-img">
         </div>
-        <div class="complete-form-info-name"></div>
-        <div class="complete-form-info-caseNo"></div>
+        <div class="complete-form-info-name" v-if="currentCompleteData && currentCompleteData.name">{{currentCompleteData.name}}</div>
+        <div class="complete-form-info-case">
+          <span>病例号：</span>
+          <span class="case-span" v-if="currentCompleteData && currentCompleteData.medicalCode">{{currentCompleteData.medicalCode}}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -23,14 +26,21 @@
     name: "CompleteForm",
     data() {
       return {
-        currentCompleteId: "",
+        currentCompleteData: {},
         completeData: {},
       }
     },
     created() {
-      this.currentCompleteId = this.$route.query.completeId || "";
-      if (this.currentCompleteId) {
-        this.getCompleteData(this.currentCompleteId);
+      var cCompleteData = sessionStorage.getItem("cCompleteData");
+      if (cCompleteData) {
+        var queryCompleteData = JSON.parse(sessionStorage.getItem("cCompleteData"));
+      } else {
+        var queryCompleteData = JSON.parse(this.$route.query.completeNeed);
+        sessionStorage.setItem("cCompleteData", JSON.stringify(queryCompleteData));
+      }
+      this.currentCompleteData = queryCompleteData;
+      if (this.currentCompleteData.completeId) {
+        this.getCompleteData(this.currentCompleteData.completeId);
       }
     },
     methods: {
@@ -104,5 +114,10 @@
     color: #999;
     font-size: 16px;
     font-weight: 400;
+  }
+  .case-span {
+    color: #555;
+    font-size: 18px;
+    font-weight: 700;
   }
 </style>
