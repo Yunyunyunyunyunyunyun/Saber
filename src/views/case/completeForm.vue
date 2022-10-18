@@ -29,7 +29,8 @@
         <div v-if="completeData.correctComplete === 4" class="complete-form-info-feedback-every-text">{{completeData.correctCompleteOther}}</div>
         <div class="complete-form-info-feedback-every">
           <div class="complete-form-info-feedback-every-title">1.2 完成矫治日期:</div>
-          <div class="complete-form-info-feedback-every-content">{{completeData.correctCompleteTime}}</div>
+          <div class="complete-form-info-feedback-every-content" v-if="completeData.correctCompleteTime">{{completeData.correctCompleteTime}}</div>
+          <div class="complete-form-info-feedback-every-content" v-else>无</div>
         </div>
       </div>
       <div class="complete-form-info-feedback">
@@ -39,6 +40,126 @@
       </div>
       <div class="complete-form-info-title">
         <i class="el-icon-video-camera icon-color"></i>影像及资料
+      </div>
+      <div class="complete-photo-title">面像及口内照片</div>
+      <el-row class="mb20">
+        <el-col :span="8">
+          <div class="complete-photo-picture-contain">
+            <img v-if="completeData.frontSmilingPath" :src="completeData.frontSmilingPath" class="complete-photo-picture-img">
+            <i v-else class="el-icon-picture complete-photo-picture-icon"></i>
+          </div>
+          <div class="complete-photo-picture-desc">正面微笑照</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="complete-photo-picture-contain">
+            <img v-if="completeData.frontPath" :src="completeData.frontPath" class="complete-photo-picture-img">
+            <i v-else class="el-icon-picture complete-photo-picture-icon"></i>
+          </div>
+          <div class="complete-photo-picture-desc">正面照</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="complete-photo-picture-contain">
+            <img v-if="completeData.sidePath" :src="completeData.sidePath" class="complete-photo-picture-img">
+            <i v-else class="el-icon-picture complete-photo-picture-icon"></i>
+          </div>
+          <div class="complete-photo-picture-desc">侧面照</div>
+        </el-col>
+      </el-row>
+      <el-row class="mb20">
+        <el-col :span="8">
+          <div class="complete-photo-picture-contain">
+            <img v-if="completeData.upJawPath" :src="completeData.upJawPath" class="complete-photo-picture-img">
+            <i v-else class="el-icon-picture complete-photo-picture-icon"></i>
+          </div>
+          <div class="complete-photo-picture-desc">上颌口内照</div>
+        </el-col>
+        <el-col :span="8"></el-col>
+        <el-col :span="8">
+          <div class="complete-photo-picture-contain">
+            <img v-if="completeData.downJawPath" :src="completeData.downJawPath" class="complete-photo-picture-img">
+            <i v-else class="el-icon-picture complete-photo-picture-icon"></i>
+          </div>
+          <div class="complete-photo-picture-desc">下颌口内照</div>
+        </el-col>
+      </el-row>
+      <el-row class="mb20">
+        <el-col :span="8">
+          <div class="complete-photo-picture-contain">
+            <img v-if="completeData.rightJawPath" :src="completeData.rightJawPath" class="complete-photo-picture-img">
+            <i v-else class="el-icon-picture complete-photo-picture-icon"></i>
+          </div>
+          <div class="complete-photo-picture-desc">右侧口内照</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="complete-photo-picture-contain">
+            <img v-if="completeData.frontJawPath" :src="completeData.frontJawPath" class="complete-photo-picture-img">
+            <i v-else class="el-icon-picture complete-photo-picture-icon"></i>
+          </div>
+          <div class="complete-photo-picture-desc">正面口内照</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="complete-photo-picture-contain">
+            <img v-if="completeData.leftJawPath" :src="completeData.leftJawPath" class="complete-photo-picture-img">
+            <i v-else class="el-icon-picture complete-photo-picture-icon"></i>
+          </div>
+          <div class="complete-photo-picture-desc">左侧口内照</div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="8">
+          <div class="complete-photo-title">X光照片</div>
+        </el-col>
+        <el-col :span="8"></el-col>
+        <el-col :span="8">
+          <div class="complete-photo-title">其他影像</div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="8">
+          <div class="complete-photo-picture-contain">
+            <img v-if="completeData.allXrayPath" :src="completeData.allXrayPath" class="complete-photo-picture-img">
+            <i v-else class="el-icon-picture complete-photo-picture-icon"></i>
+          </div>
+          <div class="complete-photo-picture-desc">全景片</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="complete-photo-picture-contain">
+            <img v-if="completeData.sideXrayPath" :src="completeData.sideXrayPath" class="complete-photo-picture-img">
+            <i v-else class="el-icon-picture complete-photo-picture-icon"></i>
+          </div>
+          <div class="complete-photo-picture-desc">侧位片</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="complete-photo-picture-contain">
+            <img v-if="completeData.otherXrayPath" :src="completeData.otherXrayPath" class="complete-photo-picture-img">
+            <i v-else class="el-icon-picture complete-photo-picture-icon"></i>
+          </div>
+          <div class="complete-photo-picture-desc">其他</div>
+        </el-col>
+      </el-row>
+      <div class="complete-main-every">
+        <div>牙颌模型：</div>
+        <div v-if="completeData.modelSubmit === 1">不提交</div>
+        <div v-else-if="completeData.modelSubmit === 2">
+          <div class="mb17">
+            <span class="mr10">数字模型文件</span>
+            <span v-if="completeData.upJawModelName && completeData.downJawModelName">
+              <span class="complete-main-every-content">本地上传</span>
+            </span>
+            <span class="complete-main-every-content" v-else>无</span>
+          </div>
+        </div>
+        <div v-else>无</div>
+      </div>
+      <div v-if="completeData.modelSubmit === 2 && completeData.upJawModelName && completeData.downJawModelName && completeData.upJawModelPath && completeData.downJawModelPath" class="complete-photo-model">
+        <div class="mb10">
+          <span>上颌</span>
+          <div class="complete-photo-model-text" :title="completeData.upJawModelName" @click="downloadPhoto(completeData.upJawModelPath)">{{completeData.upJawModelName}}</div>
+        </div>
+        <div>
+          <span>下颌</span>
+          <div class="complete-photo-model-text" :title="completeData.downJawModelName" @click="downloadPhoto(completeData.downJawModelPath)">{{completeData.downJawModelName}}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -107,7 +228,10 @@
             this.completeData = res.data.data;
           }
         });
-      }
+      },
+      downloadPhoto(path) {
+        window.open(path);
+      },
     }
   }
 </script>
@@ -225,5 +349,97 @@
     color: #333;
     font-size: 16px;
     font-weight: 400;
+  }
+  .mb20 {
+    margin-bottom: 20px;
+  }
+  .mr10 {
+    margin-right: 10px;
+  }
+  .mb17 {
+    margin-bottom: 17px;
+  }
+  .mb10 {
+    margin-bottom: 10px;
+  }
+  .complete-photo-title {
+    margin: 30px 0 20px;
+    color: #333;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .complete-photo-picture-contain {
+    border: 1px solid #d9d9d9;
+    width: 190px;
+    height: 180px;
+    line-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .complete-photo-picture-img {
+    max-width: 190px;
+    max-height: 180px;
+    display: block;
+  }
+  .complete-photo-picture-icon {
+    font-size: 180px;
+    color: #d9d9d9;
+    width: 190px;
+    height: 180px;
+    line-height: 180px;
+    text-align: center;
+  }
+  .complete-photo-picture-desc {
+    width: 190px;
+    height: 40px;
+    line-height: 40px;
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    font-size: 14px;
+    font-weight: 300;
+    color: #555;
+    text-align: center;
+  }
+  .complete-main-every {
+    margin-top: 30px;
+    display: flex;
+    color: #555;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .complete-main-every-content {
+    color: #333;
+    font-size: 16px;
+    font-weight: 400;
+    margin-right: 10px;
+  }
+  .complete-photo-model {
+    margin: 0 0 0 170px;
+    width: 500px;
+    padding: 13px 26px;
+    background: #f6f7fa;
+    border-radius: 4px;
+  }
+  .complete-photo-model>div {
+    color: #555;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 400;
+    display: flex;
+  }
+  .complete-photo-model-text {
+    color: #409EFF;
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 400;
+    margin-left: 10px;
+    max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    cursor: pointer;
   }
 </style>
