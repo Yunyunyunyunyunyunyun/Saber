@@ -1,6 +1,6 @@
 export default {
   tip: '提示',
-  title: 'Saber企业级开发平台',
+  title: '正畸订单管理系统',
   logoutTip: '退出系统, 是否继续?',
   submitText: '确定',
   cancelText: '取消',
