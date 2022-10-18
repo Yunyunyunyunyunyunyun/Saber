@@ -175,4 +175,14 @@ export default [{
     component: () =>
       import( /* webpackChunkName: "views" */ '@/views/case/completeForm')
   }]
+}, {
+  path: '/case',
+  component: Layout,
+  redirect: '/case/feedbackForm',
+  children: [{
+    path: 'feedbackForm',
+    name: 'FeedbackForm',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/feedbackForm')
+  }]
 }]

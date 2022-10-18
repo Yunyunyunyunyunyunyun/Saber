@@ -206,7 +206,7 @@
       },
     },
     created() {
-      this.currentCompleteData = JSON.parse(this.$route.query.completeNeed);
+      this.currentCompleteData = JSON.parse(this.$route.query.completeObject);
       if (this.currentCompleteData.completeId) {
         this.getCompleteData(this.currentCompleteData.completeId);
       }
