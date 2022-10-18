@@ -142,3 +142,19 @@ export const getCompleteForm = (params) => {
     params: params,
   })
 }
+
+export const getFeedbackForm = (params) => {
+  return request({
+    url: '/api/orth/treatmentprescriptionrestart/restart_detail',
+    method: 'get',
+    params: params,
+  })
+}
+
+export const getRestartPhotoDetail = (params) => {
+  return request({
+    url: '/api/orth/treatmentprescriptionrestart/restart_photo',
+    method: 'get',
+    params: params,
+  })
+}

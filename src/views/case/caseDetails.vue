@@ -108,7 +108,8 @@
                 <span v-else>未知</span>
               </div>
               <span v-if="item && item.state">
-                <el-button v-if="item.state === 10 || item.state === 20" type="primary" size="small" @click="toPhotoDetails(item.photoId)">照片</el-button>
+                <el-button v-if="(item.state === 10 || item.state === 20) && (item.caseType !== 2 && item.caseType !== 3)" type="primary" size="small" @click="toPhotoDetails(item.photoId)">照片</el-button>
+                <el-button v-if="(item.state === 10 || item.state === 20) && item.caseType === 2" type="primary" size="small" @click="toRestartPhotoDetails(item.restartId)">照片</el-button>
                 <el-button v-if="(item.state === 10 || item.state === 20) && (item.caseType !== 2 && item.caseType !== 3)" type="primary" size="small" @click="toPrescription(item)">处方表</el-button>
                 <el-button v-if="(item.state === 10 || item.state === 20) && item.caseType === 2" type="primary" size="small" @click="toFeedbackForm(item, caseData)">重启反馈表</el-button>
                 <el-button v-if="item.caseType === 3" type="primary" size="small" @click="toCompleteForm(item, caseData)">完成确认表</el-button>
@@ -124,6 +125,54 @@
       :visible.sync="showPhotoVisible"
       @close="closePhoto">
       <viewer :images="images">
+        <div v-if="showNoiftPhoto">
+          <el-row class="mb20">
+            <el-col :span="8">
+              <div class="picture-contain">
+                <img v-if="noiftPhotoOne" :src="noiftPhotoOne" class="picture-img">
+                <i v-else class="el-icon-picture picture-icon"></i>
+              </div>
+              <div class="picture-desc">不贴合1</div>
+            </el-col>
+            <el-col :span="8">
+              <div class="picture-contain">
+                <img v-if="noiftPhotoTwo" :src="noiftPhotoTwo" class="picture-img">
+                <i v-else class="el-icon-picture picture-icon"></i>
+              </div>
+              <div class="picture-desc">不贴合2</div>
+            </el-col>
+            <el-col :span="8">
+              <div class="picture-contain">
+                <img v-if="noiftPhotoThree" :src="noiftPhotoThree" class="picture-img">
+                <i v-else class="el-icon-picture picture-icon"></i>
+              </div>
+              <div class="picture-desc">不贴合3</div>
+            </el-col>
+          </el-row>
+          <el-row class="mb20">
+            <el-col :span="8">
+              <div class="picture-contain">
+                <img v-if="noiftPhotoFour" :src="noiftPhotoFour" class="picture-img">
+                <i v-else class="el-icon-picture picture-icon"></i>
+              </div>
+              <div class="picture-desc">不贴合4</div>
+            </el-col>
+            <el-col :span="8">
+              <div class="picture-contain">
+                <img v-if="noiftPhotoFive" :src="noiftPhotoFive" class="picture-img">
+                <i v-else class="el-icon-picture picture-icon"></i>
+              </div>
+              <div class="picture-desc">不贴合5</div>
+            </el-col>
+            <el-col :span="8">
+              <div class="picture-contain">
+                <img v-if="noiftPhotoSix" :src="noiftPhotoSix" class="picture-img">
+                <i v-else class="el-icon-picture picture-icon"></i>
+              </div>
+              <div class="picture-desc">不贴合6</div>
+            </el-col>
+          </el-row>
+        </div>
         <el-row class="mb20">
           <el-col :span="8">
             <div class="picture-contain">
@@ -261,7 +310,7 @@
   </div>
 </template>
 <script>
-  import { getDetails, getThreeDDetail, getFailHistoryReason, getPhotoDetail } from "@/api/case/commonCase";
+  import { getDetails, getThreeDDetail, getFailHistoryReason, getPhotoDetail, getRestartPhotoDetail } from "@/api/case/commonCase";
   export default {
     name: "CaseDetails",
     data() {
@@ -272,6 +321,12 @@
         showPhotoVisible: false,
         failHistoryRemark: "",
         failHistoryReasonVisible: false,
+        noiftPhotoOne: "",
+        noiftPhotoTwo: "",
+        noiftPhotoThree: "",
+        noiftPhotoFour: "",
+        noiftPhotoFive: "",
+        noiftPhotoSix: "",
         frontSmilingPath: "",
         frontPath: "",
         sidePath: "",
@@ -286,6 +341,7 @@
         images: [],
         followUpVisible: false,
         keepOnVisible: false,
+        showNoiftPhoto: false,
       }
     },
     created() {
@@ -559,7 +615,88 @@
           }
         })
       },
+      toRestartPhotoDetails(id) {
+        let params = {
+          restartId: id,
+        }
+        getRestartPhotoDetail(params).then(res => {
+          if (res.data.code == 200) {
+            const data = res.data.data;
+            if (data.noiftPhotoOne) {
+              this.noiftPhotoOne = data.noiftPhotoOne;
+              this.images.push(data.noiftPhotoOne);
+            }
+            if (data.noiftPhotoTwo) {
+              this.noiftPhotoTwo = data.noiftPhotoTwo;
+              this.images.push(data.noiftPhotoTwo);
+            }
+            if (data.noiftPhotoThree) {
+              this.noiftPhotoThree = data.noiftPhotoThree;
+              this.images.push(data.noiftPhotoThree);
+            }
+            if (data.noiftPhotoFour) {
+              this.noiftPhotoFour = data.noiftPhotoFour;
+              this.images.push(data.noiftPhotoFour);
+            }
+            if (data.noiftPhotoFive) {
+              this.noiftPhotoFive = data.noiftPhotoFive;
+              this.images.push(data.noiftPhotoFive);
+            }
+            if (data.noiftPhotoSix) {
+              this.noiftPhotoSix = data.noiftPhotoSix;
+              this.images.push(data.noiftPhotoSix);
+            }
+            if (data.frontSmilingPath) {
+              this.frontSmilingPath = data.frontSmilingPath;
+              this.images.push(data.frontSmilingPath);
+            }
+            if (data.frontPath) {
+              this.frontPath = data.frontPath;
+              this.images.push(data.frontPath);
+            }
+            if (data.sidePath) {
+              this.sidePath = data.sidePath;
+              this.images.push(data.sidePath);
+            }
+            if (data.upJawPath) {
+              this.upJawPath = data.upJawPath;
+              this.images.push(data.upJawPath);
+            }
+            if (data.downJawPath) {
+              this.downJawPath = data.downJawPath;
+              this.images.push(data.downJawPath);
+            }
+            if (data.rightJawPath) {
+              this.rightJawPath = data.rightJawPath;
+              this.images.push(data.rightJawPath);
+            }
+            if (data.frontJawPath) {
+              this.frontJawPath = data.frontJawPath;
+              this.images.push(data.frontJawPath);
+            }
+            if (data.leftJawPath) {
+              this.leftJawPath = data.leftJawPath;
+              this.images.push(data.leftJawPath);
+            }
+            if (data.allXrayPath) {
+              this.allXrayPath = data.allXrayPath;
+              this.images.push(data.allXrayPath);
+            }
+            if (data.sideXrayPath) {
+              this.sideXrayPath = data.sideXrayPath;
+              this.images.push(data.sideXrayPath);
+            }
+            if (data.otherXrayPath) {
+              this.otherXrayPath = data.otherXrayPath;
+              this.images.push(data.otherXrayPath);
+            }
+            this.showNoiftPhoto = true;
+            this.showPhotoVisible = true;
+          }
+        })
+      },
       closePhoto() {
+        this.showNoiftPhoto = false;
         this.showPhotoVisible = false;
         this.frontSmilingPath = "";
         this.frontPath = "";
