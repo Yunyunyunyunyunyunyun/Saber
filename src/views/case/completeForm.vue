@@ -206,14 +206,7 @@
       },
     },
     created() {
-      var cCompleteData = sessionStorage.getItem("cCompleteData");
-      if (cCompleteData) {
-        var queryCompleteData = JSON.parse(sessionStorage.getItem("cCompleteData"));
-      } else {
-        var queryCompleteData = JSON.parse(this.$route.query.completeNeed);
-        sessionStorage.setItem("cCompleteData", JSON.stringify(queryCompleteData));
-      }
-      this.currentCompleteData = queryCompleteData;
+      this.currentCompleteData = JSON.parse(this.$route.query.completeNeed);
       if (this.currentCompleteData.completeId) {
         this.getCompleteData(this.currentCompleteData.completeId);
       }
