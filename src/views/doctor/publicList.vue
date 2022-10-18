@@ -152,6 +152,7 @@
         this.getAllDoctorList(params, status);
       },
       handleSizeChange(val) {
+        this.currentPage = 1;
         this.pageSize = val;
         let params = {
           current: this.currentPage,

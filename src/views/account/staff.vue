@@ -349,6 +349,7 @@ export default {
   },
   methods: {
     handleSizeChange(val) {
+      this.currentPage = 1;
       this.pageSize = val;
       let params = {
         current: this.currentPage,

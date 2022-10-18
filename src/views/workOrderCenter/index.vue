@@ -338,6 +338,7 @@
         this.executor = '';
       },
       handleSizeChange(val) {
+        this.currentPage = 1;
         this.pageSize = val;
       },
       handleCurrentChange(val) {
