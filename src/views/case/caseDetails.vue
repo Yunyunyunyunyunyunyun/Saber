@@ -488,77 +488,55 @@
         getDetails(params).then(res => {
           if (res.data.code == 200) {
             this.caseData = res.data.data;
-            if (this.caseData.photo && this.caseData.photo.frontSmilingPath) {
-              this.images.push(this.caseData.photo.frontSmilingPath);
-            }
-            if (this.caseData.photo && this.caseData.photo.frontPath) {
-              this.images.push(this.caseData.photo.frontPath);
-            }
-            if (this.caseData.photo && this.caseData.photo.sidePath) {
-              this.images.push(this.caseData.photo.sidePath);
-            }
-            if (this.caseData.photo && this.caseData.photo.upJawPath) {
-              this.images.push(this.caseData.photo.upJawPath);
-            }
-            if (this.caseData.photo && this.caseData.photo.downJawPath) {
-              this.images.push(this.caseData.photo.downJawPath);
-            }
-            if (this.caseData.photo && this.caseData.photo.rightJawPath) {
-              this.images.push(this.caseData.photo.rightJawPath);
-            }
-            if (this.caseData.photo && this.caseData.photo.frontJawPath) {
-              this.images.push(this.caseData.photo.frontJawPath);
-            }
-            if (this.caseData.photo && this.caseData.photo.leftJawPath) {
-              this.images.push(this.caseData.photo.leftJawPath);
-            }
-            if (this.caseData.photo && this.caseData.photo.allXrayPath) {
-              this.images.push(this.caseData.photo.allXrayPath);
-            }
-            if (this.caseData.photo && this.caseData.photo.sideXrayPath) {
-              this.images.push(this.caseData.photo.sideXrayPath);
-            }
-            if (this.caseData.photo && this.caseData.photo.otherXrayPath) {
-              this.images.push(this.caseData.photo.otherXrayPath);
-            }
           }
         });
       },
       toPhoto() {
-        this.showPhotoVisible = true;
         if (this.caseData.photo && this.caseData.photo.frontSmilingPath) {
           this.frontSmilingPath = this.caseData.photo.frontSmilingPath;
+          this.images.push(this.caseData.photo.frontSmilingPath);
         }
         if (this.caseData.photo && this.caseData.photo.frontPath) {
           this.frontPath = this.caseData.photo.frontPath;
+          this.images.push(this.caseData.photo.frontPath);
         }
         if (this.caseData.photo && this.caseData.photo.sidePath) {
           this.sidePath = this.caseData.photo.sidePath;
+          this.images.push(this.caseData.photo.sidePath);
         }
         if (this.caseData.photo && this.caseData.photo.upJawPath) {
           this.upJawPath = this.caseData.photo.upJawPath;
+          this.images.push(this.caseData.photo.upJawPath);
         }
         if (this.caseData.photo && this.caseData.photo.downJawPath) {
           this.downJawPath = this.caseData.photo.downJawPath;
+          this.images.push(this.caseData.photo.downJawPath);
         }
         if (this.caseData.photo && this.caseData.photo.rightJawPath) {
           this.rightJawPath = this.caseData.photo.rightJawPath;
+          this.images.push(this.caseData.photo.rightJawPath);
         }
         if (this.caseData.photo && this.caseData.photo.frontJawPath) {
           this.frontJawPath = this.caseData.photo.frontJawPath;
+          this.images.push(this.caseData.photo.frontJawPath);
         }
         if (this.caseData.photo && this.caseData.photo.leftJawPath) {
           this.leftJawPath = this.caseData.photo.leftJawPath;
+          this.images.push(this.caseData.photo.leftJawPath);
         }
         if (this.caseData.photo && this.caseData.photo.allXrayPath) {
           this.allXrayPath = this.caseData.photo.allXrayPath;
+          this.images.push(this.caseData.photo.allXrayPath);
         }
         if (this.caseData.photo && this.caseData.photo.sideXrayPath) {
           this.sideXrayPath = this.caseData.photo.sideXrayPath;
+          this.images.push(this.caseData.photo.sideXrayPath);
         }
         if (this.caseData.photo && this.caseData.photo.otherXrayPath) {
           this.otherXrayPath = this.caseData.photo.otherXrayPath;
+          this.images.push(this.caseData.photo.otherXrayPath);
         }
+        this.showPhotoVisible = true;
       },
       toPhotoDetails(id) {
         let params = {
