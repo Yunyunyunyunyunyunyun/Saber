@@ -194,6 +194,163 @@
         </div>
         <div class="feedback-form-common-content-every-content-text">{{feedbackData.otherInspect ? feedbackData.otherInspect : '未填写任何信息'}}</div>
       </div>
+      <div class="feedback-form-common-content">
+        <span class="feedback-form-common-content-title">3. 前一阶段的设计要求</span>
+        <div class="feedback-form-common-content-every">
+          <div class="feedback-form-common-content-every-title">3.1 不可移动牙齿:</div>
+          <div class="feedback-form-common-content-every-content" v-if="Number(feedbackData.teethMobile) === 0">无</div>
+          <div class="feedback-form-common-content-every-content" v-else>有</div>
+        </div>
+        <div class="feedback-form-common-content-every-no-flex">
+          <div class="feedback-form-common-content-every-annex" v-if="Number(feedbackData.teethMobile) !== 0">
+            <el-checkbox-group v-model="teethMobileOne" class="feedback-form-common-content-every-annex-checkbox">
+              <el-checkbox :label="55" border disabled></el-checkbox>
+              <el-checkbox :label="54" border disabled></el-checkbox>
+              <el-checkbox :label="53" border disabled></el-checkbox>
+              <el-checkbox :label="52" border disabled></el-checkbox>
+              <el-checkbox :label="51" border disabled></el-checkbox>
+              <el-checkbox :label="61" border disabled></el-checkbox>
+              <el-checkbox :label="62" border disabled></el-checkbox>
+              <el-checkbox :label="63" border disabled></el-checkbox>
+              <el-checkbox :label="64" border disabled></el-checkbox>
+              <el-checkbox :label="65" border disabled></el-checkbox>
+            </el-checkbox-group>
+            <el-checkbox-group v-model="teethMobileTwo" class="feedback-form-common-content-every-annex-checkbox">
+              <el-checkbox :label="18" border disabled></el-checkbox>
+              <el-checkbox :label="17" border disabled></el-checkbox>
+              <el-checkbox :label="16" border disabled></el-checkbox>
+              <el-checkbox :label="15" border disabled></el-checkbox>
+              <el-checkbox :label="14" border disabled></el-checkbox>
+              <el-checkbox :label="13" border disabled></el-checkbox>
+              <el-checkbox :label="12" border disabled></el-checkbox>
+              <el-checkbox :label="11" border disabled></el-checkbox>
+              <el-checkbox :label="21" border disabled></el-checkbox>
+              <el-checkbox :label="22" border disabled></el-checkbox>
+              <el-checkbox :label="23" border disabled></el-checkbox>
+              <el-checkbox :label="24" border disabled></el-checkbox>
+              <el-checkbox :label="25" border disabled></el-checkbox>
+              <el-checkbox :label="26" border disabled></el-checkbox>
+              <el-checkbox :label="27" border disabled></el-checkbox>
+              <el-checkbox :label="28" border disabled></el-checkbox>
+            </el-checkbox-group>
+            <el-checkbox-group v-model="teethMobileThree" class="feedback-form-common-content-every-annex-checkbox">
+              <el-checkbox :label="48" border disabled></el-checkbox>
+              <el-checkbox :label="47" border disabled></el-checkbox>
+              <el-checkbox :label="46" border disabled></el-checkbox>
+              <el-checkbox :label="45" border disabled></el-checkbox>
+              <el-checkbox :label="44" border disabled></el-checkbox>
+              <el-checkbox :label="43" border disabled></el-checkbox>
+              <el-checkbox :label="42" border disabled></el-checkbox>
+              <el-checkbox :label="41" border disabled></el-checkbox>
+              <el-checkbox :label="31" border disabled></el-checkbox>
+              <el-checkbox :label="32" border disabled></el-checkbox>
+              <el-checkbox :label="33" border disabled></el-checkbox>
+              <el-checkbox :label="34" border disabled></el-checkbox>
+              <el-checkbox :label="35" border disabled></el-checkbox>
+              <el-checkbox :label="36" border disabled></el-checkbox>
+              <el-checkbox :label="37" border disabled></el-checkbox>
+              <el-checkbox :label="38" border disabled></el-checkbox>
+            </el-checkbox-group>
+            <el-checkbox-group v-model="teethMobileFour" class="feedback-form-common-content-every-annex-checkbox">
+              <el-checkbox :label="85" border disabled></el-checkbox>
+              <el-checkbox :label="84" border disabled></el-checkbox>
+              <el-checkbox :label="83" border disabled></el-checkbox>
+              <el-checkbox :label="82" border disabled></el-checkbox>
+              <el-checkbox :label="81" border disabled></el-checkbox>
+              <el-checkbox :label="71" border disabled></el-checkbox>
+              <el-checkbox :label="72" border disabled></el-checkbox>
+              <el-checkbox :label="73" border disabled></el-checkbox>
+              <el-checkbox :label="74" border disabled></el-checkbox>
+              <el-checkbox :label="75" border disabled></el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </div>
+        <div class="feedback-form-common-content-every">
+          <div class="feedback-form-common-content-every-title">3.2 不可设计附件牙齿:</div>
+          <div class="feedback-form-common-content-every-content" v-if="Number(feedbackData.teethAttachment) === 0">无</div>
+          <div class="feedback-form-common-content-every-content" v-else>有</div>
+        </div>
+        <div class="feedback-form-common-content-every-no-flex">
+          <div class="feedback-form-common-content-every-annex" v-if="Number(feedbackData.teethAttachment) !== 0">
+            <el-checkbox-group v-model="teethAttachmentOne" class="feedback-form-common-content-every-annex-checkbox">
+              <el-checkbox :label="55" border disabled></el-checkbox>
+              <el-checkbox :label="54" border disabled></el-checkbox>
+              <el-checkbox :label="53" border disabled></el-checkbox>
+              <el-checkbox :label="52" border disabled></el-checkbox>
+              <el-checkbox :label="51" border disabled></el-checkbox>
+              <el-checkbox :label="61" border disabled></el-checkbox>
+              <el-checkbox :label="62" border disabled></el-checkbox>
+              <el-checkbox :label="63" border disabled></el-checkbox>
+              <el-checkbox :label="64" border disabled></el-checkbox>
+              <el-checkbox :label="65" border disabled></el-checkbox>
+            </el-checkbox-group>
+            <el-checkbox-group v-model="teethAttachmentTwo" class="feedback-form-common-content-every-annex-checkbox">
+              <el-checkbox :label="18" border disabled></el-checkbox>
+              <el-checkbox :label="17" border disabled></el-checkbox>
+              <el-checkbox :label="16" border disabled></el-checkbox>
+              <el-checkbox :label="15" border disabled></el-checkbox>
+              <el-checkbox :label="14" border disabled></el-checkbox>
+              <el-checkbox :label="13" border disabled></el-checkbox>
+              <el-checkbox :label="12" border disabled></el-checkbox>
+              <el-checkbox :label="11" border disabled></el-checkbox>
+              <el-checkbox :label="21" border disabled></el-checkbox>
+              <el-checkbox :label="22" border disabled></el-checkbox>
+              <el-checkbox :label="23" border disabled></el-checkbox>
+              <el-checkbox :label="24" border disabled></el-checkbox>
+              <el-checkbox :label="25" border disabled></el-checkbox>
+              <el-checkbox :label="26" border disabled></el-checkbox>
+              <el-checkbox :label="27" border disabled></el-checkbox>
+              <el-checkbox :label="28" border disabled></el-checkbox>
+            </el-checkbox-group>
+            <el-checkbox-group v-model="teethAttachmentThree" class="feedback-form-common-content-every-annex-checkbox">
+              <el-checkbox :label="48" border disabled></el-checkbox>
+              <el-checkbox :label="47" border disabled></el-checkbox>
+              <el-checkbox :label="46" border disabled></el-checkbox>
+              <el-checkbox :label="45" border disabled></el-checkbox>
+              <el-checkbox :label="44" border disabled></el-checkbox>
+              <el-checkbox :label="43" border disabled></el-checkbox>
+              <el-checkbox :label="42" border disabled></el-checkbox>
+              <el-checkbox :label="41" border disabled></el-checkbox>
+              <el-checkbox :label="31" border disabled></el-checkbox>
+              <el-checkbox :label="32" border disabled></el-checkbox>
+              <el-checkbox :label="33" border disabled></el-checkbox>
+              <el-checkbox :label="34" border disabled></el-checkbox>
+              <el-checkbox :label="35" border disabled></el-checkbox>
+              <el-checkbox :label="36" border disabled></el-checkbox>
+              <el-checkbox :label="37" border disabled></el-checkbox>
+              <el-checkbox :label="38" border disabled></el-checkbox>
+            </el-checkbox-group>
+            <el-checkbox-group v-model="teethAttachmentFour" class="feedback-form-common-content-every-annex-checkbox">
+              <el-checkbox :label="85" border disabled></el-checkbox>
+              <el-checkbox :label="84" border disabled></el-checkbox>
+              <el-checkbox :label="83" border disabled></el-checkbox>
+              <el-checkbox :label="82" border disabled></el-checkbox>
+              <el-checkbox :label="81" border disabled></el-checkbox>
+              <el-checkbox :label="71" border disabled></el-checkbox>
+              <el-checkbox :label="72" border disabled></el-checkbox>
+              <el-checkbox :label="73" border disabled></el-checkbox>
+              <el-checkbox :label="74" border disabled></el-checkbox>
+              <el-checkbox :label="75" border disabled></el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </div>
+        <div class="feedback-form-common-content-every">
+          <div class="feedback-form-common-content-every-title">3.3 前牙平导板（适用于深覆合浅覆盖病例):</div>
+          <div class="feedback-form-common-content-every-content" v-if="feedbackData.frontToothFlatGuidePlate === 1">需要</div>
+          <div class="feedback-form-common-content-every-content" v-else-if="feedbackData.frontToothFlatGuidePlate === 2">不需要</div>
+          <div class="feedback-form-common-content-every-content" v-else>无</div>
+        </div>
+        <div class="feedback-form-common-content-every">
+          <div class="feedback-form-common-content-every-title">3.4 是否远程矫治:</div>
+          <div class="feedback-form-common-content-every-content" v-if="feedbackData.remoteTreatments === 1">是</div>
+          <div class="feedback-form-common-content-every-content" v-else-if="feedbackData.remoteTreatments === 2">否</div>
+          <div class="feedback-form-common-content-every-content" v-else>无</div>
+        </div>
+      </div>
+      <div class="feedback-form-common-content">
+        <span class="feedback-form-common-content-title">4. 后续矫治要求</span>
+        <div class="feedback-form-common-content-every-content-text">{{feedbackData.correctRequirement ? feedbackData.correctRequirement : '未填写任何信息'}}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -239,6 +396,14 @@
         teethClearance28: "",
         teethClearance29: "",
         teethClearance30: "",
+        teethMobileOne: [],
+        teethMobileTwo: [],
+        teethMobileThree: [],
+        teethMobileFour: [],
+        teethAttachmentOne: [],
+        teethAttachmentTwo: [],
+        teethAttachmentThree: [],
+        teethAttachmentFour: [],
       }
     },
     filters: {
@@ -322,6 +487,16 @@
               this.teethClearance29 = clearArray[28] == "none" ? "" : Number(clearArray[28]);
               this.teethClearance30 = clearArray[29] == "none" ? "" : Number(clearArray[29]);
             }
+            let mobileArray = this.feedbackData.teethMobile ? this.feedbackData.teethMobile.split(",").map(Number) : [];
+            this.teethMobileOne = [];
+            this.teethMobileTwo = this.getArrEqual(arrayTwo, mobileArray);
+            this.teethMobileThree = this.getArrEqual(arrayThree, mobileArray);
+            this.teethMobileFour = [];
+            let attachArray = this.feedbackData.teethAttachment ? this.feedbackData.teethAttachment.split(",").map(Number) : [];
+            this.teethAttachmentOne = [];
+            this.teethAttachmentTwo = this.getArrEqual(arrayTwo, attachArray);
+            this.teethAttachmentThree = this.getArrEqual(arrayThree, attachArray);
+            this.teethAttachmentFour = [];
           }
         });
       },
