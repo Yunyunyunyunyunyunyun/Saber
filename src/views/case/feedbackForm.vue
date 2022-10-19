@@ -20,6 +20,10 @@
       <div class="feedback-form-info-title">
         <i class="el-icon-chat-line-square icon-color"></i>阶段反馈
       </div>
+      <div class="feedback-form-common-content">
+        <span class="feedback-form-common-content-title mr10">1. 当前矫治器贴合情况:</span>
+        <span class="feedback-form-common-content-title">{{feedbackData.fitSituation | filterFitSituation}}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -33,7 +37,17 @@
         feedbackData: {},
       }
     },
-    filters: {},
+    filters: {
+      filterFitSituation(value) {
+        if (value === 1) {
+          return "矫治器贴合";
+        } else if (value === 2) {
+          return "矫治器不贴合";
+        } else {
+          return "无";
+        }
+      }
+    },
     created() {
       this.restartData = JSON.parse(this.$route.query.restartObject);
       if (this.restartData.restartId) {
@@ -120,5 +134,16 @@
     color: #555;
     font-size: 18px;
     font-weight: 700;
+  }
+  .feedback-form-common-content {
+    margin-bottom: 60px;
+  }
+  .feedback-form-common-content-title {
+    color: #555;
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .mr10 {
+    margin-right: 10px;
   }
 </style>

@@ -29,7 +29,7 @@
                   <el-radio :label="1" border>矫治器贴合</el-radio>
                   <el-radio :label="2" border>矫治器不贴合</el-radio>
                 </el-radio-group>
-                <div class="not-fit-desc" :class="{'hide-desc': feedbackForm.isFit !== 2}">需提交全口硅橡胶印膜，或全口数字模型文件</div>
+                <div class="not-fit-desc" :class="{'hide-desc': feedbackForm.isFit !== 2}">需提交全口数字模型文件</div>
               </el-form-item>
               <div class="diagnosis-title">2. 临床检查</div>
               <div class="restart-case-main-check">
