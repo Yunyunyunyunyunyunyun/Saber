@@ -351,6 +351,174 @@
         <span class="feedback-form-common-content-title">4. 后续矫治要求</span>
         <div class="feedback-form-common-content-every-content-text">{{feedbackData.correctRequirement ? feedbackData.correctRequirement : '未填写任何信息'}}</div>
       </div>
+      <div class="feedback-form-info-title">
+        <i class="el-icon-video-camera icon-color"></i>影像及资料
+      </div>
+      <div class="feedback-photo-title">佩戴矫治器不贴合照片</div>
+      <el-row class="mb20">
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.noiftPhotoOne" :src="feedbackData.noiftPhotoOne" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">不贴合1</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.noiftPhotoTwo" :src="feedbackData.noiftPhotoTwo" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">不贴合2</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.noiftPhotoThree" :src="feedbackData.noiftPhotoThree" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">不贴合3</div>
+        </el-col>
+      </el-row>
+      <el-row class="mb20">
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.noiftPhotoFour" :src="feedbackData.noiftPhotoFour" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">不贴合4</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.noiftPhotoFive" :src="feedbackData.noiftPhotoFive" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">不贴合5</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.noiftPhotoSix" :src="feedbackData.noiftPhotoSix" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">不贴合6</div>
+        </el-col>
+      </el-row>
+      <div class="feedback-photo-title">面像及口内照片</div>
+      <el-row class="mb20">
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.frontSmilingPath" :src="feedbackData.frontSmilingPath" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">正面微笑照</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.frontPath" :src="feedbackData.frontPath" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">正面照</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.sidePath" :src="feedbackData.sidePath" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">侧面照</div>
+        </el-col>
+      </el-row>
+      <el-row class="mb20">
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.upJawPath" :src="feedbackData.upJawPath" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">上颌口内照</div>
+        </el-col>
+        <el-col :span="8"></el-col>
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.downJawPath" :src="feedbackData.downJawPath" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">下颌口内照</div>
+        </el-col>
+      </el-row>
+      <el-row class="mb20">
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.rightJawPath" :src="feedbackData.rightJawPath" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">右侧口内照</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.frontJawPath" :src="feedbackData.frontJawPath" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">正面口内照</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.leftJawPath" :src="feedbackData.leftJawPath" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">左侧口内照</div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="8">
+          <div class="feedback-photo-title">X光照片</div>
+        </el-col>
+        <el-col :span="8"></el-col>
+        <el-col :span="8">
+          <div class="feedback-photo-title">其他影像</div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.allXrayPath" :src="feedbackData.allXrayPath" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">全景片</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.sideXrayPath" :src="feedbackData.sideXrayPath" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">侧位片</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="feedback-photo-picture-contain">
+            <img v-if="feedbackData.otherXrayPath" :src="feedbackData.otherXrayPath" class="feedback-photo-picture-img">
+            <i v-else class="el-icon-picture feedback-photo-picture-icon"></i>
+          </div>
+          <div class="feedback-photo-picture-desc">其他</div>
+        </el-col>
+      </el-row>
+      <div class="feedback-main-every-model">
+        <div>牙颌模型：</div>
+        <div>
+          <div class="mb17">
+            <span class="mr10">数字模型文件</span>
+            <span v-if="feedbackData.upJawModelName && feedbackData.downJawModelName">
+              <span class="feedback-main-every-model-content">本地上传</span>
+            </span>
+            <span class="feedback-main-every-model-content" v-else>无</span>
+          </div>
+        </div>
+      </div>
+      <div v-if="feedbackData.upJawModelName && feedbackData.downJawModelName && feedbackData.upJawModelPath && feedbackData.downJawModelPath" class="feedback-photo-model">
+        <div class="mb10">
+          <span>上颌</span>
+          <div class="feedback-photo-model-text" :title="feedbackData.upJawModelName" @click="downloadPhoto(feedbackData.upJawModelPath)">{{feedbackData.upJawModelName}}</div>
+        </div>
+        <div>
+          <span>下颌</span>
+          <div class="feedback-photo-model-text" :title="feedbackData.downJawModelName" @click="downloadPhoto(feedbackData.downJawModelPath)">{{feedbackData.downJawModelName}}</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -499,6 +667,9 @@
             this.teethAttachmentFour = [];
           }
         });
+      },
+      downloadPhoto(path) {
+        window.open(path);
       },
     }
   }
@@ -737,5 +908,97 @@
     word-break: break-all;
     word-wrap: break-word;
     overflow-y: auto;
+  }
+  .feedback-photo-title {
+    margin: 30px 0 20px;
+    color: #333;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .feedback-photo-picture-contain {
+    border: 1px solid #d9d9d9;
+    width: 190px;
+    height: 180px;
+    line-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .feedback-photo-picture-img {
+    max-width: 190px;
+    max-height: 180px;
+    display: block;
+  }
+  .feedback-photo-picture-icon {
+    font-size: 180px;
+    color: #d9d9d9;
+    width: 190px;
+    height: 180px;
+    line-height: 180px;
+    text-align: center;
+  }
+  .feedback-photo-picture-desc {
+    width: 190px;
+    height: 40px;
+    line-height: 40px;
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    font-size: 14px;
+    font-weight: 300;
+    color: #555;
+    text-align: center;
+  }
+  .mb20 {
+    margin-bottom: 20px;
+  }
+  .mr10 {
+    margin-right: 10px;
+  }
+  .mb17 {
+    margin-bottom: 17px;
+  }
+  .mb10 {
+    margin-bottom: 10px;
+  }
+  .feedback-main-every-model {
+    margin-top: 30px;
+    display: flex;
+    color: #555;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .feedback-main-every-model-content {
+    color: #333;
+    font-size: 16px;
+    font-weight: 400;
+    margin-right: 10px;
+  }
+  .feedback-photo-model {
+    margin: 0 0 0 170px;
+    width: 500px;
+    padding: 13px 26px;
+    background: #f6f7fa;
+    border-radius: 4px;
+  }
+  .feedback-photo-model>div {
+    color: #555;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 400;
+    display: flex;
+  }
+  .feedback-photo-model-text {
+    color: #409EFF;
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 400;
+    margin-left: 10px;
+    max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    cursor: pointer;
   }
 </style>
