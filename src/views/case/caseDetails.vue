@@ -96,9 +96,17 @@
               <div class="detail-out-history-every-date">{{item.createTime}}</div>
               <div class="detail-out-history-every-rate"></div>
               <div class="detail-out-history-every-disableBtn" v-if="item && item.state">
-                <span v-if="item.state === 10">资料已保存，待提交。<span v-if="caseData.record.state === 10" class="detail-out-history-every-disableBtn-canClick" @click="toEditPage">点击进入继续编辑</span></span>
+                <span v-if="item.state === 10">
+                  <span>资料已保存，待提交。</span>
+                  <span v-if="caseData.record.state === 10 && (caseData.record.caseType !== 2 && caseData.record.caseType !== 3)" class="detail-out-history-every-disableBtn-canClick" @click="toEditPage">点击进入继续编辑</span>
+                  <span v-else-if="caseData.record.state === 10 && caseData.record.caseType === 2" class="detail-out-history-every-disableBtn-canClick" @click="toRestartEditPage(item, caseData)">点击进入继续编辑</span>
+                </span>
                 <span v-else-if="item.state === 20">资料已提交</span>
-                <span v-else-if="item.state === 30">资料不合格,请补齐。<span v-if="caseData.record.state === 30" class="detail-out-history-every-disableBtn-canClick" @click="toEditPage">点击进入继续编辑</span></span>
+                <span v-else-if="item.state === 30">
+                  <span>资料不合格,请补齐。</span>
+                  <span v-if="caseData.record.state === 30 && (caseData.record.caseType !== 2 && caseData.record.caseType !== 3)" class="detail-out-history-every-disableBtn-canClick" @click="toEditPage">点击进入继续编辑</span>
+                  <span v-else-if="caseData.record.state === 30 && caseData.record.caseType === 2" class="detail-out-history-every-disableBtn-canClick" @click="toRestartEditPage(item, caseData)">点击进入继续编辑</span>
+                </span>
                 <span v-else-if="item.state === 40">资料审核通过,3D方案设计中</span>
                 <span v-else-if="item.state === 50">方案：<span class="detail-out-history-every-disableBtn-canClick" @click="toThreeD(item.dId)">{{item.fileName}}</span></span>
                 <span v-else-if="item.state === 60">方案：<span class="detail-out-history-every-disableBtn-canClick" @click="toThreeD(item.dId)">{{item.fileName}}</span>,未批准</span>
@@ -708,6 +716,17 @@
           query: {
             id: this.currentCaseId,
             isEdit: true,
+            isDoctor: this.currentIsDoctor,
+          }
+        });
+      },
+      toRestartEditPage(dataItem, item) {
+        this.$router.push({
+          name: "RestartCaseDetail",
+          params: {
+            isEdit: true,
+            dataItem: dataItem,
+            item: item,
             isDoctor: this.currentIsDoctor,
           }
         });

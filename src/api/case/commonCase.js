@@ -121,7 +121,7 @@ export const completeCase = (row) => {
 
 export const preserveRestartCase = (row) => {
   return request({
-    url: '/api/orth/treatmentprescriptionrestart/restart_wait',
+    url: '/api/orth/treatmentprescriptionrestart/wait',
     method: 'post',
     data: row,
   })

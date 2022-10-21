@@ -837,7 +837,7 @@
 </template>
 <script>
   import { uploadOBS } from "@/util/obs";
-  import { preserveRestartCase, saveRestartCase } from "@/api/case/commonCase";
+  import { preserveRestartCase, saveRestartCase, getFeedbackForm } from "@/api/case/commonCase";
   export default {
     name: "RestartCaseDetail",
     data() {
@@ -954,6 +954,9 @@
         percentageNumber: 0,
         activeName: "first",
         currentIsDoctor: false,
+        currentIsEdit: false,
+        addHisId: "",
+        caseDataItem: {},
       }
     },
     computed: {
@@ -984,6 +987,11 @@
       }
       this.caseItem = rParams.item;
       this.currentIsDoctor = rParams.isDoctor;
+      this.currentIsEdit = rParams.isEdit || false;
+      if (this.currentIsEdit) {
+        this.caseDataItem = rParams.dataItem;
+        this.getRestartDetails(this.caseDataItem.restartId);
+      }
       if (this.maxUpSteps === 0) {
         this.feedbackForm.upSteps = 0;
       }
@@ -995,6 +1003,14 @@
       sessionStorage.removeItem("rParamsData");
     },
     methods: {
+      getRestartDetails(restartId) {
+        let params = {
+          restartId: restartId,
+        }
+        getFeedbackForm(params).then(res => {
+          if (res.data.code == 200) {}
+        });
+      },
       back() {
         this.$router.go(-1);
       },
@@ -1008,6 +1024,9 @@
         let data = {};
         if (this.caseItem && this.caseItem.record && this.caseItem.record.id) {
           data.recordId = this.caseItem.record.id;
+        }
+        if (this.currentIsEdit) {
+          data.hisId = this.caseDataItem.id;
         }
         if (this.feedbackForm.isFit) {
           data.fitSituation = this.feedbackForm.isFit;
@@ -1210,12 +1229,19 @@
           data.downJawModelName = this.photoForm.downJawModelName;
         }
         if (state === "preserve") {
+          if (!this.currentIsEdit && this.addHisId) {
+            data.hisId = this.addHisId;
+          }
           preserveRestartCase(data).then(res => {
             if (res.data.code == 200) {
               this.$message({
                 type: "success",
                 message: "暂存成功!"
               });
+              let resData = res.data.data;
+              if (!this.currentIsEdit && resData.length) {
+                this.addHisId = resData[0];
+              }
             }
           });
         } else if(state === "submit") {
