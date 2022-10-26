@@ -185,4 +185,14 @@ export default [{
     component: () =>
       import( /* webpackChunkName: "views" */ '@/views/case/feedbackForm')
   }]
+}, {
+  path: '/case',
+  component: Layout,
+  redirect: '/case/mergeForm',
+  children: [{
+    path: 'mergeForm',
+    name: 'MergeForm',
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/case/mergeForm')
+  }]
 }]

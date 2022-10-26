@@ -174,6 +174,14 @@
         completeData: {},
       }
     },
+    props: {
+      completeObj: {
+        type: Object,
+        default: () => {
+          return {};
+        }
+      },
+    },
     filters: {
       filterCorrectComplete(value) {
         if (value === 1) {
@@ -206,7 +214,11 @@
       },
     },
     created() {
-      this.currentCompleteData = JSON.parse(this.$route.query.completeObject);
+      if (this.completeObj.ifComponents) {
+        this.currentCompleteData = this.completeObj;
+      } else {
+        this.currentCompleteData = JSON.parse(this.$route.query.completeObject);
+      }
       if (this.currentCompleteData.completeId) {
         this.getCompleteData(this.currentCompleteData.completeId);
       }

@@ -574,6 +574,14 @@
         teethAttachmentFour: [],
       }
     },
+    props: {
+      feedbackObj: {
+        type: Object,
+        default: () => {
+          return {};
+        }
+      },
+    },
     filters: {
       filterFitSituation(value) {
         if (value === 1) {
@@ -597,7 +605,11 @@
       },
     },
     created() {
-      this.restartData = JSON.parse(this.$route.query.restartObject);
+      if (this.feedbackObj.ifComponents) {
+        this.restartData = this.feedbackObj;
+      } else {
+        this.restartData = JSON.parse(this.$route.query.restartObject);
+      }
       if (this.restartData.restartId) {
         this.getFeedbackData(this.restartData.restartId);
       }
@@ -622,7 +634,7 @@
             this.annexInfoTwo = this.getArrEqual(arrayTwo, enclosureAppointArray);
             this.annexInfoThree = this.getArrEqual(arrayThree, enclosureAppointArray);
             this.annexInfoFour = this.getArrEqual(arrayFour, enclosureAppointArray);
-            if (Number(this.feedbackData.teethClearance) !== 0) {
+            if (Number(this.feedbackData.teethClearance) !== 0 && this.feedbackData.teethClearance && this.feedbackData.teethClearance.length) {
               let clearArray = this.feedbackData.teethClearance.split(",");
               this.teethClearance1 = clearArray[0] == "none" ? "" : Number(clearArray[0]);
               this.teethClearance2 = clearArray[1] == "none" ? "" : Number(clearArray[1]);

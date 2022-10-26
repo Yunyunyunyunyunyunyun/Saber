@@ -663,6 +663,14 @@ export default {
       toothExtractionExcept: "",
     }
   },
+  props: {
+    prescriptionObj: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    },
+  },
   filters: {
     filterSex(value) {
       if (value === 0) {
@@ -901,8 +909,13 @@ export default {
     },
   },
   created() {
-    this.currentPhotoId = this.$route.query.photoId || "";
-    this.currentPrescriptionId = this.$route.query.prescriptionId || "";
+    if (this.prescriptionObj.ifComponents) {
+      this.currentPhotoId = this.prescriptionObj.photoId || "";
+      this.currentPrescriptionId = this.prescriptionObj.prescriptionId || "";
+    } else {
+      this.currentPhotoId = this.$route.query.photoId || "";
+      this.currentPrescriptionId = this.$route.query.prescriptionId || "";
+    }
     if (this.currentPhotoId && this.currentPrescriptionId) {
       this.getPrescriptionData(this.currentPhotoId, this.currentPrescriptionId);
     }

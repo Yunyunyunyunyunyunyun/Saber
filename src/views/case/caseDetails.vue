@@ -83,7 +83,7 @@
         <div class="detail-out-show-see">
           <div class="detail-out-show-see-basic">
             <div class="detail-out-show-see-basic-item" @click="toPhoto"><i class="el-icon-picture-outline item-icon"></i>照片</div>
-            <div class="detail-out-show-see-basic-item" @click="toPrescription(caseData.record)"><i class="el-icon-tickets item-icon"></i>处方表</div>
+            <div class="detail-out-show-see-basic-item" @click="toFinalPrescription(caseData)"><i class="el-icon-tickets item-icon"></i>处方表</div>
             <!-- <div v-if="currentIsDoctor" class="detail-out-show-see-basic-item" @click="toShipInfo(caseData)"><i class="el-icon-truck item-icon"></i>发货信息</div> -->
           </div>
         </div>
@@ -752,6 +752,29 @@
           }
         });
         window.open(routeData.href, '_blank');
+      },
+      toFinalPrescription(item) {
+        if (item.record.prescriptionId && item.record.prescriptionId !== -1
+        && ((item.record.restartId && item.record.restartId === -1) || !item.record.restartId)
+        && ((item.record.completeId && item.record.completeId === -1) || !item.record.completeId)) {
+          this.toPrescription(item.record);
+        } else if (item.record.restartId && item.record.restartId !== -1
+        && ((item.record.prescriptionId && item.record.prescriptionId === -1) || !item.record.prescriptionId)
+        && ((item.record.completeId && item.record.completeId === -1) || !item.record.completeId)) {
+          this.toFeedbackForm(item.record, item.record);
+        } else if (item.record.completeId && item.record.completeId !== -1
+        && ((item.record.restartId && item.record.restartId === -1) || !item.record.restartId)
+        && ((item.record.prescriptionId && item.record.prescriptionId === -1) || !item.record.prescriptionId)) {
+          this.toCompleteForm(item.record, item.record);
+        } else {
+          let routeData = this.$router.resolve({
+            path: "/case/mergeForm",
+            query: {
+              mergeObject: JSON.stringify(item),
+            }
+          });
+          window.open(routeData.href, '_blank');
+        }
       },
       toFeedbackForm(item, caseData) {
         let restartNeed = {
