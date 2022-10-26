@@ -1003,12 +1003,114 @@
       sessionStorage.removeItem("rParamsData");
     },
     methods: {
+      getArrEqual(arr1, arr2) {
+        return arr1.filter(item => arr2.indexOf(item)>-1);
+      },
       getRestartDetails(restartId) {
         let params = {
           restartId: restartId,
         }
         getFeedbackForm(params).then(res => {
-          if (res.data.code == 200) {}
+          if (res.data.code == 200) {
+            let resultData = res.data.data;
+            this.feedbackForm.isFit = resultData.fitSituation;
+            this.feedbackForm.upSteps = resultData.maxillaryStep;
+            this.feedbackForm.downSteps = resultData.mandibleStep;
+            this.feedbackForm.annex = resultData.enclosureAdjust;
+            let arrayOne = [55,54,53,52,51,61,62,63,64,65];
+            let arrayTwo = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28];
+            let arrayThree = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+            let arrayFour = [85,84,83,82,81,71,72,73,74,75];
+            if (Number(resultData.enclosureAdjust) === 2) {
+              let enclosureArray = resultData.enclosureAppoint ? resultData.enclosureAppoint.split(",").map(Number) : [];
+              this.feedbackForm.annexInfoOne = [];
+              this.feedbackForm.annexInfoTwo = this.getArrEqual(arrayTwo, enclosureArray);
+              this.feedbackForm.annexInfoThree = this.getArrEqual(arrayThree, enclosureArray);
+              this.feedbackForm.annexInfoFour = [];
+            }
+            if (Number(resultData.teethClearance) == 0) {
+              this.feedbackForm.teethClearance = 0;
+            } else {
+              this.feedbackForm.teethClearance = 1;
+              let clearArray = resultData.teethClearance.split(",");
+              this.feedbackForm.teethClearance1 = clearArray[0] == "none" ? "" : Number(clearArray[0]);
+              this.feedbackForm.teethClearance2 = clearArray[1] == "none" ? "" : Number(clearArray[1]);
+              this.feedbackForm.teethClearance3 = clearArray[2] == "none" ? "" : Number(clearArray[2]);
+              this.feedbackForm.teethClearance4 = clearArray[3] == "none" ? "" : Number(clearArray[3]);
+              this.feedbackForm.teethClearance5 = clearArray[4] == "none" ? "" : Number(clearArray[4]);
+              this.feedbackForm.teethClearance6 = clearArray[5] == "none" ? "" : Number(clearArray[5]);
+              this.feedbackForm.teethClearance7 = clearArray[6] == "none" ? "" : Number(clearArray[6]);
+              this.feedbackForm.teethClearance8 = clearArray[7] == "none" ? "" : Number(clearArray[7]);
+              this.feedbackForm.teethClearance9 = clearArray[8] == "none" ? "" : Number(clearArray[8]);
+              this.feedbackForm.teethClearance10 = clearArray[9] == "none" ? "" : Number(clearArray[9]);
+              this.feedbackForm.teethClearance11 = clearArray[10] == "none" ? "" : Number(clearArray[10]);
+              this.feedbackForm.teethClearance12 = clearArray[11] == "none" ? "" : Number(clearArray[11]);
+              this.feedbackForm.teethClearance13 = clearArray[12] == "none" ? "" : Number(clearArray[12]);
+              this.feedbackForm.teethClearance14 = clearArray[13] == "none" ? "" : Number(clearArray[13]);
+              this.feedbackForm.teethClearance15 = clearArray[14] == "none" ? "" : Number(clearArray[14]);
+              this.feedbackForm.teethClearance16 = clearArray[15] == "none" ? "" : Number(clearArray[15]);
+              this.feedbackForm.teethClearance17 = clearArray[16] == "none" ? "" : Number(clearArray[16]);
+              this.feedbackForm.teethClearance18 = clearArray[17] == "none" ? "" : Number(clearArray[17]);
+              this.feedbackForm.teethClearance19 = clearArray[18] == "none" ? "" : Number(clearArray[18]);
+              this.feedbackForm.teethClearance20 = clearArray[19] == "none" ? "" : Number(clearArray[19]);
+              this.feedbackForm.teethClearance21 = clearArray[20] == "none" ? "" : Number(clearArray[20]);
+              this.feedbackForm.teethClearance22 = clearArray[21] == "none" ? "" : Number(clearArray[21]);
+              this.feedbackForm.teethClearance23 = clearArray[22] == "none" ? "" : Number(clearArray[22]);
+              this.feedbackForm.teethClearance24 = clearArray[23] == "none" ? "" : Number(clearArray[23]);
+              this.feedbackForm.teethClearance25 = clearArray[24] == "none" ? "" : Number(clearArray[24]);
+              this.feedbackForm.teethClearance26 = clearArray[25] == "none" ? "" : Number(clearArray[25]);
+              this.feedbackForm.teethClearance27 = clearArray[26] == "none" ? "" : Number(clearArray[26]);
+              this.feedbackForm.teethClearance28 = clearArray[27] == "none" ? "" : Number(clearArray[27]);
+              this.feedbackForm.teethClearance29 = clearArray[28] == "none" ? "" : Number(clearArray[28]);
+              this.feedbackForm.teethClearance30 = clearArray[29] == "none" ? "" : Number(clearArray[29]);
+            }
+            this.feedbackForm.isAbnormal = resultData.mandibularJointAbnor;
+            this.feedbackForm.otherChecks = resultData.otherInspect;
+            if (Number(resultData.teethMobile) == 0) {
+              this.feedbackForm.teethMobile = 0;
+            } else {
+              this.feedbackForm.teethMobile = 1;
+              let mobileArray = resultData.teethMobile ? resultData.teethMobile.split(",").map(Number) : [];
+              this.feedbackForm.teethMobileOne = [];
+              this.feedbackForm.teethMobileTwo = this.getArrEqual(arrayTwo, mobileArray);
+              this.feedbackForm.teethMobileThree = this.getArrEqual(arrayThree, mobileArray);
+              this.feedbackForm.teethMobileFour = [];
+            }
+            if (Number(resultData.teethAttachment) == 0) {
+              this.feedbackForm.teethAttachment = 0;
+            } else {
+              this.feedbackForm.teethAttachment = 1;
+              let attachArray = resultData.teethAttachment ? resultData.teethAttachment.split(",").map(Number) : [];
+              this.feedbackForm.teethAttachmentOne = [];
+              this.feedbackForm.teethAttachmentTwo = this.getArrEqual(arrayTwo, attachArray);
+              this.feedbackForm.teethAttachmentThree = this.getArrEqual(arrayThree, attachArray);
+              this.feedbackForm.teethAttachmentFour = [];
+            }
+            this.feedbackForm.flatBear = resultData.frontToothFlatGuidePlate;
+            this.feedbackForm.remoteTreatments = resultData.remoteTreatments;
+            this.feedbackForm.correctiveRequire = resultData.correctRequirement;
+            this.photoForm.notFitOne = resultData.noiftPhotoOne;
+            this.photoForm.notFitTwo = resultData.noiftPhotoTwo;
+            this.photoForm.notFitThree = resultData.noiftPhotoThree;
+            this.photoForm.notFitFour = resultData.noiftPhotoFour;
+            this.photoForm.notFitFive = resultData.noiftPhotoFive;
+            this.photoForm.notFitSix = resultData.noiftPhotoSix;
+            this.photoForm.frontSmilingPath = resultData.frontSmilingPath;
+            this.photoForm.frontPath = resultData.frontPath;
+            this.photoForm.sidePath = resultData.sidePath;
+            this.photoForm.upJawPath = resultData.upJawPath;
+            this.photoForm.downJawPath = resultData.downJawPath;
+            this.photoForm.rightJawPath = resultData.rightJawPath;
+            this.photoForm.frontJawPath = resultData.frontJawPath;
+            this.photoForm.leftJawPath = resultData.leftJawPath;
+            this.photoForm.allXrayPath = resultData.allXrayPath;
+            this.photoForm.sideXrayPath = resultData.sideXrayPath;
+            this.photoForm.otherXrayPath = resultData.otherXrayPath;
+            this.photoForm.upJawModelPath = resultData.upJawModelPath;
+            this.photoForm.upJawModelName = resultData.upJawModelName;
+            this.photoForm.downJawModelPath = resultData.downJawModelPath;
+            this.photoForm.downJawModelName = resultData.downJawModelName;
+          }
         });
       },
       back() {
