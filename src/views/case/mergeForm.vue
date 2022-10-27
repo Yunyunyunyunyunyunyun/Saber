@@ -2,21 +2,24 @@
   <div class="merge-form" v-resize="resize" ref="mergeFormRef" :class="{'min-merge-form': isMinWidth}">
     <el-tabs tab-position="left" v-model="activeName" @tab-click="handleClick">
       <el-tab-pane name="complete" v-if="mergeData.record && mergeData.record.completeId && mergeData.record.completeId !== -1">
-        <span slot="label">
-          完成确认表
-        </span>
+        <div slot="label">
+          <div>{{completeTime}}</div>
+          <div>完成确认表</div>
+        </div>
         <complete-form :key="completeKey" :completeObj="completeObj"></complete-form>
       </el-tab-pane>
       <el-tab-pane name="feedback" v-if="mergeData.record && mergeData.record.restartId && mergeData.record.restartId !== -1">
-        <span slot="label">
-          重启反馈表
-        </span>
+        <div slot="label">
+          <div>{{feedbackTime}}</div>
+          <div>重启反馈表</div>
+        </div>
         <feedback-form :key="feedbackKey" :feedbackObj="feedbackObj"></feedback-form>
       </el-tab-pane>
       <el-tab-pane name="prescription" v-if="mergeData.record && mergeData.record.prescriptionId && mergeData.record.prescriptionId !== -1">
-        <span slot="label">
-          处方表
-        </span>
+        <div slot="label">
+          <div>{{prescriptionTime}}</div>
+          <div>处方表</div>
+        </div>
         <prescription-details :key="prescriptionKey" :prescriptionObj="prescriptionObj"></prescription-details>
       </el-tab-pane>
     </el-tabs>
@@ -44,6 +47,9 @@
         prescriptionKey: "",
         activeName: "",
         isMinWidth: false,
+        completeTime: "",
+        feedbackTime: "",
+        prescriptionTime: "",
       }
     },
     directives: {
@@ -89,6 +95,21 @@
       } else {
         this.activeName = "feedback";
       }
+      this.completeTime = this.mergeData.historyList.find((item) => {
+          return item.caseType === 3;
+        }) ? this.mergeData.historyList.find((item) => {
+          return item.caseType === 3;
+        }).createTime.substring(0, 10) : "";
+      this.feedbackTime = this.mergeData.historyList.find((item) => {
+          return item.caseType === 2;
+        }) ? this.mergeData.historyList.find((item) => {
+          return item.caseType === 2;
+        }).createTime.substring(0, 10) : "";
+      this.prescriptionTime = this.mergeData.historyList.find((item) => {
+          return item.caseType !== 3 && item.caseType !== 2;
+        }) ? this.mergeData.historyList.find((item) => {
+          return item.caseType !== 3 && item.caseType !== 2;
+        }).createTime.substring(0, 10) : "";
     },
     methods: {
       handleClick(tab, event) {
@@ -132,5 +153,10 @@
     height: auto;
     top: 55px;
     left: 0;
+  }
+  .merge-form >>> .el-tabs__item {
+    line-height: normal;
+    padding: 10px 20px;
+    height: 60px;
   }
 </style>
