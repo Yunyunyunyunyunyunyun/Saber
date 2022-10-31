@@ -1,4 +1,5 @@
 <template>
+<div class="complete-case-pack">
   <div class="complete-case-contain">
     <div class="complete-case-title">
       <el-button icon="el-icon-arrow-left" @click="back">返回</el-button>
@@ -405,6 +406,7 @@
       <el-progress :text-inside="true" :stroke-width="20" :percentage="percentageNumber"></el-progress>
     </el-dialog>
   </div>
+</div>
 </template>
 <script>
   import { uploadOBS } from "@/util/obs";
@@ -755,6 +757,11 @@
   }
 </script>
 <style scoped>
+.complete-case-pack {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
 .complete-case-contain {
   width: 1200px;
   margin: 0 auto;

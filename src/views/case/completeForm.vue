@@ -1,4 +1,5 @@
 <template>
+<div class="complete-form-pack">
   <div class="complete-form-contain">
     <div class="complete-form-title">
       <span title="完成确认表">完成确认表</span>
@@ -163,6 +164,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
   import { getCompleteForm } from "@/api/case/commonCase";
@@ -241,8 +243,12 @@
   }
 </script>
 <style scoped>
-  .complete-form-contain {
+  .complete-form-pack {
     width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+  .complete-form-contain {
     width: 1200px;
     margin: 0 auto;
   }

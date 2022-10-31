@@ -1,5 +1,6 @@
 <template>
-  <div class="merge-form" v-resize="resize" ref="mergeFormRef" :class="{'min-merge-form': isMinWidth}">
+<div class="merge-form-pack">
+  <div class="merge-form">
     <el-tabs tab-position="left" v-model="activeName" @tab-click="handleClick">
       <el-tab-pane name="complete" v-if="mergeData.record && mergeData.record.completeId && mergeData.record.completeId !== -1">
         <div slot="label">
@@ -24,6 +25,7 @@
       </el-tab-pane>
     </el-tabs>
   </div>
+</div>
 </template>
 <script>
   import prescriptionDetails from "./prescriptionDetails.vue";
@@ -46,29 +48,9 @@
         feedbackKey: "",
         prescriptionKey: "",
         activeName: "",
-        isMinWidth: false,
         completeTime: "",
         feedbackTime: "",
         prescriptionTime: "",
-      }
-    },
-    directives: {
-      resize: {
-        bind(el, binding) {
-          let width = '', height = '';
-          function isReize() {
-            const style = document.defaultView.getComputedStyle(el);
-            if (width !== style.width || height !== style.height) {
-              binding.value();
-            }
-            width = style.width;
-            height = style.height;
-          }
-          el.__vueSetInterval__ = setInterval(isReize, 300);
-        },
-        unbind(el) {
-          clearInterval(el.__vueSetInterval__);
-        }
       }
     },
     created() {
@@ -125,29 +107,21 @@
           this.prescriptionKey = "";
         }
       },
-      resize() {
-        if (this.$refs["mergeFormRef"].offsetWidth <= 1440) {
-          this.isMinWidth = true;
-        } else {
-          this.isMinWidth = false;
-        }
-      },
     }
   }
 </script>
 <style scoped>
-  .merge-form {
-    min-width: 1440px;
+  .merge-form-pack {
+    width: 100%;
+    height: 100%;
     overflow: auto;
   }
-  .merge-form >>> .el-tabs__header {
-    width: 110px;
-    position: absolute;
-    height: auto;
-    top: 55px;
-    left: calc(calc(calc(100% - 1200px) / 2) - 120px);
+  .merge-form {
+    width: 1440px;
+    margin: 0 auto;
+    position: relative;
   }
-  .min-merge-form >>> .el-tabs__header {
+  .merge-form >>> .el-tabs__header {
     width: 110px;
     position: absolute;
     height: auto;

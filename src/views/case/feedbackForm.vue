@@ -1,4 +1,5 @@
 <template>
+<div class="feedback-form-pack">
   <div class="feedback-form-contain">
     <div class="feedback-form-title">
       <span title="重启反馈表">重启反馈表</span>
@@ -521,6 +522,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
   import { getFeedbackForm } from "@/api/case/commonCase";
@@ -687,8 +689,12 @@
   }
 </script>
 <style scoped>
-  .feedback-form-contain {
+  .feedback-form-pack {
     width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+  .feedback-form-contain {
     width: 1200px;
     margin: 0 auto;
   }

@@ -1,4 +1,5 @@
 <template>
+<div class="detail-pack">
   <div class="detail-contain">
     <div class="detail-title">
       <el-button icon="el-icon-arrow-left" @click="back">返回</el-button>
@@ -321,6 +322,7 @@
       </div>
     </el-dialog>
   </div>
+</div>
 </template>
 <script>
   import { getDetails, getThreeDDetail, getFailHistoryReason, getPhotoDetail, getRestartPhotoDetail } from "@/api/case/commonCase";
@@ -838,6 +840,11 @@
   }
 </script>
 <style scoped>
+  .detail-pack {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
   .detail-contain {
     width: 950px;
     margin: 0 auto;

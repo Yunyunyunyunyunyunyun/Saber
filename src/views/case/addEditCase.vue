@@ -1,4 +1,5 @@
 <template>
+<div class="all-add-pack">
   <div class="all-add-contain">
     <div class="add-title">
       <el-button icon="el-icon-arrow-left" @click="back">返回</el-button>
@@ -962,6 +963,7 @@
       <el-progress :text-inside="true" :stroke-width="20" :percentage="percentageNumber"></el-progress>
     </el-dialog>
   </div>
+</div>
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -1823,6 +1825,11 @@ export default {
 }
 </script>
 <style scoped>
+.all-add-pack {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
 .all-add-contain {
   width: 1200px;
   margin: 0 auto;

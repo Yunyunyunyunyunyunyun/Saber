@@ -389,6 +389,9 @@ export default {
 <style scoped>
 .open-contain {
   padding: 20px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 .form-contain {
   padding: 20px;

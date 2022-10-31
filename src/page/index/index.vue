@@ -15,15 +15,10 @@
         <!-- 顶部标签卡 -->
         <!-- <tags /> -->
         <!-- 主体视图层 -->
-        <el-scrollbar style="height:100%">
-          <keep-alive>
-            <router-view class="avue-view"
-                         v-if="$route.meta.keepAlive" />
-          </keep-alive>
-          <router-view class="avue-view"
-                       v-if="!$route.meta.keepAlive" />
-        </el-scrollbar>
-
+        <keep-alive>
+          <router-view class="avue-view" v-if="$route.meta.keepAlive"/>
+        </keep-alive>
+        <router-view class="avue-view" v-if="!$route.meta.keepAlive"/>
       </div>
     </div>
     <!-- <el-footer class="avue-footer">

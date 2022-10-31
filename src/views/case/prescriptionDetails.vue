@@ -1,4 +1,5 @@
 <template>
+<div class="prescription-pack">
   <div class="prescription-contain">
     <div class="prescription-title" v-if="prescriptionData.name">
       <span :title="prescriptionData.name+' 的处方表'">{{prescriptionData.name}} 的处方表</span>
@@ -605,6 +606,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
 import { getPrescriptionDetail } from "@/api/case/commonCase";
@@ -1005,8 +1007,12 @@ export default {
 }
 </script>
 <style scoped>
-.prescription-contain {
+.prescription-pack {
   width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.prescription-contain {
   width: 1200px;
   margin: 0 auto;
 }
