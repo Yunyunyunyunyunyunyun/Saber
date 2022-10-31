@@ -1,4 +1,5 @@
 <template>
+<div class="doctor-contain-pack">
   <div class="doctor-contain">
     <el-button type="primary" icon="el-icon-plus" @click="addCaseList">新建病例</el-button>
     <div class="doctor-main">
@@ -18,6 +19,7 @@
       </el-tabs>
     </div>
   </div>
+</div>
 </template>
 <script>
 import { getStatistics } from "@/api/doctor/commonDoctor";
@@ -73,10 +75,14 @@ export default {
 }
 </script>
 <style scoped>
+.doctor-contain-pack {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
 .doctor-contain {
   width: 1200px;
-  margin: 0 auto;
-  padding: 20px 0;
+  margin: 20px auto;
 }
 .doctor-main {
   margin: 20px 0;
