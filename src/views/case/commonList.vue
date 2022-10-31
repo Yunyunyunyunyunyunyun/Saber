@@ -412,6 +412,11 @@ export default {
 }
 </script>
 <style scoped>
+  .case-contain {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
   .case-search {
     padding: 20px 20px 12px;
   }

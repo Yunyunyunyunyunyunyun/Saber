@@ -4,7 +4,7 @@
     :data="orderTableData"
     stripe
     border
-    height="590"
+    height="598"
     class="w100">
     <el-table-column
       prop="id"

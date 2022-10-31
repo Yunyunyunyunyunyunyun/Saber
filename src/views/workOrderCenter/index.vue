@@ -350,6 +350,9 @@
 <style scoped>
   .work-order-center {
     padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
   .switch-state {
     list-style: none;

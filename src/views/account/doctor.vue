@@ -643,6 +643,11 @@ export default {
 }
 </script>
 <style scoped>
+  .doctor-contain {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
   .doctor-search {
     padding: 20px 20px 12px;
   }
