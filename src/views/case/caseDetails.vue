@@ -129,7 +129,7 @@
       </div>
     </div>
     <el-dialog
-      title="面向及口内照"
+      :title="showNoiftPhoto ? '佩戴矫治器不贴合照片' : '面向及口内照'"
       :visible.sync="showPhotoVisible"
       @close="closePhoto">
       <viewer :images="images">
@@ -181,6 +181,11 @@
             </el-col>
           </el-row>
         </div>
+        <el-row v-if="showNoiftPhoto">
+          <el-col :span="24">
+            <div class="picture-diagnosis-desc">面向及口内照</div>
+          </el-col>
+        </el-row>
         <el-row class="mb20">
           <el-col :span="8">
             <div class="picture-contain">
