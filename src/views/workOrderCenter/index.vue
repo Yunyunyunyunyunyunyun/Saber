@@ -46,7 +46,8 @@
     </div>
     <div class="work-order-table">
       <work-order-list v-show="activeItem === 1" :loading="loading" :orderTableData="orderTableData"></work-order-list>
-      <data-review v-show="activeItem === 2" :loading="loading" :orderTableData="orderTableData"></data-review>
+      <data-review v-show="activeItem === 2 || activeItem === 3 || activeItem === 4" :loading="loading" :orderTableData="orderTableData"></data-review>
+      <product-delivery v-show="activeItem === 5" :loading="loading" :orderTableData="orderTableData"></product-delivery>
       <el-pagination
         class="common-pagination"
         @size-change="handleSizeChange"
@@ -62,12 +63,14 @@
 </template>
 <script>
   import workOrderList from "./workOrderList";
-  import dataReview from "./dataReview"
+  import dataReview from "./dataReview";
+  import productDelivery from "./productDelivery";
   export default {
     name: "WorkOrderCenter",
     components: {
       workOrderList,
       dataReview,
+      productDelivery,
     },
     data() {
       return {
