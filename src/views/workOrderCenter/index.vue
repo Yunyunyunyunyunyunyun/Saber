@@ -1,49 +1,13 @@
 <template>
   <div class="work-order-center">
     <ul class="switch-state">
-      <li class="switch-state-item" :class="{'switch-state-active': activeItem === 1}" @click="clickItem(1)">
+      <li v-for="item in switchItems" class="switch-state-item" :class="{'switch-state-active': activeItem === item.currentItem}" :key="item.currentItem" @click="clickItem(item.currentItem)">
         <div class="state-main">
           <div class="state-main-state">
-            <i class="state-main-state-icon icon-one el-icon-document"></i>工单列表
+            <i class="state-main-state-icon" :class="item.iconClass"></i>{{item.title}}
           </div>
-          <div class="state-main-number">863</div>
-          <div class="state-main-no">进行中：859</div>
-        </div>
-      </li>
-      <li class="switch-state-item" :class="{'switch-state-active': activeItem === 2}" @click="clickItem(2)">
-        <div class="state-main">
-          <div class="state-main-state">
-            <i class="state-main-state-icon icon-two el-icon-document-checked"></i>资料审核
-          </div>
-          <div class="state-main-number">380</div>
-          <div class="state-main-no">进行中：306</div>
-        </div>
-      </li>
-      <li class="switch-state-item" :class="{'switch-state-active': activeItem === 3}" @click="clickItem(3)">
-        <div class="state-main">
-          <div class="state-main-state">
-            <i class="state-main-state-icon icon-three el-icon-box"></i>方案设计
-          </div>
-          <div class="state-main-number">631</div>
-          <div class="state-main-no">进行中：123</div>
-        </div>
-      </li>
-      <li class="switch-state-item" :class="{'switch-state-active': activeItem === 4}" @click="clickItem(4)">
-        <div class="state-main">
-          <div class="state-main-state">
-            <i class="state-main-state-icon icon-four el-icon-sold-out"></i>生产下单
-          </div>
-          <div class="state-main-number">225</div>
-          <div class="state-main-no">进行中：22</div>
-        </div>
-      </li>
-      <li class="switch-state-item" :class="{'switch-state-active': activeItem === 5}" @click="clickItem(5)">
-        <div class="state-main">
-          <div class="state-main-state">
-            <i class="state-main-state-icon icon-five el-icon-truck"></i>制作/发货
-          </div>
-          <div class="state-main-number">200</div>
-          <div class="state-main-no">进行中：5</div>
+          <div class="state-main-number">{{item.number}}</div>
+          <div class="state-main-no">进行中：{{item.progress}}</div>
         </div>
       </li>
     </ul>
@@ -107,6 +71,37 @@
     },
     data() {
       return {
+        switchItems: [{
+          currentItem: 1,
+          title: "工单列表",
+          number: 872,
+          progress: 866,
+          iconClass: "icon-one el-icon-document",
+        }, {
+          currentItem: 2,
+          title: "资料审核",
+          number: 644,
+          progress: 130,
+          iconClass: "icon-two el-icon-document-checked",
+        }, {
+          currentItem: 3,
+          title: "方案设计",
+          number: 248,
+          progress: 110,
+          iconClass: "icon-three el-icon-box",
+        }, {
+          currentItem: 4,
+          title: "生产下单",
+          number: 230,
+          progress: 15,
+          iconClass: "icon-four el-icon-sold-out",
+        }, {
+          currentItem: 5,
+          title: "制作/发货",
+          number: 211,
+          progress: 1,
+          iconClass: "icon-five el-icon-truck",
+        }],
         activeItem: 1,
         stateOptions: [{
           label: '执行中',
